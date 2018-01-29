@@ -2,14 +2,13 @@ package com.codeup.maktrak.models;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name="items")
-public class FoodItem {
+@Entity(name = "macros")
+public class DailyMacro {
     @Id @GeneratedValue
     private long id;
 
-    @Column(nullable = false, unique = true)
-    private String name;
+    @Column(nullable = false)
+    private String title;
 
     @Column(nullable = false)
     private double cal;
@@ -26,16 +25,21 @@ public class FoodItem {
     @Column(nullable = false)
     private double fiber;
 
-    public FoodItem(String name, double cal, double fat, double carb, double prot, double fiber) {
-        this.name = name;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User owner;
+
+    public DailyMacro(String title, double cal, double fat, double carb, double prot, double fiber, User owner) {
+        this.title = title;
         this.cal = cal;
         this.fat = fat;
         this.carb = carb;
         this.prot = prot;
         this.fiber = fiber;
+        this.owner = owner;
     }
 
-    public FoodItem() {
+    public DailyMacro() {
     }
 
     public long getId() {
@@ -46,12 +50,12 @@ public class FoodItem {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public double getCal() {
@@ -92,5 +96,13 @@ public class FoodItem {
 
     public void setFiber(double fiber) {
         this.fiber = fiber;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }
