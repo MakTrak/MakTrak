@@ -1,11 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans|Playfair+Display');
+
+
 body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+  font-family: 'Playfair Display', serif;
 }
 
-main {
-  flex: 1 0 auto;
+h1, h2, h3 {
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 nav ul a,
@@ -37,8 +38,58 @@ p {
     width: 100%;
   }
 
+/* Video Styling */
+.no-video .video-container video,
+.touch .video-container video {
+  display: none;
+}
+.no-video .video-container .poster,
+.touch .video-container .poster {
+  display: block !important;
+}
+.video-container {
+  position: relative;
+  bottom: 0%;
+  left: 0%;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+}
+.video-container .poster img {
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+}
+.video-container .filter {
+  z-index: 100;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+}
+.video-container video {
+  position: absolute;
+  z-index: 0;
+  bottom: 0;
+}
+.video-container video.fillWidth {
+  width: 100%;
+}
 
+.landing-img {
+  height: 595px;
+  width: 100%;
+  background-color: #fff;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
 
+}
+.img-wrapper {
+  height: 650px;
+  opacity: 0.4;
+  filter: alpha(opacity=40); /* msie */
+  background-color: #000;
+}
 
 @media only screen and (max-width : 992px) {
   .parallax-container .section {
