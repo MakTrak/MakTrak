@@ -13,6 +13,12 @@ nav .brand-logo {
   color: #444;
 }
 
+.logo {
+  width: 165px;
+}
+
+
+
 p {
   line-height: 2rem;
 }
@@ -30,6 +36,9 @@ p {
   .parallax-container .section {
     width: 100%;
   }
+
+
+
 
 @media only screen and (max-width : 992px) {
   .parallax-container .section {
