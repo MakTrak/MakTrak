@@ -2,8 +2,8 @@ package com.codeup.maktrak.models;
 
 import javax.persistence.*;
 
-@Entity(name="inventory")
-public class InventoryRecord {
+@Entity(name = "recipe_item")
+public class RecipeFoodItem {
     @Id @GeneratedValue
     private long id;
 
@@ -11,18 +11,18 @@ public class InventoryRecord {
     private double quantityInGrams;
 
     @OneToOne
-    private User owner;
+    private Recipe recipe;
 
     @OneToOne
     private FoodItem item;
 
-    public InventoryRecord(double quantityInGrams, User owner, FoodItem item) {
+    public RecipeFoodItem(double quantityInGrams, Recipe recipe, FoodItem item) {
         this.quantityInGrams = quantityInGrams;
-        this.owner = owner;
+        this.recipe = recipe;
         this.item = item;
     }
 
-    public InventoryRecord() {
+    public RecipeFoodItem() {
     }
 
     public long getId() {
@@ -41,12 +41,12 @@ public class InventoryRecord {
         this.quantityInGrams = quantityInGrams;
     }
 
-    public User getOwner() {
-        return owner;
+    public Recipe getRecipe() {
+        return recipe;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 
     public FoodItem getItem() {
