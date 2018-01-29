@@ -22,8 +22,7 @@
 - [ ] Able to Remove Recipe Owned By User
 ##### User Recipe Listing Page
 - [ ] See a list of Recipes Owned By User
-  - [ ] Search for a Specific Recipe By Title
-  - [ ] Able to Sort Listed Recipes By Calories/Fat/Prot/Carb/Fiber
+- [ ] Search for a Specific Recipe By Title
 ##### Public Recipe Listing Page
 - [ ] See a list of All Recipes Owned by Other Users
   - [ ] Search for a Specific Recipe By Title
@@ -68,7 +67,6 @@
   - [ ] Able to Add Food Item From Inventory
 - [ ] Able to Edit Recipe Owned By User
 ##### User Recipe Listing Page
-- [ ] Search for a Specific Recipe By Title
 - [ ] Able to Sort Listed Recipes By Calories/Fat/Prot/Carb/Fiber
 ##### Public Recipe Listing Page
 - [ ] Able to Sort Listed Recipes By Calories/Fat/Prot/Carb/Fiber
@@ -91,3 +89,12 @@
   
 
 ### It'd be good if we have time for...
+- [ ] Styling Create User Page
+- [ ] Styling Landing Page
+- [ ] Styling Create/Edit/Remove Food Item Page
+- [ ] Styling Food Item Listing Page
+- [ ] Styling Create/Edit/Remove Recipe Page
+- [ ] Styling User Recipe Listing Page
+- [ ] Styling Public Recipe Listing Page
+- [ ] Styling Macro Nutrient Daily Routine Page
+- [ ] Styling User Dashboard Page
