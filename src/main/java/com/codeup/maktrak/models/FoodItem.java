@@ -38,6 +38,14 @@ public class FoodItem {
     public FoodItem() {
     }
 
+    public void setNutritionToPerGram(double servingSizeInGrams) {
+        this.cal /= servingSizeInGrams;
+        this.fat /= servingSizeInGrams;
+        this.carb /= servingSizeInGrams;
+        this.prot /= servingSizeInGrams;
+        this.fiber /= servingSizeInGrams;
+    }
+
     public long getId() {
         return id;
     }
