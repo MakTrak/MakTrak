@@ -3,6 +3,6 @@ package com.codeup.maktrak.daos;
 import com.codeup.maktrak.models.User;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends CrudRepository<User, Long> {
-    User findUsername(String username);
+public interface Users extends CrudRepository<User, Long> {
+    User findByUsername(String username);
 }
