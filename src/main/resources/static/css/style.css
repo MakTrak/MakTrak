@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans|Playfair+Display');
+
+
+body {
+  font-family: 'Playfair Display', serif;
+}
+
+h1, h2, h3 {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+nav ul a,
+nav .brand-logo {
+  color: #444;
+}
+
+.logo {
+  width: 165px;
+  position: relative;
+  bottom: 4px;
+}
+
+
+
+p {
+  line-height: 2rem;
+}
+
+.button-collapse {
+  color: #26a69a;
+}
+
+.parallax-container {
+  min-height: 380px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255,255,255,.9);
+}
+  .parallax-container .section {
+    width: 100%;
+  }
+
+/* Video Styling */
+.no-video .video-container video,
+.touch .video-container video {
+  display: none;
+}
+.no-video .video-container .poster,
+.touch .video-container .poster {
+  display: block !important;
+}
+.video-container {
+  position: relative;
+  bottom: 0%;
+  left: 0%;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+}
+.video-container .poster img {
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+}
+.video-container .filter {
+  z-index: 100;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+}
+.video-container video {
+  position: absolute;
+  z-index: 0;
+  bottom: 0;
+}
+.video-container video.fillWidth {
+  width: 100%;
+}
+
+.landing-img {
+  height: 595px;
+  width: 100%;
+  background-color: #fff;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+
+}
+.img-wrapper {
+  height: 650px;
+  opacity: 0.4;
+  filter: alpha(opacity=40); /* msie */
+  background-color: #000;
+}
+
+@media only screen and (max-width : 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
+  #index-banner .section {
+    top: 10%;
+  }
+}
+
+@media only screen and (max-width : 600px) {
+  #index-banner .section {
+    top: 0;
+  }
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}
+
+footer.page-footer {
+  margin: 0;
+}
