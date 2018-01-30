@@ -16,6 +16,8 @@ nav .brand-logo {
 
 .logo {
   width: 165px;
+  position: relative;
+  bottom: 4px;
 }
 
 
