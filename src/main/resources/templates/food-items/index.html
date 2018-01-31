@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="fragments/file-header-fragment :: head-partial('Login Page')"></head>
+<body>
+<div th:replace="fragments/nav :: nav"></div>
+<h1>Your Inventory</h1>
+<div th:each="item : ${items}">
+    <h3 th:text="${item.name}"></h3>
+    <p th:text="${'Calories: '+item.cal}"></p>
+    <p th:text="${'Fat: '+item.fat+' g'}"></p>
+    <p th:text="${'Carbs: '+item.carb+' g'}"></p>
+    <p th:text="${'Protein: '+item.prot+' g'}"></p>
+    <p th:text="${'Fiber: '+item.fiber+' g'}"></p>
+    <p th:text="${'Serving Size: '+item.servingSizeInGrams+' g'}"></p>
+    <a th:href="@{/food-item/edit/{id}(id=${item.id})}" class="waves-effect waves-light btn">Edit</a>
+    <form th:action="@{/food-item/delete/{id}(id=${item.id})}" method="post">
+        <button class="waves-effect waves-teal btn-flat">Delete</button>
+    </form>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/js-footer-fragment :: js-partial"></div>
+</body>
+</html>
