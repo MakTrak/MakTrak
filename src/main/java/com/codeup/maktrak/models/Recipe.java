@@ -13,13 +13,17 @@ public class Recipe {
     @Column(nullable = false)
     private int minsToPrep;
 
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;
 
-    public Recipe(String title, int minsToPrep, User owner) {
+    public Recipe(String title, int minsToPrep, String description, User owner) {
         this.title = title;
         this.minsToPrep = minsToPrep;
+        this.description = description;
         this.owner = owner;
     }
 
@@ -56,5 +60,13 @@ public class Recipe {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
