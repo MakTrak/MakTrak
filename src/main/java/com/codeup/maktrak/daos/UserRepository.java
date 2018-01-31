@@ -4,5 +4,5 @@ import com.codeup.maktrak.models.User;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Long> {
-    User findUsername(String username);
+    User findByUsername(String username);
 }

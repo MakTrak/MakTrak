@@ -38,7 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             /* Login configuration */
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/home") // user's home page, it can be any URL
+                .defaultSuccessUrl("/dashboard") // user's home page, it can be any URL
                 .permitAll()
 
                 .and()
@@ -53,7 +53,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(
-                        "/user/dashboard"
+                        "/user/dashboard",
+                        "food-items/edit-create"
                 )
                 .authenticated()
         ;

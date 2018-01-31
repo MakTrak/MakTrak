@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.persistence.GeneratedValue;
+
 @Controller
 public class UserController {
     private UserRepository usersRepository;
@@ -20,14 +22,15 @@ public class UserController {
         this.encoder = encoder;
     }
 
-    @GetMapping("/users/sign-up")
+
+    @GetMapping("/sign-up")
     public String showSignUpForm(Model viewAndModel) {
         viewAndModel.addAttribute("user", new User());
         return "users/sign-up";
     }
 
     @PostMapping("/sign-up")
-    public String singUpNewUser(@ModelAttribute User user) {
+    public String saveUser(@ModelAttribute User user) {
         String hash = encoder.encode(user.getPassword());
         user.setPassword(hash);
         usersRepository.save(user);

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<body>
+
+<div th:fragment="signup-modal">
+    <div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Please Sign Up</h4>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/signup}" method="POST" th:object="${user}">
+                    <label for="username">Username</label>
+                    <input id="username" th:field="*{username}" />
+
+                    <label for="email">Email</label>
+                    <input id="email" th:field="*{email}" />
+
+                    <label for="firstname">Firstname</label>
+                    <input id="firstname" th:field="*{firstname}">
+
+                    <label for="lastname">Lastname</label>
+                    <input id="lastname" th:field="*{lastname}">
+
+                    <label for="password">Password</label>
+                    <input id="password" type="password" th:field="*{password}" />
+
+                    <label for="passwordConfirm">Confirm Password</label>
+                    <input id="passwordConfirm" type="password" th:field="*{passwordConfirm}" />
+
+
+                    <input value="Sign me up!" type="submit" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
