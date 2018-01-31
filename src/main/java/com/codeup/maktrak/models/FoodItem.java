@@ -8,7 +8,7 @@ public class FoodItem {
     @Id @GeneratedValue
     private long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
@@ -26,13 +26,17 @@ public class FoodItem {
     @Column(nullable = false)
     private double fiber;
 
-    public FoodItem(String name, double cal, double fat, double carb, double prot, double fiber) {
+    @Column(nullable = false, name="serving_size")
+    private double servingSizeInGrams;
+
+    public FoodItem(String name, double cal, double fat, double carb, double prot, double fiber, double servingSizeInGrams) {
         this.name = name;
         this.cal = cal;
         this.fat = fat;
         this.carb = carb;
         this.prot = prot;
         this.fiber = fiber;
+        this.servingSizeInGrams = servingSizeInGrams;
     }
 
     public FoodItem() {
@@ -100,5 +104,13 @@ public class FoodItem {
 
     public void setFiber(double fiber) {
         this.fiber = fiber;
+    }
+
+    public double getServingSizeInGrams() {
+        return servingSizeInGrams;
+    }
+
+    public void setServingSizeInGrams(double servingSizeInGrams) {
+        this.servingSizeInGrams = servingSizeInGrams;
     }
 }
