@@ -8,4 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface InventoryRepository extends CrudRepository<InventoryRecord, Long> {
     Iterable<InventoryRecord> findByOwner(User owner);
     InventoryRecord findByOwnerAndItem(User owner, FoodItem item);
+    Iterable<InventoryRecord> findByItem(FoodItem item);
 }

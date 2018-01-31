@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Controller
 public class FoodItemController {
@@ -62,15 +63,21 @@ public class FoodItemController {
         return "redirect:/food-item/inventory";
     }
 
+    @PostMapping("/food-item/delete/{id}")
+    public String deleteFoodItem(@PathVariable long id) {
+        User user = userDao.findOne(1L);
+        FoodItem item = itemDao.findOne(id);
+        InventoryRecord invRec = invDao.findByOwnerAndItem(user, item);
+        invDao.delete(invRec);
+        itemDao.delete(item);
+        return "redirect:/food-item/inventory";
+    }
+
     @GetMapping("/food-item/inventory")
     public String showInventory(Model m) {
         User user = userDao.findOne(1L);
         Iterable<InventoryRecord> invRecs = invDao.findByOwner(user);
-        ArrayList<FoodItem> itemArr = new ArrayList<>();
-        for(InventoryRecord invRec : invRecs) {
-            itemArr.add(invRec.getItem());
-        }
-        m.addAttribute("items", itemArr);
+        m.addAttribute("invArr", invRecs);
         return "food-items/index";
     }
 }

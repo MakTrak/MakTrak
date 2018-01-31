@@ -4,16 +4,17 @@
 <body>
 <div th:replace="fragments/nav :: nav"></div>
 <h1>Your Inventory</h1>
-<div th:each="item : ${items}">
-    <h3 th:text="${item.name}"></h3>
-    <p th:text="${'Calories: '+item.cal}"></p>
-    <p th:text="${'Fat: '+item.fat+' g'}"></p>
-    <p th:text="${'Carbs: '+item.carb+' g'}"></p>
-    <p th:text="${'Protein: '+item.prot+' g'}"></p>
-    <p th:text="${'Fiber: '+item.fiber+' g'}"></p>
-    <p th:text="${'Serving Size: '+item.servingSizeInGrams+' g'}"></p>
-    <a th:href="@{/food-item/edit/{id}(id=${item.id})}" class="waves-effect waves-light btn">Edit</a>
-    <form th:action="@{/food-item/delete/{id}(id=${item.id})}" method="post">
+<div th:each="invRec : ${invArr}">
+    <h3 th:text="${invRec.item.name}"></h3>
+    <p th:text="${'Calories: '+invRec.item.cal}"></p>
+    <p th:text="${'Fat: '+invRec.item.fat+' g'}"></p>
+    <p th:text="${'Carbs: '+invRec.item.carb+' g'}"></p>
+    <p th:text="${'Protein: '+invRec.item.prot+' g'}"></p>
+    <p th:text="${'Fiber: '+invRec.item.fiber+' g'}"></p>
+    <p th:text="${'Serving Size: '+invRec.item.servingSizeInGrams+' g'}"></p>
+    <p th:text="${'Quantity: '+invRec.quantity}"></p>
+    <a th:href="@{/food-item/edit/{id}(id=${invRec.item.id})}" class="waves-effect waves-light btn">Edit</a>
+    <form th:action="@{/food-item/delete/{id}(id=${invRec.item.id})}" method="post">
         <button class="waves-effect waves-teal btn-flat">Delete</button>
     </form>
 </div>
