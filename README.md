@@ -7,15 +7,15 @@
 - [ ] Being able to login as a user
 - [ ] Being able to logout as a user
 ##### Landing Page
-- [x] Landing Page
+- [x] Landing Page (T)
 ##### Create/Edit/Remove Food Item Page
-- [x] See Individual Food Item (In Edit Mode)
-- [x] Create a food item in Inventory
+- [x] See Individual Food Item (In Edit Mode) (P)
+- [x] Create a food item in Inventory (P)
   - [ ] Create from Search
-  - [x] Create from Manual Entering of Values
-- [ ] Remove a food item from Inventory
+  - [x] Create from Manual Entering of Values (P)
+- [x] Remove a food item from Inventory (P)
 ##### Food Item Listing Page
-- [x] See a list of food items in Inventory
+- [x] See a list of food items in Inventory (P)
 ##### Create/Edit/Remove Recipe Page
 - [ ] Able to Create Recipe
   - [ ] Able to Add Food Item Through Creating One
