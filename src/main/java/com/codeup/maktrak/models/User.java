@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "users")
 public class User {
     @Id @GeneratedValue
     private long id;
@@ -13,6 +14,9 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private String passwordConfirm;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -29,9 +33,10 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<DailyMacro> macroList;
 
-    public User(String username, String password, String email, String firstname, String lastname, List<Recipe> recipeList, List<DailyMacro> macroList) {
+    public User(String username, String password,String passwordConfirm, String email, String firstname, String lastname, List<Recipe> recipeList, List<DailyMacro> macroList) {
         this.username = username;
         this.password = password;
+        this.passwordConfirm = passwordConfirm;
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -40,6 +45,16 @@ public class User {
     }
 
     public User() {
+    }
+
+    public User(User copy) {
+        id = copy.id;
+        email = copy.email;
+        username = copy.username;
+        firstname = copy.firstname;
+        lastname = copy.lastname;
+        password = copy.password;
+        passwordConfirm = copy.passwordConfirm;
     }
 
     public long getId() {
@@ -66,6 +81,15 @@ public class User {
         this.password = password;
     }
 
+    public String getPasswordConfirm() {
+        return password;
+    }
+
+    public void setPasswordConfirm(String password) {
+        this.password = password;
+    }
+
+
     public String getEmail() {
         return email;
     }
@@ -89,6 +113,7 @@ public class User {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
+
 
     public List<Recipe> getRecipeList() {
         return recipeList;
