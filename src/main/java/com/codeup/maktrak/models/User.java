@@ -4,8 +4,11 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "users")
 public class User {
-    @Id @GeneratedValue
+
+    @Id
+    @GeneratedValue
     private long id;
 
     @Column(nullable = false, unique = true)
@@ -13,6 +16,7 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -23,11 +27,14 @@ public class User {
     @Column
     private String lastname;
 
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<Recipe> recipeList;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<DailyMacro> macroList;
+
+
 
     public User(String username, String password, String email, String firstname, String lastname, List<Recipe> recipeList, List<DailyMacro> macroList) {
         this.username = username;
@@ -39,8 +46,19 @@ public class User {
         this.macroList = macroList;
     }
 
+
     public User() {
     }
+
+    public User(User copy) {
+        id = copy.id;
+        email = copy.email;
+        username = copy.username;
+        firstname = copy.firstname;
+        lastname = copy.lastname;
+        password = copy.password;
+    }
+
 
     public long getId() {
         return id;
@@ -90,6 +108,7 @@ public class User {
         this.lastname = lastname;
     }
 
+
     public List<Recipe> getRecipeList() {
         return recipeList;
     }
@@ -105,4 +124,5 @@ public class User {
     public void setMacroList(List<DailyMacro> macroList) {
         this.macroList = macroList;
     }
+
 }
