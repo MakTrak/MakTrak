@@ -138,3 +138,9 @@ thead {
 table {
   width:100%;
 }
+
+input {
+    opacity: 1;
+    pointer-events: auto;
+    padding: 15px 5px;
+}
