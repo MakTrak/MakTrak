@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class UserController {
@@ -34,12 +35,18 @@ public class UserController {
         user.setPassword(hash);
         users.save(user);
         return "redirect:/login";
-
-
     }
-@GetMapping("/dashboard")
+
+    @GetMapping("/dashboard")
     public String showdashboard(Model view) {
         view.addAttribute("user", new User());
         return "/dashboard";
-}
+    }
+
+    @GetMapping("/test/user")
+    @ResponseBody
+    public String test() {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return "Username: "+currentUser.getUsername()+"; Password: "+currentUser.getPassword()+"; Email: "+currentUser.getEmail()+"; First Name: "+currentUser.getFirstname()+"; Last Name: "+currentUser.getLastname()+";";
+    }
 }

@@ -23,8 +23,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.userDetails = userDetails;
     }
 
-
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -33,37 +31,34 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure (AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userDetails)
-                .passwordEncoder(passwordEncoder());
+            .userDetailsService(userDetails)
+            .passwordEncoder(passwordEncoder());
     }
-
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
             /* Login configuration */
-                .formLogin()
+            .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/dashboard") // user's home page, it can be any URL
                 .permitAll()
 
-                .and()
+            .and()
                 .logout()
                 .logoutSuccessUrl("/login?logout")
 
-                .and()
+            .and()
                 .authorizeRequests()
-                .antMatchers("/")
+                .antMatchers("/", "/sign-up", "/login")
                 .permitAll()
 
-                .and()
+            .and()
                 .authorizeRequests()
                 .antMatchers(
                        "/dashboard"
                 )
-                .authenticated()
-        ;
+            .authenticated();
     }
 
 }
