@@ -3,9 +3,9 @@
 
 ### Priority
 ##### Create User Page
-- [ ] Being able to create a user
-- [ ] Being able to login as a user
-- [ ] Being able to logout as a user
+- [X] Being able to create a user (A)
+- [x] Being able to login as a user (A)
+- [x] Being able to logout as a user (A)
 ##### Landing Page
 - [x] Landing Page (T)
 ##### Create/Edit/Remove Food Item Page
