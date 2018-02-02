@@ -1,8 +1,10 @@
 package com.codeup.maktrak.controllers;
 
 
+
 import com.codeup.maktrak.daos.UserRepository;
 import com.codeup.maktrak.models.User;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,25 +14,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserController {
-    private UserRepository usersRepository;
-    private PasswordEncoder encoder;
+    private UserRepository users;
+    private PasswordEncoder passwordEncoder;
 
-    public UserController(UserRepository usersRepository, PasswordEncoder encoder) {
-        this.usersRepository = usersRepository;
-        this.encoder = encoder;
+    public UserController(UserRepository users, PasswordEncoder passwordEncoder) {
+        this.users = users;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/users/sign-up")
-    public String showSignUpForm(Model viewAndModel) {
-        viewAndModel.addAttribute("user", new User());
+    @GetMapping("/sign-up")
+    public String showSignUpForm(Model viewmodel) {
+        viewmodel.addAttribute("user", new User());
         return "users/sign-up";
     }
 
     @PostMapping("/sign-up")
-    public String singUpNewUser(@ModelAttribute User user) {
-        String hash = encoder.encode(user.getPassword());
+    public String signUpNewUser(@ModelAttribute User user) {
+        String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
-        usersRepository.save(user);
+        users.save(user);
         return "redirect:/login";
+
+
     }
+
 }

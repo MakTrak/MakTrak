@@ -4,8 +4,10 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "users")
 public class User {
-    @Id @GeneratedValue
+
+    @Id
     private long id;
 
     @Column(nullable = false, unique = true)
@@ -14,8 +16,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String passwordConfirm;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -26,22 +26,25 @@ public class User {
     @Column
     private String lastname;
 
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<Recipe> recipeList;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<DailyMacro> macroList;
 
-    public User(String username, String password,String passwordConfirm, String email, String firstname, String lastname, List<Recipe> recipeList, List<DailyMacro> macroList) {
+
+
+    public User(String username, String password, String email, String firstname, String lastname, List<Recipe> recipeList, List<DailyMacro> macroList) {
         this.username = username;
         this.password = password;
-        this.passwordConfirm = passwordConfirm;
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
         this.recipeList = recipeList;
         this.macroList = macroList;
     }
+
 
     public User() {
     }
@@ -53,8 +56,8 @@ public class User {
         firstname = copy.firstname;
         lastname = copy.lastname;
         password = copy.password;
-        passwordConfirm = copy.passwordConfirm;
     }
+
 
     public long getId() {
         return id;
@@ -79,15 +82,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getPasswordConfirm() {
-        return password;
-    }
-
-    public void setPasswordConfirm(String password) {
-        this.password = password;
-    }
-
 
     public String getEmail() {
         return email;
@@ -129,4 +123,5 @@ public class User {
     public void setMacroList(List<DailyMacro> macroList) {
         this.macroList = macroList;
     }
+
 }

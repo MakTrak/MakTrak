@@ -11,7 +11,7 @@
         <div class="nav-wrapper container">
             <a id="logo-container" href="home.html" class="brand-logo">  <img class="logo" src="/img/nav.svg"/></a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="#modal1" class="modal-trigger modal-close">Login</a></li>
+                <li><a href="/login" class="modal-trigger modal-close">Login</a></li>
                 <!-- Modal Structure -->
                 <div id="modal1" class="modal">
                     <div class="modal-content">
@@ -22,12 +22,22 @@
                         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
                     </div>
                 </div>
-                <li><a href="#" class="#">Register</a></li>
+                <li><a href="/sign-up" class="#">Register</a></li>
+                <li>
+                    <form th:action="@{/logout}" th:method="post">
+                        <button class="btn-link btn" style="margin-top: 8px">Logout</button>
+                    </form>
+                </li>
             </ul>
 
             <ul id="nav-mobile" class="side-nav">
                 <li><a href="/templates/users/login.html">Login</a></li>
                 <li><a href="#">Register</a></li>
+                <li>
+                    <form th:action="@{/logout}" th:method="post">
+                        <button class="btn-link btn" style="margin-top: 8px">Logout</button>
+                    </form>
+                </li>
             </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
         </div>

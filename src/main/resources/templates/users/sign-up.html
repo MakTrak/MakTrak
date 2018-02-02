@@ -3,7 +3,11 @@
 <head th:include="fragments/file-header-fragment :: head-partial('Login Page')"></head>
 <body>
 
-    <h1>Create an account</h1>
+<div class="container">
+
+<nav th:replace="fragments/nav :: nav"></nav>
+
+<h1>Create an account</h1>
     <form th:action="@{/sign-up}" method="POST" th:object="${user}">
         <label for="username">Username</label>
         <input id="username" th:field="*{username}" />
@@ -12,20 +16,19 @@
         <input id="email" th:field="*{email}" />
 
         <label for="firstname">Firstname</label>
-        <input id="firstname" th:field="*{firstname}">
+        <input id="firstname" th:field="*{firstname}"/>
 
         <label for="lastname">Lastname</label>
-        <input id="lastname" th:field="*{lastname}">
+        <input id="lastname" th:field="*{lastname}"/>
 
         <label for="password">Password</label>
         <input id="password" type="password" th:field="*{password}" />
 
-        <label for="passwordConfirm">Confirm Password</label>
-        <input id="passwordConfirm" type="password" th:field="*{passwordConfirm}" />
-
 
         <input value="Sign me up!" type="submit" />
     </form>
+
+</div>
 
 <div th:replace="fragments/js-footer-fragment :: js-partial"></div>
 </body>

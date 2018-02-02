@@ -1,7 +1,6 @@
 package com.codeup.maktrak.services;
 
 import com.codeup.maktrak.daos.UserRepository;
-import com.codeup.maktrak.daos.Users;
 import com.codeup.maktrak.models.User;
 import com.codeup.maktrak.models.UserWithRoles;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,9 +10,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserDetailsLoader implements UserDetailsService {
-    private final Users users;
+    private final UserRepository users;
 
-    public UserDetailsLoader(Users users) {
+    public UserDetailsLoader(UserRepository users) {
         this.users = users;
     }
 
