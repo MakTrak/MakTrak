@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
     @GetMapping("/")
     public String index() {
+<<<<<<< Updated upstream
         return "dashboard";
+=======
+        return "home";
+>>>>>>> Stashed changes
     }
 }
