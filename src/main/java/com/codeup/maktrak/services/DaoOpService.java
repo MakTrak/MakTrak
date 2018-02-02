@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -81,18 +82,55 @@ public class DaoOpService {
     }
 
     // Recipe & Food Related
-    public void createNewRecipe(User user, List<Double> itemQuantities, List<Long> foodIds, Recipe recipe) {
+    public void createNewRecipe(User user, List<Double> itemQuantities, List<Long> foodIds, Recipe recipe, double servings) {
         recipe.setOwner(user);
         recipeDao.save(recipe);
         RecipeFoodItem newRecipeFoodItem;
         for(int i = 0; i < foodIds.size(); i++) {
-            newRecipeFoodItem = new RecipeFoodItem(itemQuantities.get(i), recipe, itemDao.findOne(foodIds.get(i)));
-            recipeItemDao.save(newRecipeFoodItem);
+            if(itemQuantities.get(i) > 0) {
+                newRecipeFoodItem = new RecipeFoodItem(itemQuantities.get(i)/servings, recipeDao.findByTitle(recipe.getTitle()), itemDao.findOne(foodIds.get(i)));
+                recipeItemDao.save(newRecipeFoodItem);
+            }
         }
+    }
+
+    public List<Recipe> findRecipesByOwner(User user) {
+        return recipeDao.findByOwner(user);
+    }
+
+    public List<RecipeFoodItem> findRecipeFoodItemsInRecipe(Recipe recipe) {
+        return recipeItemDao.findByRecipe(recipe);
+    }
+
+    public ArrayList<FoodItem> findFoodItemsInRecipe(Recipe recipe) {
+        List<RecipeFoodItem> recItems = findRecipeFoodItemsInRecipe(recipe);
+        ArrayList<FoodItem> retval = new ArrayList<>();
+        for(RecipeFoodItem recItem : recItems) {
+            retval.add(recItem.getItem());
+        }
+        return retval;
+    }
+
+    public HashMap<Recipe, List<RecipeFoodItem>> findRecipeAndFoodsByUser(User user) {
+        List<Recipe> recipes = findRecipesByOwner(user);
+        HashMap<Recipe, List<RecipeFoodItem>> retval = new HashMap<>();
+        for(Recipe recipe : recipes) {
+            retval.put(recipe, findRecipeFoodItemsInRecipe(recipe));
+        }
+        return retval;
+    }
+
+    public HashMap<Recipe, List<FoodItem>> findFoodsInRecipeByUser(User user) {
+        List<Recipe> recipes = findRecipesByOwner(user);
+        HashMap<Recipe, List<FoodItem>> retval = new HashMap<>();
+        for(Recipe recipe : recipes) {
+            retval.put(recipe, findFoodItemsInRecipe(recipe));
+        }
+        return retval;
     }
 
     public double findRecipeFoodAmount(User user, FoodItem item, Recipe recipe) {
         recipe.setOwner(user);
-        return recipeItemDao.findByRecipeAndItem(recipe, item);
+        return recipeItemDao.findByRecipeAndItem(recipe, item).getQuantityInGrams();
     }
 }

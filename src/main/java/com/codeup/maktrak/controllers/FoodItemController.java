@@ -7,6 +7,7 @@ import com.codeup.maktrak.models.FoodItem;
 import com.codeup.maktrak.models.InventoryRecord;
 import com.codeup.maktrak.models.User;
 import com.codeup.maktrak.services.DaoOpService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,14 +33,14 @@ public class FoodItemController {
 
     @PostMapping("/food-item/create")
     public String postFoodItem(@RequestParam(name = "quantity") double quantity, @ModelAttribute FoodItem item) {
-        User user = service.findUser(1L); //CHANGE
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         service.createFoodItemInInventory(user, item, quantity);
         return "redirect:/food-item/inventory";
     }
 
     @GetMapping("/food-item/edit/{id}")
     public String editFoodItemPage(@PathVariable long id, Model m) {
-        User user = service.findUser(1L);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         FoodItem item = service.findFoodItem(id);
         InventoryRecord invRec = service.findInventoryRecord(user, item);
         m.addAttribute("item", item);
@@ -50,14 +51,14 @@ public class FoodItemController {
 
     @PostMapping("/food-item/edit/{id}")
     public String editFoodItemPost(@RequestParam(name = "quantity") double quantity, @ModelAttribute FoodItem item) {
-        User user = service.findUser(1L);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         service.updateFoodItemInInventory(user, item, quantity);
         return "redirect:/food-item/inventory";
     }
 
     @PostMapping("/food-item/delete/{id}")
     public String deleteFoodItem(@PathVariable long id) {
-        User user = service.findUser(1L);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         FoodItem item = service.findFoodItem(id);
         InventoryRecord invRec = service.findInventoryRecord(user, item);
         service.removeFoodItemInInventory(item, invRec);
@@ -66,7 +67,7 @@ public class FoodItemController {
 
     @GetMapping("/food-item/inventory")
     public String showInventory(Model m) {
-        User user = service.findUser(1L);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Iterable<InventoryRecord> invRecs = service.findInventoryRecordsOfUser(user);
         m.addAttribute("invArr", invRecs);
         return "food-items/index";

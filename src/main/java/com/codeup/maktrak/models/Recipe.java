@@ -1,13 +1,14 @@
 package com.codeup.maktrak.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "recipes")
 public class Recipe {
     @Id @GeneratedValue
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String title;
 
     @Column(nullable = false)
