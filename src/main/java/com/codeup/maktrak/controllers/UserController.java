@@ -37,5 +37,9 @@ public class UserController {
 
 
     }
-
+@GetMapping("/dashboard")
+    public String showdashboard(Model view) {
+        view.addAttribute("user", new User());
+        return "/dashboard";
+}
 }

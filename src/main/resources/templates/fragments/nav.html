@@ -9,7 +9,7 @@
     <!--<div th:fragment="nav">-->
     <nav th:fragment="nav" class="white" role="navigation">
         <div class="nav-wrapper container">
-            <a id="logo-container" href="home.html" class="brand-logo">  <img class="logo" src="/img/nav.svg"/></a>
+            <a id="logo-container" href="/" class="brand-logo">  <img class="logo" src="/img/nav.svg"/></a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="/login" class="modal-trigger modal-close">Login</a></li>
                 <!-- Modal Structure -->
@@ -31,8 +31,8 @@
             </ul>
 
             <ul id="nav-mobile" class="side-nav">
-                <li><a href="/templates/users/login.html">Login</a></li>
-                <li><a href="#">Register</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/sign-up">Register</a></li>
                 <li>
                     <form th:action="@{/logout}" th:method="post">
                         <button class="btn-link btn" style="margin-top: 8px">Logout</button>
