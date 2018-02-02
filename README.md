@@ -3,19 +3,19 @@
 
 ### Priority
 ##### Create User Page
-- [ ] Being able to create a user
-- [ ] Being able to login as a user
-- [ ] Being able to logout as a user
+- [X] Being able to create a user (A)
+- [x] Being able to login as a user (A)
+- [x] Being able to logout as a user (A)
 ##### Landing Page
-- [ ] Landing Page
+- [x] Landing Page (T)
 ##### Create/Edit/Remove Food Item Page
-- [ ] See Individual Food Item
-- [ ] Create a food item in Inventory
+- [x] See Individual Food Item (In Edit Mode) (P)
+- [x] Create a food item in Inventory (P)
   - [ ] Create from Search
-  - [ ] Create from Manual Entering of Values
-- [ ] Remove a food item from Inventory
+  - [x] Create from Manual Entering of Values (P)
+- [x] Remove a food item from Inventory (P)
 ##### Food Item Listing Page
-- [ ] See a list of food items in Inventory
+- [x] See a list of food items in Inventory (P)
 ##### Create/Edit/Remove Recipe Page
 - [ ] Able to Create Recipe
   - [ ] Able to Add Food Item Through Creating One
@@ -57,7 +57,7 @@
 - [ ] Features
 - [ ] Testimonials
 ##### Create/Edit/Remove Food Item Page
-- [ ] Edit a food item in Inventory
+- [x] Edit a food item in Inventory
 ##### Food Item Listing Page
 - [ ] Able to search for food items in Invenotry
 - [ ] Able to sort food items in Inventory by Calories/Fat/Prot/Carb/Fiber

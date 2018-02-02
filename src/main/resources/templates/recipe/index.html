@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="fragments/file-header-fragment :: head-partial('Login Page')"></head>
+<body>
+<div th:replace="fragments/nav :: nav"></div>
+<div th:each="recView : ${recViews}">
+    <h3 th:text="${recView.title}"></h3>
+    <p th:text="${'Calories: '+recView.getTotalCal()+' per serving'}"></p>
+    <p th:text="${'Fat: '+recView.getTotalFat()+'g per serving'}"></p>
+    <p th:text="${'Carbs: '+recView.getTotalCarb()+'g per serving'}"></p>
+    <p th:text="${'Protein: '+recView.getTotalProt()+'g per serving'}"></p>
+    <p th:text="${'Fiber: '+recView.getTotalFiber()+'g per serving'}"></p>
+    <p th:text="${recView.description}"></p>
+    <div th:each="item : ${recView.items}">
+        <p>
+            <span th:text="${item.name+', '}"></span>
+        </p>
+    </div>
+    <!--<a th:href="@{/food-item/edit/{id}(id=${invRec.item.id})}" class="waves-effect waves-light btn">Edit</a>-->
+    <!--<form th:action="@{/food-item/delete/{id}(id=${invRec.item.id})}" method="post">-->
+        <!--<button class="waves-effect waves-teal btn-flat">Delete</button>-->
+    <!--</form>-->
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/js-footer-fragment :: js-partial"></div>
+</body>
+</html>

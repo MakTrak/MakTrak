@@ -8,7 +8,7 @@ public class InventoryRecord {
     private long id;
 
     @Column(name = "quantity", nullable = false)
-    private double quantityInGrams;
+    private double quantity;
 
     @OneToOne
     private User owner;
@@ -16,8 +16,8 @@ public class InventoryRecord {
     @OneToOne
     private FoodItem item;
 
-    public InventoryRecord(double quantityInGrams, User owner, FoodItem item) {
-        this.quantityInGrams = quantityInGrams;
+    public InventoryRecord(double quantity, User owner, FoodItem item) {
+        this.quantity = quantity;
         this.owner = owner;
         this.item = item;
     }
@@ -33,12 +33,12 @@ public class InventoryRecord {
         this.id = id;
     }
 
-    public double getQuantityInGrams() {
-        return quantityInGrams;
+    public double getQuantity() {
+        return quantity;
     }
 
-    public void setQuantityInGrams(double quantityInGrams) {
-        this.quantityInGrams = quantityInGrams;
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
     }
 
     public User getOwner() {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8" />
     <title>Title</title>
@@ -8,29 +8,51 @@
 
     <!--<div th:fragment="nav">-->
     <nav th:fragment="nav" class="white" role="navigation">
+
         <div class="nav-wrapper container">
-            <a id="logo-container" href="home.html" class="brand-logo">  <img class="logo" src="/img/nav.svg"/></a>
+            <a id="logo-container" href="/" class="brand-logo">  <img class="logo" src="/img/nav.svg"/></a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="#modal1" class="modal-trigger modal-close">Login</a></li>
-                <!-- Modal Structure -->
-                <div id="modal1" class="modal">
-                    <div class="modal-content">
-                        <h4>Modal Header</h4>
-                        <p>A bunch of text</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-                    </div>
-                </div>
-                <li><a href="#" class="#">Register</a></li>
+                <!--<li><a href="/login" class="modal-trigger modal-close">Login</a></li>-->
+                <li sec:authorize="!isAuthenticated()">
+                    <a href="/login">Login</a>
+                </li>
+
+                <li sec:authorize="isAnonymous()">
+                    <a th:href="@{/sign-up}">Register</a>
+                </li>
+                <!--<li><a href="/sign-up" class="#">Register</a></li>-->
+                <li sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" th:method="post">
+                        <button class="btn-link btn">Logout</button>
+                    </form>
+                </li>
+                <li sec:authorize="isAuthenticated()" th:text="${#authentication.principal.username}">
+
+                </li>
             </ul>
 
+
             <ul id="nav-mobile" class="side-nav">
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Register</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="@{/sign-up}">Register</a></li>
+                <li>
+                    <!--<form th:action="@{/logout}" th:method="post">-->
+                        <!--&lt;!&ndash;<button class="btn-link btn" style="margin-top: 8px">Logout</button>&ndash;&gt;-->
+                        <div sec:authorize="isAuthenticated()">
+                            <button th:href="@{/logout}" class="btn-link btn">Log out</button>
+                        </div>
+                    <!--</form>-->
+                </li>
             </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
         </div>
+        <div sec:authorize="isAuthenticated()">
+            <a th:href="@{/logout}">Log out</a>
+        </div>
+        <!--<div sec:authorize="isAnonymous()">-->
+            <!--<a th:href="@{/login}">Log in</a>-->
+            <!--<a th:href="@{/sign-up}">Register</a>-->
+        <!--</div>-->
     </nav>
 
 
