@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="fragments/file-header-fragment :: head-partial('Daily Intake')"></head>
+<body>
+<div th:replace="fragments/nav :: nav"></div>
+
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <div class="col m12">
+                 <h1 class="center">Plan Your Daily Intake</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="section"><!--table section-->
+        <table class="bordered">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Calories</th>
+                <th>Fat</th>
+                <th>Carbohydrates</th>
+                <th>Protein</th>
+                <th>Fiber</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>Allowance</td>
+
+                <td>
+                    <div class="input-field inline table-input">
+                        <input id="calories" type="text" class="validate" />
+                        <label for="calories" data-error="wrong" data-success="awesome">Calories</label>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="input-field inline table-input">
+                        <input id="fat" type="text" class="validate" />
+                        <label for="fat" data-error="wrong" data-success="awesome">fat</label>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="input-field inline table-input">
+                        <input id="carbs" type="text" class="validate" />
+                        <label for="carbs" data-error="wrong" data-success="awesome">Carbohydrates</label>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="input-field inline table-input">
+                        <input id="protein" type="text" class="validate" />
+                        <label for="protein" data-error="wrong" data-success="awesome">Protein</label>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="input-field inline table-input">
+                        <input id="fiber" type="text" class="validate" />
+                        <label for="fiber" data-error="wrong" data-success="awesome">fiber</label>
+                    </div>
+                </td>
+
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td>Jellybean</td>
+                <td>$3.76</td>
+                <td>$0.87</td>
+                <td>$0.87</td>
+                <td>$0.87</td>
+            </tr>
+            </tbody>
+        </table>
+        <br/>
+        <br/>
+        <div class="section">
+            <div class="row">
+                <div class="col s12">
+                    <h2 class="center-align">Edit your Recipe or Food item</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="section"> <!--Recipe items-->
+            <div class="row center-align">
+                <div class="col s12 m6">
+                    <div class="card blue-grey darken-1">
+                        <div class="card-content white-text">
+                            <span class="card-title">Card Title</span>
+                            <p>I am a very simple card. I am good at containing small bits of information.
+                                I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">This is a link</a>
+                            <a href="#">This is a link</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6">
+                    <div class="card blue-grey darken-1">
+                        <div class="card-content white-text">
+                            <span class="card-title">Card Title</span>
+                            <p>I am a very simple card. I am good at containing small bits of information.
+                                I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">This is a link</a>
+                            <a href="#">This is a link</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="row">
+                        <div class="col s12 m3 ">
+                            <a class="waves-effect waves-light btn center-align"><i class="material-icons right">add</i>Add Food Item</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div><!-- container -->
+
+<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/js-footer-fragment :: js-partial"></div>
+</body>
+</html>

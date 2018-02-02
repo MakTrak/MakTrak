@@ -43,7 +43,7 @@ public class UserController {
         return "/dashboard";
     }
 
-    @GetMapping("/test/user")
+    @PostMapping("/dashboard")
     @ResponseBody
     public String test() {
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
