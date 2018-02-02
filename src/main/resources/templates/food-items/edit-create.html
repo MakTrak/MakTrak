@@ -5,7 +5,9 @@
     <div th:replace="fragments/nav :: nav"></div>
     <div class="row">
         <div th:if="${mode == 'add'}">
-            <h1>Add Inventory Food Item</h1>
+            <br/>
+            <br/>
+            <h2 class="center-align">Add Inventory Food Item</h2>
             <form th:action="@{/food-item/create}" method="post" th:object="${item}" class="col s6 offset-s3">
                 <input type="hidden" th:field="*{id}"/>
                 <div class="row">
@@ -59,7 +61,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col s12">
+                    <div class="col s6">
                         <div class="input-field">
                             <input id="quantity-add" type="text" class="validate" name="quantity"/>
                             <label for="quantity-add">Quantity</label>
@@ -67,12 +69,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col s6">
+                    <div class="col s3">
                         <button class="btn waves-effect waves-light" type="submit" name="action">Submit
                             <i class="material-icons right">send</i>
                         </button>
                     </div>
-                    <div class="col s6">
+                    <div class="col s3">
                         <a class="waves-effect waves-teal btn-flat">Cancel</a>
                     </div>
                 </div>
@@ -149,14 +151,14 @@
                 </div>
             </form>
             <div class="row">
-                <div class="col s3 offset-s3">
+                <div class="col s3 offset-s3 center-align">
                     <form th:action="@{/food-item/delete/{id}(id=${item.id})}" method="post">
                         <button class="btn waves-effect waves-light" type="submit" name="action">Delete
                             <i class="material-icons right">delete</i>
                         </button>
                     </form>
                 </div>
-                <div class="col s3">
+                <div class="col s3 center-align">
                     <a th:href="@{/food-item/inventory}" class="waves-effect waves-teal btn-flat">Cancel</a>
                 </div>
             </div>
