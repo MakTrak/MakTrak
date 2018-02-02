@@ -20,8 +20,6 @@ nav .brand-logo {
   top: 2px;
 }
 
-
-
 p {
   line-height: 2rem;
 }
@@ -145,4 +143,27 @@ footer.page-footer {
 
 .col .btn, .col a {
   width: 100%;
+}
+
+tbody {
+  display:block;
+  height:150px;
+  overflow:auto;
+}
+thead, tbody tr {
+  display:table;
+  width:100%;
+  table-layout:fixed;
+}
+thead {
+  width: calc( 100% - 1em )
+}
+table {
+  width:100%;
+}
+
+input {
+    opacity: 1;
+    pointer-events: auto;
+    padding: 15px 5px;
 }
