@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col s12">
                         <div class="input-field">
-                            <input id="name-add" type="text" class="validate" th:field="*{name}"/>
+                            <input id="name-add" type="text" class="validate" required="" aria-required="true" th:field="*{name}"/>
                             <label for="name-add">Item Name</label>
                         </div>
                     </div>
@@ -21,13 +21,13 @@
                 <div class="row">
                     <div class="col s6">
                         <div class="input-field">
-                            <input id="calories-add" type="text" class="validate" th:field="*{cal}"/>
+                            <input id="calories-add" type="text" class="validate" required="" aria-required="true" th:field="*{cal}"/>
                             <label for="calories-add">Calories</label>
                         </div>
                     </div>
                     <div class="col s6">
                         <div class="input-field">
-                            <input id="serving-add" type="text" class="validate" th:field="*{servingSizeInGrams}"/>
+                            <input id="serving-add" type="text" class="validate" required="" aria-required="true" th:field="*{servingSizeInGrams}"/>
                             <label for="serving-add">Serving Size (g)</label>
                         </div>
                     </div>
