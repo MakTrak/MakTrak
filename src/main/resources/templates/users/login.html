@@ -8,23 +8,25 @@
 <body>
 <div th:replace="fragments/nav :: nav"></div>
 
-    <div>
-    <h1>Log In</h1>
+    <div class="container">
+        <div class="section">
+            <h1>Log In</h1>
 
-    <div th:if="${param.error}">
-        Invalid Username and Password.
-    </div>
-    <div th:if="${param.logout}">
-        You have been logged out.
-    </div>
+            <div th:if="${param.error}">
+                Invalid Username and Password.
+            </div>
+            <div th:if="${param.logout}">
+                You have been logged out.
+            </div>
 
-    <form th:action="@{/login}" method="post">
-        <label for="username">Username</label>
-        <input id="username" name="username" type="text" />
-        <label for="password">Password</label>
-        <input id="password" name="password" type="password" />
-        <input type="submit" value="Log In" />
-    </form>
+            <form th:action="@{/login}" method="post">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" />
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" />
+                <input type="submit" value="Log In" />
+            </form>
+        </div>
     </div>
 </body>
 </html>
