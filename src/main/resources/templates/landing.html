@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="fragments/file-header-fragment :: head-partial('Landing Page')"></head>
+
+<body class="text-center">
+
+    <!--<div class="homepage-hero-module">-->
+
+
+    <!--</div>-->
+    <div class="container landing-cover-container">
+        <div role="main" class="inner cover">
+            <!--<div class="filter"></div>-->
+            <div class="section center-align">
+                <div class="hero-text">
+                    <h1 class="center-align">MakTrak</h1>
+                    <p class="center-align">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
+                    <p class="center-align">
+                        <a href="#" class="btn btn-lg">Get Started</a>
+                    </p>
+                </div>
+                <video autoplay="autoplay" loop="loop" class="fillWidth video-center">
+                    <source src="img/MP4/night-BBQ.mp4" type="video/mp4" />Your browser does not support the video tag. I suggest you upgrade your browser.
+                    <source src="img/WEBM/night-BBQ.webm" type="video/webm" />Your browser does not support the video tag. I suggest you upgrade your browser.
+                </video>
+                <!--<div class="poster hidden">-->
+                    <!--<img src="img/Snapshots/Night-BBQ.jpg" alt="night bbq" />-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
 
 </body>
+
 </html>
