@@ -5,10 +5,7 @@ import com.codeup.maktrak.services.DaoOpService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,23 +21,52 @@ public class RecipeController {
 
     @GetMapping("/recipe/create")
     public String createRecipeForm(Model m) {
-        Recipe recipe = new Recipe();
-        m.addAttribute("recipe", recipe);
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Recipe recipe = new Recipe();
+        m.addAttribute("mode", "add");
+        m.addAttribute("recipe", recipe);
         m.addAttribute("items", service.findFoodItemsOwnedByUser(user));
-        m.addAttribute("service", service);
         return "recipe/edit-create";
     }
 
     @PostMapping("/recipe/create")
     public String postNewRecipe(@RequestParam(name = "num-servings") double servings, @RequestParam(name = "itemQuantity") List<Double> itemQuantity, @RequestParam(name = "itemIds") List<Long> selectedItemIds, @ModelAttribute Recipe recipe) {
-        if(itemQuantity.size() != selectedItemIds.size()) {
+        if(itemQuantity.size() != selectedItemIds.size() || itemQuantity.contains(null)) {
             return "redirect:/recipe/create";
         } else {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             service.createNewRecipe(user, itemQuantity, selectedItemIds, recipe, servings);
             return "redirect:/recipe/inventory";
         }
+    }
+
+    @GetMapping("/recipe/edit/{id}")
+    public String editRecipeForm(@PathVariable long id, Model m) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Recipe recipe = service.findRecipeById(id);
+        m.addAttribute("mode", "edit");
+        m.addAttribute("recipe", recipe);
+        m.addAttribute("itemsInRecipe", service.findRecipeFoodItemsInRecipe(recipe));
+        m.addAttribute("itemsNotInRecipe", service.findFoodItemsNotInRecipe(recipe, user));
+        return "recipe/edit-create";
+    }
+
+    @PostMapping("/recipe/edit/{id}")
+    public String editRecipePost(@RequestParam(name = "num-servings") double servings, @RequestParam(name = "itemQuantity") List<Double> itemQuantity, @RequestParam(name = "itemIds") List<Long> selectedItemIds, @ModelAttribute Recipe recipe) {
+        if(itemQuantity.size() != selectedItemIds.size() || itemQuantity.contains(null)) {
+            return "redirect:/recipe/edit/"+recipe.getId();
+        } else {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            service.saveExistingRecipe(user, itemQuantity, selectedItemIds, recipe, servings);
+            return "redirect:/recipe/inventory";
+        }
+    }
+
+    @PostMapping("/recipe/delete/{id}")
+    public String deleteRecipe(@PathVariable long id) {
+        Recipe recipe = service.findRecipeById(id);
+        service.removeRecipe(recipe);
+        return "redirect:/recipe/inventory";
     }
 
     @GetMapping("/recipe/inventory")
