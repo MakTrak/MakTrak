@@ -78,6 +78,11 @@ nav .brand-logo {
   width: 200px;
 }
 
+/* modal styling */
+.waves-effect{
+  display: block;
+}
+
 p {
   line-height: 2rem;
 }
