@@ -24,6 +24,24 @@ p {
   line-height: 2rem;
 }
 
+.scrolling-wrapper {
+  overflow-x: scroll;
+  max-width: 100%;
+  height: 500px;
+}
+
+.scrolling-wrapper .col:not(:first-child) {
+  float: none;
+  display: inline-block;
+  max-width: 295px;
+  clear: both;
+}
+
+.card-scroll {
+  display: inline-block;
+
+}
+
 .button-collapse {
   color: #26a69a;
 }
@@ -89,6 +107,11 @@ p {
   opacity: 0.4;
   filter: alpha(opacity=40); /* msie */
   background-color: #000;
+}
+
+
+.table-input {
+  width: 30%;
 }
 
 @media only screen and (max-width : 992px) {
