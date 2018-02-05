@@ -16,10 +16,10 @@
             <span th:text="${item.name+', '}"></span>
         </p>
     </div>
-    <!--<a th:href="@{/food-item/edit/{id}(id=${invRec.item.id})}" class="waves-effect waves-light btn">Edit</a>-->
-    <!--<form th:action="@{/food-item/delete/{id}(id=${invRec.item.id})}" method="post">-->
-        <!--<button class="waves-effect waves-teal btn-flat">Delete</button>-->
-    <!--</form>-->
+    <a th:href="@{/recipe/edit/{id}(id=${recView.id})}" class="waves-effect waves-light btn">Edit</a>
+    <form th:action="@{/recipe/delete/{id}(id=${recView.id})}" method="post">
+        <button class="waves-effect waves-teal btn-flat">Delete</button>
+    </form>
 </div>
 <div th:replace="fragments/footer :: footer"></div>
 <div th:replace="fragments/js-footer-fragment :: js-partial"></div>
