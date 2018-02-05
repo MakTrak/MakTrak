@@ -82,6 +82,9 @@ nav .brand-logo {
 .waves-effect{
   display: block;
 }
+.modal {
+  color: black;
+}
 
 p {
   line-height: 2rem;
