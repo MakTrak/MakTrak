@@ -72,7 +72,11 @@ nav .brand-logo {
   top: 2px;
 }
 
-
+.center-logo {
+  display: block;
+  margin:0 auto;
+  width: 200px;
+}
 
 p {
   line-height: 2rem;
