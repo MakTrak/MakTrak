@@ -111,7 +111,9 @@ public class DaoOpService {
                 }
             } else if(itemQuantities.get(i) == 0) {
                 newRecipeFoodItem = recipeItemDao.findByRecipeAndItem(recipe, itemDao.findOne(foodIds.get(i)));
-                recipeItemDao.delete(newRecipeFoodItem);
+                if(newRecipeFoodItem != null) {
+                    recipeItemDao.delete(newRecipeFoodItem);
+                }
             }
         }
     }

@@ -51,7 +51,8 @@
                             <th>Carb (g)</th>
                             <th>Prot (g)</th>
                             <th>Fiber (g)</th>
-                            <th>Amount (g)</th>
+                            <th>(g) Per Serving</th>
+                            <th>Servings</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -62,6 +63,7 @@
                             <td th:text="${item.carb}"></td>
                             <td th:text="${item.prot}"></td>
                             <td th:text="${item.fiber}"></td>
+                            <td th:text="${item.servingSizeInGrams}"></td>
                             <td>
                                 <input type="text" th:id="${'amount'+item.id}" name="itemQuantity" value="0"/>
                                 <label th:for="${'amount'+item.id}"></label>
@@ -129,7 +131,8 @@
                             <th>Carb (g)</th>
                             <th>Prot (g)</th>
                             <th>Fiber (g)</th>
-                            <th>Amount (g)</th>
+                            <th>(g) Per Serving</th>
+                            <th>Servings</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -140,6 +143,7 @@
                             <td th:text="${recItem.item.carb}"></td>
                             <td th:text="${recItem.item.prot}"></td>
                             <td th:text="${recItem.item.fiber}"></td>
+                            <td th:text="${recItem.item.servingSizeInGrams}"></td>
                             <td>
                                 <input type="text" th:id="${'amount'+recItem.item.id}" name="itemQuantity" th:value="${recItem.quantityInGrams}"/>
                                 <label th:for="${'amount'+recItem.item.id}"></label>
@@ -153,6 +157,7 @@
                             <td th:text="${item.carb}"></td>
                             <td th:text="${item.prot}"></td>
                             <td th:text="${item.fiber}"></td>
+                            <td th:text="${item.servingSizeInGrams}"></td>
                             <td>
                                 <input type="text" th:id="${'amount'+item.id}" name="itemQuantity" value="0"/>
                                 <label th:for="${'amount'+item.id}"></label>
