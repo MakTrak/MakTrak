@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:include="fragments/file-header-fragment :: head-partial('Login Page')"></head>
+<head th:include="fragments/file-header-fragment :: head-partial('Dashboard')"></head>
 <body>
 <div th:replace="fragments/nav :: nav"></div>
 
@@ -9,7 +9,7 @@
         <div class="section">
             <div class="row">
                 <div class="col s12 center">
-                    <h1>Welcome back, User</h1>
+                    <h1>Welcome back!</h1>
                     <h5>Feel free to edit your meals below</h5>
                 </div>
             </div>
@@ -169,16 +169,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col s12 m12 center-align">
-                        <a th:href="@{/recipe/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Recipe</a>
+                <div class="col s12 m4">
+                    <div class="card blue-grey darken-1">
+                        <div class="card-content white-text">
+                            <span class="card-title">Recipe</span>
+                            <p>I am a very simple card. I am good at containing small bits of information.
+                                I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">Edit</a>
+                            <a href="#">Delete</a>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                 </div>
+             </div>
         <div class="row">
             <div class="col s12 m3 center-align">
-                <a class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Recipe</a>
+                <a th:href="@{/recipe/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Recipe</a>
             </div>
         </div>
         <div class="section"> <!--Food Item-->
@@ -225,16 +232,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col s12 m12 center-align">
-                        <a th:href="@{/food-item/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Food Item</a>
-
+                <div class="col s12 m4">
+                    <div class="card blue-grey darken-1">
+                        <div class="card-content white-text">
+                            <span class="card-title">Food Item</span>
+                            <p>I am a very simple card. I am good at containing small bits of information.
+                                I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">Edit</a>
+                            <a href="#">Delete</a>
+                        </div>
                     </div>
+                </div>
+                    <!--<div class="row">-->
+                        <!--<div class="col s12 m12 center-align">-->
+                            <!--<a  class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Food Item</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
             </div>
             <div class="row">
                 <div class="col s12 m3 center-align">
-                    <a class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Food Item</a>
+                    <a th:href="@{/food-item/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Food Item</a>
                 </div>
             </div>
         </div>

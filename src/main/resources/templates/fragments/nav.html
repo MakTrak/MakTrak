@@ -12,15 +12,94 @@
         <div class="nav-wrapper container">
             <a id="logo-container" href="/" class="brand-logo">  <img class="logo" src="/img/nav.svg"/></a>
             <ul class="right hide-on-med-and-down">
-                <!--<li><a href="/login" class="modal-trigger modal-close">Login</a></li>-->
-                <li sec:authorize="!isAuthenticated()">
-                    <a href="/login">Login</a>
-                </li>
+                <!-- Login Modal Structure -->
+                <div id="modal1" class="modal">
+                    <div class="modal-content">
+                        <div class="container">
+                            <div class="section">
+                                <div class="row">
+                                    <div class="col s12 m12">
+                                        <h4>Log In</h4>
 
-                <li sec:authorize="isAnonymous()">
-                    <a th:href="@{/sign-up}">Register</a>
-                </li>
-                <!--<li><a href="/sign-up" class="#">Register</a></li>-->
+                                        <div th:if="${param.error}">
+                                            Invalid Username and Password.
+                                        </div>
+                                        <div th:if="${param.logout}">
+                                            You have been logged out.
+                                        </div>
+
+                                            <form th:action="@{/login}" method="post">
+                                                <label for="username">Username</label>
+                                                <input id="username" name="username" type="text" />
+                                                <label for="password">Password</label>
+                                                <input id="password" name="password" type="password" />
+                                                <input type="submit" class="modal-action modal-close btn-flat" value="Log In" />
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- end of modal -->
+
+                <!--Register Modal Structure -->
+                <div id="modal2" class="modal">
+                    <div class="modal-content">
+                        <div class="container">
+                            <div class="section">
+                                <div class="row">
+                                    <div class="col s12 m12">
+                                        <h4>Register</h4>
+
+                                        <div th:if="${param.error}">
+                                            Invalid Username and Password.
+                                        </div>
+                                        <div th:if="${param.logout}">
+                                            You have been logged out.
+                                        </div>
+
+                                        <form th:action="@{/sign-up}" method="POST">
+                                            <label for="usernameReg">Username</label>
+                                            <input id="usernameReg" name="username" />
+
+                                            <label for="email">Email</label>
+                                            <input id="email" name="email" />
+
+                                            <!--<label for="firstname">Firstname</label>-->
+                                            <!--<input id="firstname" name="firstName"/>-->
+
+                                            <!--<label for="lastname">Lastname</label>-->
+                                            <!--<input id="lastname" name="lastName"/>-->
+
+                                            <label for="passwordReg">Password</label>
+                                            <input id="passwordReg" type="password" name="password" />
+
+
+                                            <input value="Register" class="modal-action modal-close btn-flat" type="submit" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- end of modal -->
+
+                <li sec:authorize="!isAuthenticated()"><a class="waves-effect waves-light modal-trigger" href="#modal1">Login</a></li>
+                <li sec:authorize="isAnonymous()"><a class="waves-effect waves-light modal-trigger" href="#modal2">Register</a></li>
+                <li><a href="/#" class="modal-trigger modal-close">Food Items</a></li>
+                <li><a href="/#" class="modal-trigger modal-close">Recipes</a></li>
+
+                <!--<li sec:authorize="!isAuthenticated()">-->
+                    <!--<a href="/login">Login</a>-->
+                <!--</li>-->
+                <!--<li sec:authorize="isAnonymous()">-->
+                    <!--<a th:href="@{/sign-up}">Register</a>-->
+                <!--</li>-->
+
                 <li sec:authorize="isAuthenticated()">
                     <form th:action="@{/logout}" th:method="post">
                         <button class="btn-link btn">Logout</button>
