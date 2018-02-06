@@ -17,11 +17,11 @@
 ##### Food Item Listing Page
 - [x] See a list of food items in Inventory (P)
 ##### Create/Edit/Remove Recipe Page
-- [ ] Able to Create Recipe
+- [x] Able to Create Recipe (P)
   - [ ] Able to Add Food Item Through Creating One
-- [ ] Able to Remove Recipe Owned By User
+- [x] Able to Remove Recipe Owned By User (P)
 ##### User Recipe Listing Page
-- [ ] See a list of Recipes Owned By User
+- [x] See a list of Recipes Owned By User (P)
 - [ ] Search for a Specific Recipe By Title
 ##### Public Recipe Listing Page
 - [ ] See a list of All Recipes Owned by Other Users
@@ -57,15 +57,15 @@
 - [ ] Features
 - [x] Testimonials
 ##### Create/Edit/Remove Food Item Page
-- [x] Edit a food item in Inventory
+- [x] Edit a food item in Inventory (P)
 ##### Food Item Listing Page
 - [ ] Able to search for food items in Invenotry
 - [ ] Able to sort food items in Inventory by Calories/Fat/Prot/Carb/Fiber
 ##### Create/Edit/Remove Recipe Page
-- [ ] Able to Create Recipe
+- [x] Able to Create Recipe (P)
   - [ ] Able to Add Food Item From Search
-  - [ ] Able to Add Food Item From Inventory
-- [ ] Able to Edit Recipe Owned By User
+  - [x] Able to Add Food Item From Inventory (P)
+- [x] Able to Edit Recipe Owned By User (P)
 ##### User Recipe Listing Page
 - [ ] Able to Sort Listed Recipes By Calories/Fat/Prot/Carb/Fiber
 ##### Public Recipe Listing Page
@@ -96,5 +96,5 @@
 - [ ] Styling Create/Edit/Remove Recipe Page
 - [ ] Styling User Recipe Listing Page
 - [ ] Styling Public Recipe Listing Page
-- [ ] Styling Macro Nutrient Daily Routine Page
+- [ ] Styling Macro Nutrient Daily Routine Pageaaa
 - [ ] Styling User Dashboard Page

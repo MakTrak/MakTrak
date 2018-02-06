@@ -8,8 +8,16 @@
         <div class="section no-pad-bot">
             <div class="container">
                 <br/><br/>
-                <h1 class="center-align">Add a food item</h1>
-                <p class="center-align">Enter food name, and micro nutrient data, and how many below!</p>
+                <!--<p class="center-align">Enter food name, and micro nutrient data, and how many below!</p>-->
+                <div th:if="${mode == 'add'}">
+                    <h1 class="center-align">Add a food item</h1>
+                    <p class="center-align">Enter food name, and micro nutrient data, and how many below!</p>
+                </div>
+                <div th:if="${mode == 'edit'}">
+                    <h1 class="center-align">Edit a food item</h1>
+                    <p class="center-align">Enter food name, and micro nutrient data, and how many below!</p>
+                </div>
+
                 <br /><br/>
             </div>
         </div>

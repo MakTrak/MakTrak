@@ -50,6 +50,12 @@ public class FoodItem {
         this.fiber /= servingSizeInGrams;
     }
 
+    public FoodItem getItemPerGram() {
+        FoodItem retval = new FoodItem(this.name, this.cal/servingSizeInGrams, this.fat/servingSizeInGrams, this. carb/servingSizeInGrams, this.prot/servingSizeInGrams, this.fiber/servingSizeInGrams, 1);
+        retval.id = this.id;
+        return retval;
+    }
+
     public long getId() {
         return id;
     }
