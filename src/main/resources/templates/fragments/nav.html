@@ -90,6 +90,7 @@
 
                 <li sec:authorize="!isAuthenticated()"><a class="waves-effect waves-light modal-trigger" href="#modal1">Login</a></li>
                 <li sec:authorize="isAnonymous()"><a class="waves-effect waves-light modal-trigger" href="#modal2">Register</a></li>
+                <li sec:authorize="isAuthenticated()"><a class="waves-effect waves-light" href="#">Dashboard</a></li>
                 <li><a href="/#" class="modal-trigger modal-close">Food Items</a></li>
                 <li><a href="/#" class="modal-trigger modal-close">Recipes</a></li>
 
@@ -121,6 +122,7 @@
                             <button th:href="@{/logout}" class="btn-link btn">Log out</button>
                         </div>
                     <!--</form>-->
+
                 </li>
             </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>

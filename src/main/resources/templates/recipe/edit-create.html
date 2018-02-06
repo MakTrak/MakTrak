@@ -1,188 +1,209 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:include="fragments/file-header-fragment :: head-partial('Login Page')"></head>
+<head th:include="fragments/file-header-fragment :: head-partial('Create Recipe')"></head>
 <body>
 <div th:replace="fragments/nav :: nav"></div>
-<div th:if="${mode == 'add'}">
-    <h1>Create</h1>
-</div>
-<div th:if="${mode == 'edit'}">
-    <h1>Edit</h1>
-</div>
-<div class="row">
-    <!--checkbox materialize, jquery select2-->
-    <div th:if="${mode == 'add'}">
-        <form th:action="@{/recipe/create}" method="post" th:object="${recipe}" class="col s10 offset-s1">
-            <div class="row">
-                <div class="col s12">
-                    <h1>Add a Recipe</h1>
+
+    <div id="index-banner" class="parallax-container">
+        <div class="section no-pad-bot">
+            <div class="container">
+
+                <div th:if="${mode == 'add'}">
+                    <h1 class="center-align">Add a recipe</h1>
+                    <p class="center-align">Be sure to add your recipe title, prep time, how many servings, and cooking instructions</p>
                 </div>
+                <div th:if="${mode == 'edit'}">
+                    <h1 class="center-align">Edit a recipe</h1>
+                    <p class="center-align">Be sure to edit your recipe title, prep time, how many servings, and cooking instructions</p>
+                </div>
+
+                <br /><br/>
             </div>
-            <div class="row">
-                <div class="col s12">
-                    <div class="input-field">
-                        <input id="title" type="text" class="validate" th:field="*{title}"/>
-                        <label for="title">Recipe Title</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s6">
-                    <div class="input-field">
-                        <input id="prep-time" type="text" class="validate" th:field="*{minsToPrep}"/>
-                        <label for="prep-time">Minutes of Prep Time</label>
-                    </div>
-                </div>
-                <div class="col s6">
-                    <div class="input-field">
-                        <input id="num-servings" type="text" class="validate" name="num-servings"/>
-                        <label for="num-servings">Servings this recipe makes</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    <table class="highlight">
-                        <thead>
-                        <tr>
-                            <th>Item Name</th>
-                            <th>Cal (kcal)</th>
-                            <th>Fat (g)</th>
-                            <th>Carb (g)</th>
-                            <th>Prot (g)</th>
-                            <th>Fiber (g)</th>
-                            <th>(g) Per Serving</th>
-                            <th>Servings</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="item : ${items}">
-                            <td th:text="${item.name}" class="truncate"></td>
-                            <td th:text="${item.cal}"></td>
-                            <td th:text="${item.fat}"></td>
-                            <td th:text="${item.carb}"></td>
-                            <td th:text="${item.prot}"></td>
-                            <td th:text="${item.fiber}"></td>
-                            <td th:text="${item.servingSizeInGrams}"></td>
-                            <td>
-                                <input type="text" th:id="${'amount'+item.id}" name="itemQuantity" value="0"/>
-                                <label th:for="${'amount'+item.id}"></label>
-                            </td>
-                            <input type="hidden" name="itemIds" th:value="${item.id}"/>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <!-- Add Seach Here -->
-            <div class="row">
-                <div class="col s12 input-field">
-                    <textarea id="instructions" class="materialize-textarea" th:field="*{description}"></textarea>
-                    <label for="instructions">Cooking Instructions</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                        <i class="material-icons right">send</i>
-                    </button>
-                </div>
-            </div>
-        </form>
+        </div>
+        <div class="parallax img_overlay"><img src="/img/add-recipe.png" alt="home food"/></div>
     </div>
-    <div th:if="${mode == 'edit'}">
-        <form th:action="@{/recipe/edit/{id}(id=${recipe.id})}" method="post" th:object="${recipe}" class="col s10 offset-s1">
-            <input id="id" type="hidden" th:field="*{id}"/>
-            <div class="row">
-                <div class="col s12">
-                    <h1>Add a Recipe</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    <div class="input-field">
-                        <input id="title" type="text" class="validate" th:field="*{title}"/>
-                        <label for="title">Recipe Title</label>
+
+    <br/>
+    <br/>
+
+<div class="container">
+    <div class="section">
+    <div class="row">
+        <!--checkbox materialize, jquery select2-->
+        <div th:if="${mode == 'add'}">
+            <form th:action="@{/recipe/create}" method="post" th:object="${recipe}" class="col s10 offset-s1">
+                <div class="row">
+                    <div class="col s12">
+                        <h1 class="center-align">Add a Recipe</h1>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col s6">
-                    <div class="input-field">
-                        <input id="prep-time" type="text" class="validate" th:field="*{minsToPrep}"/>
-                        <label for="prep-time">Minutes of Prep Time</label>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="input-field">
+                            <input id="title" type="text" class="validate" th:field="*{title}"/>
+                            <label for="title">Recipe Title</label>
+                        </div>
                     </div>
                 </div>
-                <div class="col s6">
-                    <div class="input-field">
-                        <input id="num-servings" type="text" class="validate" name="num-servings" value="1"/>
-                        <label for="num-servings">Servings this recipe makes</label>
+                <div class="row">
+                    <div class="col s6">
+                        <div class="input-field">
+                            <input id="prep-time" type="text" class="validate" th:field="*{minsToPrep}"/>
+                            <label for="prep-time">Minutes of Prep Time</label>
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <div class="input-field">
+                            <input id="num-servings" type="text" class="validate" name="num-servings"/>
+                            <label for="num-servings">Servings this recipe makes</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    <table class="highlight">
-                        <thead>
-                        <tr>
-                            <th>Item Name</th>
-                            <th>Cal (kcal)</th>
-                            <th>Fat (g)</th>
-                            <th>Carb (g)</th>
-                            <th>Prot (g)</th>
-                            <th>Fiber (g)</th>
-                            <th>(g) Per Serving</th>
-                            <th>Servings</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="recItem : ${itemsInRecipe}">
-                            <td th:text="${recItem.item.name}" class="truncate"></td>
-                            <td th:text="${recItem.item.cal}"></td>
-                            <td th:text="${recItem.item.fat}"></td>
-                            <td th:text="${recItem.item.carb}"></td>
-                            <td th:text="${recItem.item.prot}"></td>
-                            <td th:text="${recItem.item.fiber}"></td>
-                            <td th:text="${recItem.item.servingSizeInGrams}"></td>
-                            <td>
-                                <input type="text" th:id="${'amount'+recItem.item.id}" name="itemQuantity" th:value="${recItem.quantityInGrams}"/>
-                                <label th:for="${'amount'+recItem.item.id}"></label>
-                            </td>
-                            <input type="hidden" name="itemIds" th:value="${recItem.item.id}"/>
-                        </tr>
-                        <tr th:each="item : ${itemsNotInRecipe}">
-                            <td th:text="${item.name}" class="truncate"></td>
-                            <td th:text="${item.cal}"></td>
-                            <td th:text="${item.fat}"></td>
-                            <td th:text="${item.carb}"></td>
-                            <td th:text="${item.prot}"></td>
-                            <td th:text="${item.fiber}"></td>
-                            <td th:text="${item.servingSizeInGrams}"></td>
-                            <td>
-                                <input type="text" th:id="${'amount'+item.id}" name="itemQuantity" value="0"/>
-                                <label th:for="${'amount'+item.id}"></label>
-                            </td>
-                            <input type="hidden" name="itemIds" th:value="${item.id}"/>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="row">
+                    <div class="col s12">
+                        <table class="highlight">
+                            <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Cal (kcal)</th>
+                                <th>Fat (g)</th>
+                                <th>Carb (g)</th>
+                                <th>Prot (g)</th>
+                                <th>Fiber (g)</th>
+                                <th>(g) Per Serving</th>
+                                <th>Servings</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item : ${items}">
+                                <td th:text="${item.name}" class="truncate"></td>
+                                <td th:text="${item.cal}"></td>
+                                <td th:text="${item.fat}"></td>
+                                <td th:text="${item.carb}"></td>
+                                <td th:text="${item.prot}"></td>
+                                <td th:text="${item.fiber}"></td>
+                                <td th:text="${item.servingSizeInGrams}"></td>
+                                <td>
+                                    <input type="text" th:id="${'amount'+item.id}" name="itemQuantity" value="0"/>
+                                    <label th:for="${'amount'+item.id}"></label>
+                                </td>
+                                <input type="hidden" name="itemIds" th:value="${item.id}"/>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <!-- Add Seach Here -->
-            <div class="row">
-                <div class="col s12 input-field">
-                    <textarea id="instructions" class="materialize-textarea" th:field="*{description}"></textarea>
-                    <label for="instructions">Cooking Instructions</label>
+                <!-- Add Seach Here -->
+                <div class="row">
+                    <div class="col s12 input-field">
+                        <textarea id="instructions" class="materialize-textarea" th:field="*{description}"></textarea>
+                        <label for="instructions">Cooking Instructions</label>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                        <i class="material-icons right">send</i>
-                    </button>
+                <div class="row">
+                    <div class="col s12 m3">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
+        <div th:if="${mode == 'edit'}">
+            <form th:action="@{/recipe/edit/{id}(id=${recipe.id})}" method="post" th:object="${recipe}" class="col s10 offset-s1">
+                <input id="id" type="hidden" th:field="*{id}"/>
+                <div class="row">
+                    <div class="col s12">
+                        <h1>Add a Recipe</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="input-field">
+                            <input id="title" type="text" class="validate" th:field="*{title}"/>
+                            <label for="title">Recipe Title</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6">
+                        <div class="input-field">
+                            <input id="prep-time" type="text" class="validate" th:field="*{minsToPrep}"/>
+                            <label for="prep-time">Minutes of Prep Time</label>
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <div class="input-field">
+                            <input id="num-servings" type="text" class="validate" name="num-servings" value="1"/>
+                            <label for="num-servings">Servings this recipe makes</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <table class="highlight">
+                            <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Cal (kcal)</th>
+                                <th>Fat (g)</th>
+                                <th>Carb (g)</th>
+                                <th>Prot (g)</th>
+                                <th>Fiber (g)</th>
+                                <th>(g) Per Serving</th>
+                                <th>Servings</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="recItem : ${itemsInRecipe}">
+                                <td th:text="${recItem.item.name}" class="truncate"></td>
+                                <td th:text="${recItem.item.cal}"></td>
+                                <td th:text="${recItem.item.fat}"></td>
+                                <td th:text="${recItem.item.carb}"></td>
+                                <td th:text="${recItem.item.prot}"></td>
+                                <td th:text="${recItem.item.fiber}"></td>
+                                <td th:text="${recItem.item.servingSizeInGrams}"></td>
+                                <td>
+                                    <input type="text" th:id="${'amount'+recItem.item.id}" name="itemQuantity" th:value="${recItem.quantityInGrams}"/>
+                                    <label th:for="${'amount'+recItem.item.id}"></label>
+                                </td>
+                                <input type="hidden" name="itemIds" th:value="${recItem.item.id}"/>
+                            </tr>
+                            <tr th:each="item : ${itemsNotInRecipe}">
+                                <td th:text="${item.name}" class="truncate"></td>
+                                <td th:text="${item.cal}"></td>
+                                <td th:text="${item.fat}"></td>
+                                <td th:text="${item.carb}"></td>
+                                <td th:text="${item.prot}"></td>
+                                <td th:text="${item.fiber}"></td>
+                                <td th:text="${item.servingSizeInGrams}"></td>
+                                <td>
+                                    <input type="text" th:id="${'amount'+item.id}" name="itemQuantity" value="0"/>
+                                    <label th:for="${'amount'+item.id}"></label>
+                                </td>
+                                <input type="hidden" name="itemIds" th:value="${item.id}"/>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Add Seach Here -->
+                <div class="row">
+                    <div class="col s12 input-field">
+                        <textarea id="instructions" class="materialize-textarea" th:field="*{description}"></textarea>
+                        <label for="instructions">Cooking Instructions</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
     </div>
 </div>
 <div th:replace="fragments/footer :: footer"></div>
