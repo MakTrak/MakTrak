@@ -3,11 +3,26 @@
 <head th:include="fragments/file-header-fragment :: head-partial('Create Food Item')"></head>
 <body>
     <div th:replace="fragments/nav :: nav"></div>
+
+    <div id="index-banner" class="parallax-container">
+        <div class="section no-pad-bot">
+            <div class="container">
+                <br/><br/>
+                <h1 class="center-align">Add a food item</h1>
+                <p class="center-align">Enter food name, and micro nutrient data, and how many below!</p>
+                <br /><br/>
+            </div>
+        </div>
+        <div class="parallax img_overlay"><img src="/img/add-food-item.png" alt="home food"/></div>
+    </div>
+
+    <br/>
+    <br/>
+
     <div class="row">
         <div th:if="${mode == 'add'}">
             <br/>
             <br/>
-            <h2 class="center-align">Add Inventory Food Item</h2>
             <form th:action="@{/food-item/create}" method="post" th:object="${item}" class="col s6 offset-s3">
                 <input type="hidden" th:field="*{id}"/>
                 <div class="row">
