@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:include="fragments/file-header-fragment :: head-partial('Login Page')"></head>
+<head th:include="fragments/file-header-fragment :: head-partial('Create Recipe')"></head>
 <body>
 <div th:replace="fragments/nav :: nav"></div>
 <div th:if="${mode == 'add'}">
@@ -12,9 +12,11 @@
 <div class="row">
     <!--checkbox materialize, jquery select2-->
     <form th:action="@{/recipe/create}" method="post" th:object="${recipe}" class="col s10 offset-s1">
-        <div class="row">
-            <div class="col s12">
-                <h1>Add a Recipe</h1>
+        <div class="section">
+            <div class="row">
+                <div class="col s12">
+                    <h1 class="center-align">Add a Recipe</h1>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -79,8 +81,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s12">
-                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+            <div class="col s12 m3">
+                <button class="btn waves-effect waves-light center-align" type="submit" name="action">Submit
                     <i class="material-icons right">send</i>
                 </button>
             </div>

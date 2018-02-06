@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:include="fragments/file-header-fragment :: head-partial('Login Page')"></head>
+<head th:include="fragments/file-header-fragment :: head-partial('Create Food Item')"></head>
 <body>
     <div th:replace="fragments/nav :: nav"></div>
     <div class="row">
@@ -35,13 +35,13 @@
                 <div class="row">
                     <div class="col s6">
                         <div class="input-field">
-                            <input id="proteins-add" type="text" class="validate" th:field="*{prot}"/>
+                            <input id="proteins-add" type="text" class="validate" required="" aria-required="true" th:field="*{prot}"/>
                             <label for="proteins-add">Protein</label>
                         </div>
                     </div>
                     <div class="col s6">
                         <div class="input-field">
-                            <input id="carbohydrates-add" type="text" class="validate" th:field="*{carb}"/>
+                            <input id="carbohydrates-add" type="text" class="validate" required="" aria-required="true" th:field="*{carb}"/>
                             <label for="carbohydrates-add">Carbohydrate</label>
                         </div>
                     </div>
@@ -49,13 +49,13 @@
                 <div class="row">
                     <div class="col s6">
                         <div class="input-field">
-                            <input id="fats-add" type="text" class="validate" th:field="*{fat}"/>
+                            <input id="fats-add" type="text" class="validate" required="" aria-required="true" th:field="*{fat}"/>
                             <label for="fats-add">Fat</label>
                         </div>
                     </div>
                     <div class="col s6">
                         <div class="input-field">
-                            <input id="fiber-add" type="text" class="validate" th:field="*{fiber}"/>
+                            <input id="fiber-add" type="text" class="validate"  required="" aria-required="true" th:field="*{fiber}"/>
                             <label for="fiber-add">Fiber</label>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                 <div class="row">
                     <div class="col s6">
                         <div class="input-field">
-                            <input id="quantity-add" type="text" class="validate" name="quantity"/>
+                            <input id="quantity-add" type="text" class="validate"  name="quantity"/>
                             <label for="quantity-add">Quantity</label>
                         </div>
                     </div>
@@ -144,22 +144,22 @@
                 </div>
                 <div class="row">
                     <div class="col s12">
-                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                        <button class="btn waves-effect waves-light center-align" type="submit" name="action">Submit
                             <i class="material-icons right">send</i>
                         </button>
                     </div>
                 </div>
             </form>
             <div class="row">
-                <div class="col s3 offset-s3 center-align">
+                <div class="col s3 offset-s3">
                     <form th:action="@{/food-item/delete/{id}(id=${item.id})}" method="post">
                         <button class="btn waves-effect waves-light" type="submit" name="action">Delete
                             <i class="material-icons right">delete</i>
                         </button>
                     </form>
                 </div>
-                <div class="col s3 center-align">
-                    <a th:href="@{/food-item/inventory}" class="waves-effect waves-teal btn-flat">Cancel</a>
+                <div class="col s3">
+                    <a th:href="@{/food-item/inventory}" class="waves-effect waves-teal btn-flat center-align">Cancel</a>
                 </div>
             </div>
         </div>
