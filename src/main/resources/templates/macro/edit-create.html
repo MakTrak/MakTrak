@@ -31,7 +31,36 @@
 <br/>
 <h3 class="center-align">Your Routine for The Day</h3>
 <hr/>
-<p>Content Goes Here!</p>
+<div class="row">
+    <div class="col s10 offset-s1">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Cal (kcal)</th>
+                    <th>Fat (g)</th>
+                    <th>Carb (g)</th>
+                    <th>Prot (g)</th>
+                    <th>Fiber (g)</th>
+                    <th>Servings</th>
+                </tr>
+            </thead>
+            <tbody id="item-insert">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <input type="hidden" name="recipe" th:value="${id}">
+                    <input type="hidden" name="item" th:value="${id}">
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 <br/>
 <h3 class="center-align">Your Stuff</h3>
 <hr/>
@@ -47,6 +76,12 @@
             <div class="row scrolling-wrapper card-scroll">
                 <br/>
                 <div th:each="recView : ${recViews}">
+                    <input th:id="${'r-'+recView.id+'-id'}" type="hidden" th:value="${recView.id}"/>
+                    <input th:id="${'r-'+recView.id+'-name'}" type="hidden" th:value="${recView.title}"/>
+                    <input th:id="${'r-'+recView.id+'-fat'}" type="hidden" th:value="${recView.getTotalFat()}"/>
+                    <input th:id="${'r-'+recView.id+'-carb'}" type="hidden" th:value="${recView.getTotalCarb()}"/>
+                    <input th:id="${'r-'+recView.id+'-prot'}" type="hidden" th:value="${recView.getTotalProt()}"/>
+                    <input th:id="${'r-'+recView.id+'-fiber'}" type="hidden" th:value="${recView.getTotalFiber()}"/>
                     <div class="card blue-grey darken-1">
                         <div class="card-content white-text">
                             <span class="card-title" th:text="${recView.title}"></span>
@@ -73,15 +108,17 @@
                             <p th:text="${recView.description}"></p>
                         </div>
                         <div class="card-action">
-                            <a href="#">Add To Macro</a>
-                            <a href="#">Edit</a>
-                            <a href="#">Delete</a>
+                            <a class="recipe-add-btn" th:id="${'r-'+recView.id}" href="#">Add To Macro</a>
+                            <a th:href="@{/recipe/edit/{id}(id=${recView.id})}">Edit</a>
+                            <form th:action="@{/macro/create/recipe/delete/{id}(id=${recView.id})}" method="post">
+                                <button>Delete</button>
+                            </form>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col s12 center-align">
-                        <a th:href="@{/recipe/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Recipe</a>
+                        <a th:href="@{/macro/create/recipe/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Recipe</a>
                     </div>
                 </div>
             </div>
@@ -92,6 +129,14 @@
             <div class="row scrolling-wrapper card-scroll">
                 <br/>
                 <div class="col s12 m4" th:each="invRec : ${invArr}">
+                    <input th:id="${'i-'+invRec.item.id+'-id'}" type="hidden" th:value="${invRec.item.id}"/>
+                    <input th:id="${'i-'+invRec.item.id+'-name'}" type="hidden" th:value="${invRec.item.name}"/>
+                    <input th:id="${'i-'+invRec.item.id+'-cal'}" type="hidden" th:value="${invRec.item.cal}"/>
+                    <input th:id="${'i-'+invRec.item.id+'-serving'}" type="hidden" th:value="${invRec.item.servingSizeInGrams}"/>
+                    <input th:id="${'i-'+invRec.item.id+'-fat'}" type="hidden" th:value="${invRec.item.fat}"/>
+                    <input th:id="${'i-'+invRec.item.id+'-carb'}" type="hidden" th:value="${invRec.item.carb}"/>
+                    <input th:id="${'i-'+invRec.item.id+'-prot'}" type="hidden" th:value="${invRec.item.prot}"/>
+                    <input th:id="${'i-'+invRec.item.id+'-fib'}" type="hidden" th:value="${invRec.item.fiber}"/>
                     <div class="card blue-grey darken-1">
                         <div class="card-content white-text">
                             <span class="card-title" th:text="${invRec.item.name}"></span>
@@ -118,15 +163,17 @@
                             </table>
                         </div>
                         <div class="card-action">
-                            <a href="#">Add To Macro</a>
-                            <a href="#">Edit</a>
-                            <a href="#">Delete</a>
+                            <a class="item-add-btn" th:id="${'i-'+invRec.item.id}" href="#">Add To Macro</a>
+                            <a th:href="@{/food-item/edit/{id}(id=${invRec.item.id})}">Edit</a>
+                            <form th:action="@{/macro/create/food-item/delete/{id}(id=${invRec.item.id})}" method="post">
+                                <button>Delete</button>
+                            </form>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col s12 center-align">
-                        <a th:href="@{/food-item/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Food Item</a>
+                        <a th:href="@{/macro/create/food-item/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Food Item</a>
                     </div>
                 </div>
             </div>
