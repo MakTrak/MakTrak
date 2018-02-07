@@ -1,23 +1,136 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:include="fragments/file-header-fragment :: head-partial('Login Page')"></head>
+<head th:include="fragments/file-header-fragment :: head-partial('Your Inventory')"></head>
 <body>
 <div th:replace="fragments/nav :: nav"></div>
-<h1>Your Inventory</h1>
-<div th:each="invRec : ${invArr}">
-    <h3 th:text="${invRec.item.name}"></h3>
-    <p th:text="${'Calories: '+invRec.item.cal}"></p>
-    <p th:text="${'Fat: '+invRec.item.fat+' g'}"></p>
-    <p th:text="${'Carbs: '+invRec.item.carb+' g'}"></p>
-    <p th:text="${'Protein: '+invRec.item.prot+' g'}"></p>
-    <p th:text="${'Fiber: '+invRec.item.fiber+' g'}"></p>
-    <p th:text="${'Serving Size: '+invRec.item.servingSizeInGrams+' g'}"></p>
-    <p th:text="${'Quantity: '+invRec.quantity}"></p>
-    <a th:href="@{/food-item/edit/{id}(id=${invRec.item.id})}" class="waves-effect waves-light btn">Edit</a>
-    <form th:action="@{/food-item/delete/{id}(id=${invRec.item.id})}" method="post">
-        <button class="waves-effect waves-teal btn-flat">Delete</button>
-    </form>
+
+<div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+        <div class="container">
+            <br/><br/>
+            <h1 class="center-align">Your food inventory</h1>
+            <p class="center-align">Below is a list of your current food inventory</p>
+            <br /><br/>
+        </div>
+    </div>
+    <div class="parallax img_overlay"><img src="/img/food-inventory.png" alt="home food"/></div>
 </div>
+
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <div class="col s12">
+                <h3 class="center-align">Search your inventory</h3>
+            </div>
+        </div>
+        <div class="row">
+            <form class="col s12">
+                <div class="input-field">
+                    <input id="search" type="search" class="center-align" required="required" />
+                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                </div>
+            </form>
+        </div>
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="col s12">
+                <h3 class="center-align">Your current food inventory</h3>
+                <p class="center-align">You can scroll through your food items below, you can also add a new food item <below class=""></below></p>
+            </div>
+        </div>
+        <div class="row scrolling-wrapper-food-item card-scroll">
+            <div class="col s12">
+                <div class="card card-panel hoverable blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Food Item</span>
+                        <p>I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">Edit</a>
+                        <a href="#">Delete</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12">
+                <div class="card card-panel hoverable blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Food Item</span>
+                        <p>I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">Edit</a>
+                        <a href="#">Delete</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12">
+                <div class="card card-panel hoverable blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Food Item</span>
+                        <p>I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">Edit</a>
+                        <a href="#">Delete</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12">
+                <div class="card card-panel hoverable blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Food Item</span>
+                        <p>I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">Edit</a>
+                        <a href="#">Delete</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12">
+                <div class="card card-panel hoverable blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Food Item</span>
+                        <p>I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">Edit</a>
+                        <a href="#">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m3 center-align">
+                <a th:href="@{/food-item/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Food Item</a>
+            </div>
+        </div>
+    </div>
+
+
+        <div th:each="invRec : ${invArr}">
+            <h3 th:text="${invRec.item.name}"></h3>
+            <p th:text="${'Calories: '+invRec.item.cal}"></p>
+            <p th:text="${'Fat: '+invRec.item.fat+' g'}"></p>
+            <p th:text="${'Carbs: '+invRec.item.carb+' g'}"></p>
+            <p th:text="${'Protein: '+invRec.item.prot+' g'}"></p>
+            <p th:text="${'Fiber: '+invRec.item.fiber+' g'}"></p>
+            <p th:text="${'Serving Size: '+invRec.item.servingSizeInGrams+' g'}"></p>
+            <p th:text="${'Quantity: '+invRec.quantity}"></p>
+            <a th:href="@{/food-item/edit/{id}(id=${invRec.item.id})}" class="waves-effect waves-light btn">Edit</a>
+            <form th:action="@{/food-item/delete/{id}(id=${invRec.item.id})}" method="post">
+                <button class="waves-effect waves-teal btn-flat">Delete</button>
+            </form>
+        </div>
+
+</div><!-- container -->
+
 <div th:replace="fragments/footer :: footer"></div>
 <div th:replace="fragments/js-footer-fragment :: js-partial"></div>
 </body>

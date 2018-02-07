@@ -37,14 +37,14 @@
     - [ ] Search Existing Recipe
 - [ ] Macro Nutrient Page Able to Delete Daily Routine
 ##### User Dashboard Page
-- [ ] Dashboard able to see Welcome Message
+- [x] Dashboard able to see Welcome Message
 - [ ] Dashboard able to see weekly routine
   - [ ] Able to use dropdown to change daily routine
 - [ ] Able to see available daily routines
   - [ ] Able to Add Daily Routine
   - [ ] Able to Delete Daily Routine
-- [ ] Able to see available recipes
-  - [ ] Able to Add recipe
+- [] Able to see available recipes
+  - [x] Able to Add recipe
   - [ ] Able to Delete recipe
 - [ ] Able to see available inventory items
   - [ ] Able to Add inventory item
@@ -53,9 +53,9 @@
 
 ### Secondary
 ##### Landing Page
-- [ ] Hero Image
+- [x] Hero Image
 - [ ] Features
-- [ ] Testimonials
+- [x] Testimonials
 ##### Create/Edit/Remove Food Item Page
 - [x] Edit a food item in Inventory (P)
 ##### Food Item Listing Page
@@ -90,7 +90,7 @@
 
 ### It'd be good if we have time for...
 - [ ] Styling Create User Page
-- [ ] Styling Landing Page
+- [x] Styling Landing Page
 - [ ] Styling Create/Edit/Remove Food Item Page
 - [ ] Styling Food Item Listing Page
 - [ ] Styling Create/Edit/Remove Recipe Page
