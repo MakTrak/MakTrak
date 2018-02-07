@@ -90,9 +90,9 @@
 
                 <li sec:authorize="!isAuthenticated()"><a class="waves-effect waves-light modal-trigger" href="#modal1">Login</a></li>
                 <li sec:authorize="isAnonymous()"><a class="waves-effect waves-light modal-trigger" href="#modal2">Register</a></li>
-                <li sec:authorize="isAuthenticated()"><a class="waves-effect waves-light" href="#">Dashboard</a></li>
-                <li><a href="/#" class="modal-trigger modal-close">Food Items</a></li>
-                <li><a href="/#" class="modal-trigger modal-close">Recipes</a></li>
+                <li sec:authorize="isAuthenticated()"><a class="waves-effect waves-light" th:href="@{/dashboard}">Dashboard</a></li>
+                <li><a sec:authorize="isAuthenticated()" th:href="@{/food-item/inventory}" class="modal-trigger modal-close">Food Items</a></li>
+                <li><a sec:authorize="isAuthenticated()" th:href="@{/recipe/inventory}" class="modal-trigger modal-close">Recipes</a></li>
 
                 <!--<li sec:authorize="!isAuthenticated()">-->
                     <!--<a href="/login">Login</a>-->
@@ -127,9 +127,9 @@
             </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
         </div>
-        <div sec:authorize="isAuthenticated()">
-            <a th:href="@{/logout}">Log out</a>
-        </div>
+        <!--<div sec:authorize="isAuthenticated()">-->
+            <!--<a th:href="@{/logout}">Log out</a>-->
+        <!--</div>-->
         <!--<div sec:authorize="isAnonymous()">-->
             <!--<a th:href="@{/login}">Log in</a>-->
             <!--<a th:href="@{/sign-up}">Register</a>-->

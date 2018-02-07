@@ -5,6 +5,12 @@
  * Base structure
  */
 
+.hero-text{
+  font-size: 8em;
+}
+.sub-text {
+  font-size: 2em;
+}
 
 .landing-cover-container {
   max-width: 42em;
