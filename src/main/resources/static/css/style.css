@@ -11,6 +11,12 @@
 .sub-text {
   font-size: 2em;
 }
+/*nav styles*/
+.nav-logout {
+  position: relative;
+  top: 14px;
+  text-transform: inherit;
+}
 
 .landing-cover-container {
   max-width: 42em;
