@@ -51,6 +51,7 @@ public class DaoOpService {
     public void updateFoodItemInInventory(User user, FoodItem item, double quantity) {
         itemDao.save(item);
         InventoryRecord invRec = invDao.findByOwnerAndItem(user, item);
+        System.out.println(invRec.getId());
         invRec.setQuantity(quantity);
         invDao.save(invRec);
     }
@@ -184,4 +185,19 @@ public class DaoOpService {
 //        recipe.setOwner(user);
 //        return recipeItemDao.findByRecipeAndItem(recipe, item).getQuantityInGrams();
 //    }
+
+    //Macro Related
+    public DailyMacro addMacro(DailyMacro macro) {
+        return macroDao.save(macro);
+    }
+
+    public MacroFoodItem addMacroItem(DailyMacro macro, FoodItem item, double quantity) {
+        MacroFoodItem macItem = new MacroFoodItem(quantity, macro, item);
+        return macItemDao.save(macItem);
+    }
+
+    public MacroRecipe addMacroRecipe(DailyMacro macro, Recipe recipe, double servings) {
+        MacroRecipe macRecipe = new MacroRecipe(servings, macro, recipe);
+        return macRecipeDao.save(macRecipe);
+    }
 }
