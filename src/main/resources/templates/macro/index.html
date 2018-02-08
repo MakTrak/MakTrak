@@ -41,16 +41,16 @@
         </div>
         <div class="row">
             <div class="col s12 m4 offset-m4 center-align">
-                <a th:href="@{/recipe/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Recipe</a>
+                <a th:href="@{/macro/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Macro</a>
             </div>
         </div>
-        <div class="row scrolling-wrapper-food-item card-scroll">
-            <div class="row scrolling-wrapper-food-item card-scroll">
+        <div class="row scrolling-wrapper-food-item card-scroll center-panel">
+            <div th:each="macView : ${macViews}">
                 <div class="col s12">
                     <div class="card card-panel hoverable blue-grey darken-1">
                         <div class="card-content white-text">
-                            <span class="card-title">More Chicken!</span>
-                            <table class="highlight">
+                            <span class="card-title" th:text="${macView.macroName}"></span>
+                            <table>
                                 <thead>
                                 <tr>
                                     <th></th>
@@ -59,128 +59,53 @@
                                     <th>Carb (g)</th>
                                     <th>Prot (g)</th>
                                     <th>Fiber (g)</th>
-                                    <th>Servings</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="item : ${items}">
+                                <tr>
                                     <td>Goals</td>
-                                    <td th:text="${item.name}" class="truncate"></td>
-                                    <td th:text="${item.cal}"></td>
-                                    <td th:text="${item.fat}"></td>
-                                    <td th:text="${item.carb}"></td>
-                                    <td th:text="${item.prot}"></td>
-                                    <td th:text="${item.fiber}"></td>
-                                    <td th:text="${item.servingSizeInGrams}"></td>
-                                    <td>
-                                        <input type="text" th:id="${'amount'+item.id}" name="itemQuantity" value="0"/>
-                                        <label th:for="${'amount'+item.id}"></label>
-                                    </td>
-                                    <input type="hidden" name="itemIds" th:value="${item.id}"/>
+                                    <td th:text="${macView.calGoals}"></td>
+                                    <td th:text="${macView.fatGoals}"></td>
+                                    <td th:text="${macView.carbGoals}"></td>
+                                    <td th:text="${macView.protGoals}"></td>
+                                    <td th:text="${macView.fiberGoals}"></td>
                                 </tr>
-
-                                    <tr th:each="item : ${items}">
-                                        <td>Total</td>
-                                        <td th:text="${item.name}" class="truncate"></td>
-                                        <td th:text="${item.cal}"></td>
-                                        <td th:text="${item.fat}"></td>
-                                        <td th:text="${item.carb}"></td>
-                                        <td th:text="${item.prot}"></td>
-                                        <td th:text="${item.fiber}"></td>
-                                        <td th:text="${item.servingSizeInGrams}"></td>
-                                        <td>
-                                            <input type="text" th:id="${'amount'+item.id}" name="itemQuantity" value="0"/>
-                                            <label th:for="${'amount'+item.id}"></label>
-                                        </td>
-                                        <input type="hidden" name="itemIds" th:value="${item.id}"/>
-                                    </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td th:text="${macView.calTotal}"></td>
+                                    <td th:text="${macView.fatTotal}"></td>
+                                    <td th:text="${macView.carbTotal}"></td>
+                                    <td th:text="${macView.protTotal}"></td>
+                                    <td th:text="${macView.fiberTotal}"></td>
+                                </tr>
                                 </tbody>
                             </table>
                             <div class="row">
                                 <div class="col s12 m6">
                                     <ul>
                                         <li><h3>Item</h3></li>
-                                        <li>Chicken</li>
-                                        <li>Rice</li>
-                                        <li>Baby Spinach</li>
-                                        <li>Carrots</li>
-                                    </ul>
-                                </div>
-                                <div class="col s12 m6">
-                                    <ul>
-                                        <li><h3>Missing Item</h3></li>
-                                        <li>Boil water</li>
-                                        <li>Add Salt</li>
-                                        <li>Heat pan</li>
-                                        <li>Cook the chicken</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">Edit</a>
-                            <a href="#">Delete</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div th:each="recView : ${recViews}">
-                <div class="col s12">
-                    <div class="card card-panel hoverable blue-grey darken-1">
-                        <div class="card-content white-text">
-                            <span class="card-title" th:text="${recView.title}"></span>
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>Cal (kcal)</th>
-                                    <th>Fat (g)</th>
-                                    <th>Carb (g)</th>
-                                    <th>Prot (g)</th>
-                                    <th>Fiber (g)</th>
-                                    <th>Servings</th>
-                                </tr>
-                                </thead>
-                                <tbody class="min-table">
-                                <tr>
-                                    <td th:text="${recView.getTotalCal()}"></td>
-                                    <td th:text="${recView.getTotalFat()}"></td>
-                                    <td th:text="${recView.getTotalFat()}"></td>
-                                    <td th:text="${recView.getTotalProt()}"></td>
-                                    <td th:text="${recView.getTotalFiber()}"></td>
-                                    <td>1</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <div class="row">
-                                <div class="col s12 m6">
-                                    <ul>
-                                        <li><h3>Ingredients</h3></li>
-                                        <div th:each="item : ${recView.items}">
-                                            <li th:text="${item.name}"></li>
+                                        <div th:each="itemName : ${macView.itemNames}">
+                                            <li th:text="${itemName}"></li>
                                         </div>
                                     </ul>
                                 </div>
                                 <div class="col s12 m6">
                                     <ul>
-                                        <li><h3>Instructions</h3></li>
-                                        <li th:text="${recView.description}"></li>
+                                        <li><h3>Missing Item</h3></li>
+                                        <!--<div th:each="itemName : ${macView.}"></div>-->
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="card-action">
-                            <a  th:href="@{/recipe/edit/{id}(id=${recView.id})}">Edit</a>
-                            <form th:action="@{/recipe/delete/{id}(id=${recView.id})}" method="post">
+                            <a th:href="@{/macro/edit/{id}(id=${macView.macroId})}">Edit</a>
+                            <form th:action="@{/macro/delete}" method="post">
+                                <input type="hidden" name="macroId" th:value="${macView.macroId}"/>
                                 <button class="waves-effect waves-teal btn-flat">Delete</button>
                             </form>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m3 center-align">
-                <a th:href="@{/recipe/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Recipe</a>
             </div>
         </div>
     </div>

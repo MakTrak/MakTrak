@@ -211,11 +211,11 @@ public class DaoOpService {
             ArrayList<String> itemNames = new ArrayList<>();
             HashMap<String, Double> missingItemsAndAmount = new HashMap<>();
             for(MacroFoodItem macItem : macItems) {
-                totalCal += macItem.getItem().getCal();
-                totalCarb += macItem.getItem().getCarb();
-                totalProt += macItem.getItem().getProt();
-                totalFiber += macItem.getItem().getFiber();
-                totalFat += macItem.getItem().getFat();
+                totalCal += macItem.getItem().getCal()*macItem.getQuantityInGrams();
+                totalCarb += macItem.getItem().getCarb()*macItem.getQuantityInGrams();
+                totalProt += macItem.getItem().getProt()*macItem.getQuantityInGrams();
+                totalFiber += macItem.getItem().getFiber()*macItem.getQuantityInGrams();
+                totalFat += macItem.getItem().getFat()*macItem.getQuantityInGrams();
                 itemNames.add(macItem.getItem().getName());
                 InventoryRecord invRec = invDao.findByOwnerAndItem(user, macItem.getItem());
                 if(macItem.getQuantityInGrams() > invRec.getQuantity()) {
@@ -225,11 +225,11 @@ public class DaoOpService {
             }
             ArrayList<RecipeView> recViews = findRecViewByMacro(macro);
             for(RecipeView recView : recViews) {
-                totalCal += recView.getTotalCal();
-                totalCarb += recView.getTotalCarb();
-                totalProt += recView.getTotalProt();
-                totalFiber += recView.getTotalFiber();
-                totalFat += recView.getTotalFat();
+                totalCal += recView.getTotalCal()*recView.getMacRecAmount();
+                totalCarb += recView.getTotalCarb()*recView.getMacRecAmount();
+                totalProt += recView.getTotalProt()*recView.getMacRecAmount();
+                totalFiber += recView.getTotalFiber()*recView.getMacRecAmount();
+                totalFat += recView.getTotalFat()*recView.getMacRecAmount();
                 itemNames.add("(Recipe) "+recView.getTitle());
             }
             macView.setCalTotal(totalCal);
