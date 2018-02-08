@@ -11,6 +11,12 @@
 .sub-text {
   font-size: 2em;
 }
+/*nav styles*/
+.nav-logout {
+  position: relative;
+  top: 14px;
+  text-transform: inherit;
+}
 
 .landing-cover-container {
   max-width: 42em;
@@ -258,6 +264,25 @@ input {
   z-index: 2;
 }
 
+/* helpers */
+.routine-btn{
+  width: 30% !important;
+}
+
+.card-title-routine {
+  font-size: 3em !important;
+}
+.routine-size {
+  font-size: 2em;
+}
+.center-btn {
+    width: 20%;
+    margin:0 auto;
+}
+.center-login {
+  width: 50%;
+  margin:0 auto;
+}
 .min-table {
   height: inherit;
 }

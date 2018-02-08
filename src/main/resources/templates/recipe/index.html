@@ -43,9 +43,9 @@
                 <a th:href="@{/recipe/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Recipe</a>
             </div>
         </div>
-        <div class="row scrolling-wrapper-food-item card-scroll center-panel">
+        <div class="row scrolling-wrapper-food-item card-scroll">
             <div th:each="recView : ${recViews}">
-                <div class="col s10 offset-s1">
+                <div class="col s12">
                     <div class="card card-panel hoverable blue-grey darken-1">
                         <div class="card-content white-text">
                             <span class="card-title" th:text="${recView.title}"></span>
@@ -64,23 +64,43 @@
                                 <tr>
                                     <td th:text="${recView.getTotalCal()}"></td>
                                     <td th:text="${recView.getTotalFat()}"></td>
-                                    <td th:text="${recView.getTotalCarb()}"></td>
+                                    <td th:text="${recView.getTotalFat()}"></td>
                                     <td th:text="${recView.getTotalProt()}"></td>
                                     <td th:text="${recView.getTotalFiber()}"></td>
                                     <td>1</td>
                                 </tr>
                                 </tbody>
                             </table>
-                            <p th:text="${recView.description}"></p>
+                            <div class="row">
+                                <div class="col s12 m6">
+                                    <ul>
+                                        <li><h3>Ingredients</h3></li>
+                                        <div th:each="item : ${recView.items}">
+                                            <li th:text="${item.name}"></li>
+                                        </div>
+                                    </ul>
+                                </div>
+                                <div class="col s12 m6">
+                                    <ul>
+                                        <li><h3>Instructions</h3></li>
+                                        <li th:text="${recView.description}"></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-action">
+                            <a  th:href="@{/recipe/edit/{id}(id=${recView.id})}">Edit</a>
                             <form th:action="@{/recipe/delete/{id}(id=${recView.id})}" method="post">
-                                <a th:href="@{/recipe/edit/{id}(id=${recView.id})}">Edit</a>
                                 <button class="waves-effect waves-teal btn-flat">Delete</button>
                             </form>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m3 center-align">
+                <a th:href="@{/recipe/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Recipe</a>
             </div>
         </div>
     </div>
