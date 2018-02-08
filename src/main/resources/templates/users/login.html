@@ -7,28 +7,43 @@
 </head>
 <body>
 <div th:replace="fragments/nav :: nav"></div>
-
-    <div class="container">
-        <div class="section">
-            <div class="row">
-                <h1>Log In</h1>
-
-                <div th:if="${param.error}">
-                    Invalid Username and Password.
-                </div>
-                <div th:if="${param.logout}">
-                    You have been logged out.
-                </div>
-
-                <form th:action="@{/login}" method="post">
-                    <label for="username">Username</label>
-                    <input id="username" name="username" type="text" />
-                    <label for="password">Password</label>
-                    <input id="password" name="password" type="password" />
-                    <input type="submit" value="Log In" />
-                </form>
+    <div id="index-banner" class="parallax-container">
+        <div class="section no-pad-bot">
+            <div class="container">
+                <br/><br/>
+                <h1 class="center-align">Login</h1>
+                <p class="center-align">Enter your username and password below</p>
             </div>
         </div>
+        <div class="parallax img_overlay"><img src="/img/hero-login.jpg" alt="login food"/></div>
     </div>
+<br/>
+<br/>
+    <div class="container">
+        <div class="section">
+          <div class="center-align">
+            <div th:if="${param.error}">
+                Invalid Username and Password
+            </div>
+            <div th:if="${param.logout}">
+                You have been logged out
+            </div>
+              <br/>
+            <form th:action="@{/login}" method="post" class="center-login">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" />
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" />
+                <button class="btn waves-effect waves-light center-btn" type="submit" name="action">Login
+                    <i class="material-icons right">send</i>
+                </button>
+            </form>
+          </div>
+        </div>
+    </div>
+<br/>
+<br/>
+<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/js-footer-fragment :: js-partial"></div>
 </body>
 </html>
