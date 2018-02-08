@@ -106,9 +106,9 @@ public class MacroController {
         return "redirect:/dashboard";
     }
 
-//    @GetMapping("/macro/inventory")
-//    public String showMacros(Model m) {
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//    }
+    @GetMapping("/macro/inventory")
+    public String showMacros(Model m) {
+       User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+       return "macro/index";
+    }
 }
