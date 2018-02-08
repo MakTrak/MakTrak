@@ -22,6 +22,9 @@ public class MacroRecipe {
         this.recipe = recipe;
     }
 
+    public MacroRecipe() {
+    }
+
     public long getId() {
         return id;
     }

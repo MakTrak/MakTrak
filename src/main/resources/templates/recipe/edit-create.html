@@ -3,19 +3,13 @@
 <head th:include="fragments/file-header-fragment :: head-partial('Create Recipe')"></head>
 <body>
 <div th:replace="fragments/nav :: nav"></div>
-<div th:if="${mode == 'add'}">
-    <h1>Create</h1>
-</div>
-<div th:if="${mode == 'edit'}">
-    <h1>Edit</h1>
-</div>
 <div class="row">
     <!--checkbox materialize, jquery select2-->
     <div th:if="${mode == 'add'}">
         <div th:if="${redirect == 'macroCreate'}">
             <form th:action="@{/macro/create/recipe/create}" method="post" th:object="${recipe}" class="col s10 offset-s1">
                 <div class="row">
-                    <div class="col s12">
+                    <div class="col s12 center-align">
                         <h1>Add a Recipe</h1>
                     </div>
                 </div>
@@ -84,10 +78,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col s12">
+                    <div class="col s6">
                         <button class="btn waves-effect waves-light" type="submit" name="action">Submit
                             <i class="material-icons right">send</i>
                         </button>
+                    </div>
+                    <div class="col s6">
+                        <a href="/macro/create" class="btn waves-effect waves-light">Cancel</a>
                     </div>
                 </div>
             </form>
@@ -96,7 +93,7 @@
             <form th:action="@{/macro/edit/recipe/create}" method="post" th:object="${recipe}" class="col s10 offset-s1">
                 <input type="hidden" name="macroId" th:value="${macroId}"/>
                 <div class="row">
-                    <div class="col s12">
+                    <div class="col s12 center-align">
                         <h1>Add a Recipe</h1>
                     </div>
                 </div>
@@ -165,10 +162,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col s12">
+                    <div class="col s6">
                         <button class="btn waves-effect waves-light" type="submit" name="action">Submit
                             <i class="material-icons right">send</i>
                         </button>
+                    </div>
+                    <div class="col s6">
+                        <a th:href="@{/macro/edit/{id}(id=${macroId})}" class="btn waves-effect waves-light">Cancel</a>
                     </div>
                 </div>
             </form>
@@ -176,7 +176,7 @@
         <div th:if="${redirect == 'none'}">
             <form th:action="@{/recipe/create}" method="post" th:object="${recipe}" class="col s10 offset-s1">
                 <div class="row">
-                    <div class="col s12">
+                    <div class="col s12 center-align">
                         <h1>Add a Recipe</h1>
                     </div>
                 </div>
@@ -245,10 +245,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col s12">
+                    <div class="col s6">
                         <button class="btn waves-effect waves-light" type="submit" name="action">Submit
                             <i class="material-icons right">send</i>
                         </button>
+                    </div>
+                    <div class="col s6">
+                        <a th:href="@{/recipe/inventory}" class="btn waves-effect waves-light">Cancel</a>
                     </div>
                 </div>
             </form>
@@ -258,8 +261,8 @@
         <form th:action="@{/recipe/edit/{id}(id=${recipe.id})}" method="post" th:object="${recipe}" class="col s10 offset-s1">
             <input id="id" type="hidden" th:field="*{id}"/>
             <div class="row">
-                <div class="col s12">
-                    <h1>Add a Recipe</h1>
+                <div class="col s12 center-align">
+                    <h1>Edit a Recipe</h1>
                 </div>
             </div>
             <div class="row">
@@ -341,10 +344,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col s12">
+                <div class="col s6">
                     <button class="btn waves-effect waves-light" type="submit" name="action">Submit
                         <i class="material-icons right">send</i>
                     </button>
+                </div>
+                <div class="col s6">
+                    <a th:href="@{/recipe/inventory}" class="btn waves-effect waves-light">Cancel</a>
                 </div>
             </div>
         </form>

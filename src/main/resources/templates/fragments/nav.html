@@ -29,10 +29,14 @@
                                         </div>
 
                                             <form th:action="@{/login}" method="post">
-                                                <label for="username">Username</label>
-                                                <input id="username" name="username" type="text" />
-                                                <label for="password">Password</label>
-                                                <input id="password" name="password" type="password" />
+                                                <div class="input-field">
+                                                    <input placeholder="Enter Username" id="username" name="username" type="text" />
+                                                    <label for="username">Username</label>
+                                                </div>
+                                                <div class="input-field">
+                                                    <input placeholder="Enter Password" id="password" name="password" type="password" />
+                                                    <label for="password">Password</label>
+                                                </div>
                                                 <input type="submit" class="modal-action modal-close btn-flat" value="Log In" />
                                             </form>
                                         </div>

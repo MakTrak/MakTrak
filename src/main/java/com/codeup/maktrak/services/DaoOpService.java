@@ -58,6 +58,8 @@ public class DaoOpService {
 
     public void removeFoodItemInInventory(FoodItem item, InventoryRecord invRec) {
         invDao.delete(invRec);
+        recipeItemDao.delete(recipeItemDao.findByItem(item));
+        macItemDao.delete(macItemDao.findByItem(item));
         itemDao.delete(item);
     }
 
@@ -191,13 +193,74 @@ public class DaoOpService {
         return macroDao.save(macro);
     }
 
+    public List<DailyMacro> findMacrosByUser(User user) {
+        return macroDao.findByOwner(user);
+    }
+
+    public DailyMacro findMacroById(long id) {
+        return macroDao.findOne(id);
+    }
+
     public MacroFoodItem addMacroItem(DailyMacro macro, FoodItem item, double quantity) {
         MacroFoodItem macItem = new MacroFoodItem(quantity, macro, item);
         return macItemDao.save(macItem);
+    }
+
+    public MacroFoodItem editAddMacroItem(DailyMacro macro, FoodItem item, double quantity) {
+        MacroFoodItem macItem = macItemDao.findByMacroAndItem(macro, item);
+        if(macItem != null) {
+            macItem.setQuantityInGrams(quantity);
+            macItemDao.save(macItem);
+            return macItem;
+        } else {
+            return addMacroItem(macro, item, quantity);
+        }
+    }
+
+    public void removeMacroItem(DailyMacro macro, FoodItem item) {
+        MacroFoodItem macItem = macItemDao.findByMacroAndItem(macro, item);
+        macItemDao.delete(macItem);
+    }
+
+    public List<MacroFoodItem> findMacroItemByMacro(DailyMacro macro) {
+        return macItemDao.findByMacro(macro);
     }
 
     public MacroRecipe addMacroRecipe(DailyMacro macro, Recipe recipe, double servings) {
         MacroRecipe macRecipe = new MacroRecipe(servings, macro, recipe);
         return macRecipeDao.save(macRecipe);
     }
+
+    public MacroRecipe editAddMacroRecipe(DailyMacro macro, Recipe recipe, double servings) {
+        MacroRecipe macRec = macRecipeDao.findByMacroAndRecipe(macro, recipe);
+        if(macRec != null) {
+            macRec.setNumberOfServings(servings);
+            macRecipeDao.save(macRec);
+            return macRec;
+        } else {
+            return addMacroRecipe(macro, recipe, servings);
+        }
+    }
+
+    public void removeMacroRecipe(DailyMacro macro, Recipe recipe) {
+        MacroRecipe macRec = macRecipeDao.findByMacroAndRecipe(macro, recipe);
+        macRecipeDao.delete(macRec);
+    }
+
+    public ArrayList<RecipeView> findRecViewByMacro(DailyMacro macro) {
+        List<MacroRecipe> macRecs = macRecipeDao.findByMacro(macro);
+        ArrayList<RecipeView> retval = new ArrayList<>();
+        for(MacroRecipe macRec : macRecs) {
+            retval.add(new RecipeView(macRec.getRecipe(), findRecipeFoodItemsInRecipe(macRec.getRecipe()), macRec.getNumberOfServings()));
+        }
+        return retval;
+    }
+
+    public void removeMacro(long macroId, User user) {
+        DailyMacro macro = macroDao.findOne(macroId);
+        macItemDao.delete(macItemDao.findByMacro(macro));
+        macRecipeDao.delete(macRecipeDao.findByMacro(macro));
+        macroDao.delete(macro);
+    }
+
 }

@@ -29,8 +29,6 @@
     <div class="row">
         <div th:if="${mode == 'add'}">
             <br/>
-            <br/>
-            <h2 class="center-align">Add Inventory Food Item</h2>
             <div th:if="${redirect == 'macroCreate'}">
                 <form th:action="@{/macro/create/food-item/create}" method="post" th:object="${item}" class="col s6 offset-s3">
                     <input type="hidden" th:field="*{id}"/>
@@ -391,14 +389,14 @@
                             </button>
                         </div>
                         <div class="col s3">
-                            <a th:href="@{/recipe/inventory}" class="waves-effect waves-teal btn-flat">Cancel</a>
+                            <a th:href="@{/food-item/inventory}" class="waves-effect waves-teal btn-flat">Cancel</a>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
         <div th:if="${mode == 'edit'}">
-            <h1>Edit Inventory Food Item</h1>
+            <br/>
             <form th:action="@{/food-item/edit/{id}(id=${item.id})}" method="post" th:object="${item}" class="col s6 offset-s3">
                 <input type="hidden" th:field="*{id}"/>
                 <div class="row">
@@ -489,7 +487,7 @@
                         <a th:href="@{/recipe/edit/{id}(id=${recipeId})}" class="waves-effect waves-teal btn-flat">Cancel</a>
                     </div>
                     <div th:if="${redirect == 'none'}">
-                        <a th:href="@{/recipe/inventory}" class="waves-effect waves-teal btn-flat">Cancel</a>
+                        <a th:href="@{/food-item/inventory}" class="waves-effect waves-teal btn-flat">Cancel</a>
                     </div>
                 </div>
             </div>

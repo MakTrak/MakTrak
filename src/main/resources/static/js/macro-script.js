@@ -7,7 +7,7 @@ $(document).ready(() => {
     var totalProt = 0.0;
     var totalFiber = 0.0;
 
-    $("#calories-goals, #carbs-goals, #fat-goals, #fiber-goals, #protein-goals").on('change', () => {
+    const resetTotalColors = () => {
         if(parseFloat($("#calories-goals").val())<totalCal) {
             $("#calories-total").css("color", "red");
         } else {
@@ -33,6 +33,71 @@ $(document).ready(() => {
         } else {
             $("#fiber-total").css("color", "rgba(0,0,0,0.42)");
         }
+    };
+
+    setTimeout(() => {
+        $(".obj-ids").each((index, element) => {
+            selectedIds.push($(element).attr("id").substring(0, $(element).attr("id").length-4));
+            datas.push({
+                calories: parseFloat($(element).children("td:nth-child(2)").text()),
+                fat: parseFloat($(element).children("td:nth-child(3)").text()),
+                carb: parseFloat($(element).children("td:nth-child(4)").text()),
+                prot: parseFloat($(element).children("td:nth-child(5)").text()),
+                fiber: parseFloat($(element).children("td:nth-child(6)").text())
+            });
+            totalCal += parseFloat($(element).children("td:nth-child(2)").text())*parseFloat($(element).children("td:nth-child(7)").text());
+            totalFat += parseFloat($(element).children("td:nth-child(3)").text())*parseFloat($(element).children("td:nth-child(7)").text());
+            totalCarb += parseFloat($(element).children("td:nth-child(4)").text())*parseFloat($(element).children("td:nth-child(7)").text());
+            totalProt += parseFloat($(element).children("td:nth-child(5)").text())*parseFloat($(element).children("td:nth-child(7)").text());
+            totalFiber += parseFloat($(element).children("td:nth-child(6)").text())*parseFloat($(element).children("td:nth-child(7)").text());
+        });
+        $("#calories-total").attr("value", totalCal+"");
+        $("#fat-total").attr("value", totalFat+"");
+        $("#carbs-total").attr("value", totalCarb+"");
+        $("#protein-total").attr("value", totalProt+"");
+        $("#fiber-total").attr("value", totalFiber+"");
+        resetTotalColors();
+    }, 300);
+
+    $("#calories-goals, #carbs-goals, #fat-goals, #fiber-goals, #protein-goals").on('change', () => {
+        resetTotalColors();
+    });
+
+    $(".add-remove-btn").click((e) => {
+        var id = e.target.id;
+        var mode = id.substring(id.length-4);
+        id = id.substring(0, id.length-4);
+        if(mode == "-add") {
+            var newVal = parseInt($("#"+id+"-row td:nth-child(7)").text()) + 1;
+            $("#"+id+"-row td:nth-child(7)").text(newVal);
+            $("#"+id+"-row input:nth-child(10)").attr("value", newVal+"");
+            var idx = selectedIds.indexOf(id);
+            var obj = datas[idx];
+            totalCal += obj.calories;
+            totalCarb += obj.carb;
+            totalFat += obj.fat;
+            totalProt += obj.prot;
+            totalFiber += obj.fiber;
+        } else {
+            if(parseInt($("#"+id+"-row td:nth-child(7)").text()) > 0) {
+                var newVal = parseInt($("#"+id+"-row td:nth-child(7)").text()) - 1;
+                $("#"+id+"-row td:nth-child(7)").text(newVal);
+                $("#"+id+"-row input:nth-child(10)").attr("value", newVal+"");
+                var idx = selectedIds.indexOf(id);
+                var obj = datas[idx];
+                totalCal -= obj.calories;
+                totalCarb -= obj.carb;
+                totalFat -= obj.fat;
+                totalProt -= obj.prot;
+                totalFiber -= obj.fiber;
+            }
+        }
+        $("#calories-total").attr("value", totalCal+"");
+        $("#fat-total").attr("value", totalFat+"");
+        $("#carbs-total").attr("value", totalCarb+"");
+        $("#protein-total").attr("value", totalProt+"");
+        $("#fiber-total").attr("value", totalFiber+"");
+        resetTotalColors();
     });
 
     $(".recipe-add-btn").click((e) => {
@@ -40,7 +105,7 @@ $(document).ready(() => {
         if(selectedIds.includes(id)) {
             var newVal = parseInt($("#"+id+"-row td:nth-child(7)").text()) + 1;
             $("#"+id+"-row td:nth-child(7)").text(newVal);
-            $("#"+id+"-row input:nth-child(9)").attr("value", newVal+"");
+            $("#"+id+"-row input:nth-child(10)").attr("value", newVal+"");
             var idx = selectedIds.indexOf(id);
             var obj = datas[idx];
             totalCal += obj.calories;
@@ -50,7 +115,7 @@ $(document).ready(() => {
             totalFiber += obj.fiber;
         } else {
             var content =
-                "<tr id=\"" + id + "-row\">\n" +
+                "<tr id=\"" + id + "-row\" class=\"obj-ids\">\n" +
                 "    <td>" + $("#" + id + "-name").attr('value') + "</td>\n" +
                 "    <td>" + $("#" + id + "-cal").attr('value') + "</td>\n" +
                 "    <td>" + $("#" + id + "-fat").attr('value') + "</td>\n" +
@@ -58,6 +123,10 @@ $(document).ready(() => {
                 "    <td>" + $("#" + id + "-prot").attr('value') + "</td>\n" +
                 "    <td>" + $("#" + id + "-fiber").attr('value') + "</td>\n" +
                 "    <td>1</td>\n" +
+                "    <td>\n" +
+                "        <i class=\"material-icons add-remove-btn\" th:id=\""+id+"-add\">add</i>\n" +
+                "        <i class=\"material-icons add-remove-btn\" th:id=\""+id+"-min\">remove</i>\n" +
+                "    </td>\n" +
                 "    <input type=\"hidden\" name=\"recipe\" value=\"" + $("#" + id + "-id").attr('value') + "\"/>\n" +
                 "    <input type=\"hidden\" name=\"recipeAmount\" value=\"1\"/>\n" +
                 "</tr>";
@@ -77,35 +146,11 @@ $(document).ready(() => {
             totalFiber += parseFloat($("#" + id + "-fiber").attr('value'));
         }
         $("#calories-total").attr("value", totalCal+"");
-        if(parseFloat($("#calories-goals").val())<totalCal) {
-            $("#calories-total").css("color", "red");
-        } else {
-            $("#calories-total").css("color", "rgba(0,0,0,0.42)");
-        }
         $("#fat-total").attr("value", totalFat+"");
-        if(parseFloat($("#fat-goals").val())<totalFat) {
-            $("#fat-total").css("color", "red");
-        } else {
-            $("#fat-total").css("color", "rgba(0,0,0,0.42)");
-        }
         $("#carbs-total").attr("value", totalCarb+"");
-        if(parseFloat($("#carbs-goals").val())<totalCarb) {
-            $("#carbs-total").css("color", "red");
-        } else {
-            $("#carbs-total").css("color", "rgba(0,0,0,0.42)");
-        }
         $("#protein-total").attr("value", totalProt+"");
-        if(parseFloat($("#protein-goals").val())<totalProt) {
-            $("#protein-total").css("color", "red");
-        } else {
-            $("#protein-total").css("color", "rgba(0,0,0,0.42)");
-        }
         $("#fiber-total").attr("value", totalFiber+"");
-        if(parseFloat($("#fiber-goals").val())<totalFiber) {
-            $("#fiber-total").css("color", "red");
-        } else {
-            $("#fiber-total").css("color", "rgba(0,0,0,0.42)");
-        }
+        resetTotalColors();
     });
 
     $(".item-add-btn").click((e) => {
@@ -113,7 +158,7 @@ $(document).ready(() => {
         if(selectedIds.includes(id)) {
             var newVal = parseInt($("#"+id+"-row td:nth-child(7)").text()) + 1;
             $("#"+id+"-row td:nth-child(7)").text(newVal);
-            $("#"+id+"-row input:nth-child(9)").attr("value", newVal+"");
+            $("#"+id+"-row input:nth-child(10)").attr("value", newVal+"");
             var idx = selectedIds.indexOf(id);
             var obj = datas[idx];
             totalCal += obj.calories;
@@ -123,7 +168,7 @@ $(document).ready(() => {
             totalFiber += obj.fiber;
         } else {
             var content =
-                "<tr id=\"" + id + "-row\">\n" +
+                "<tr id=\"" + id + "-row\" class=\"obj-ids\">\n" +
                 "    <td>" + $("#" + id + "-name").attr('value') + "</td>\n" +
                 "    <td>" + $("#" + id + "-cal").attr('value') + "</td>\n" +
                 "    <td>" + $("#" + id + "-fat").attr('value') + "</td>\n" +
@@ -131,6 +176,10 @@ $(document).ready(() => {
                 "    <td>" + $("#" + id + "-prot").attr('value') + "</td>\n" +
                 "    <td>" + $("#" + id + "-fiber").attr('value') + "</td>\n" +
                 "    <td>1</td>\n" +
+                "    <td>\n" +
+                "        <i class=\"material-icons add-remove-btn\" th:id=\""+id+"-add\">add</i>\n" +
+                "        <i class=\"material-icons add-remove-btn\" th:id=\""+id+"-min\">remove</i>\n" +
+                "    </td>\n" +
                 "    <input type=\"hidden\" name=\"item\" value=\"" + $("#" + id + "-id").attr('value') + "\"/>\n" +
                 "    <input type=\"hidden\" name=\"itemAmount\" value=\"1\"/>\n" +
                 "</tr>";
@@ -150,34 +199,10 @@ $(document).ready(() => {
             totalFiber += parseFloat($("#" + id + "-fiber").attr('value'));
         }
         $("#calories-total").attr("value", totalCal+"");
-        if(parseFloat($("#calories-goals").attr("value"))<totalCal) {
-            $("#calories-total").css("color", "red");
-        } else {
-            $("#calories-total").css("color", "rgba(0,0,0,0.42)");
-        }
         $("#fat-total").attr("value", totalFat+"");
-        if(parseFloat($("#fat-goals").attr("value"))<totalFat) {
-            $("#fat-total").css("color", "red");
-        } else {
-            $("#fat-total").css("color", "rgba(0,0,0,0.42)");
-        }
         $("#carbs-total").attr("value", totalCarb+"");
-        if(parseFloat($("#carbs-goals").attr("value"))<totalCarb) {
-            $("#carbs-total").css("color", "red");
-        } else {
-            $("#carbs-total").css("color", "rgba(0,0,0,0.42)");
-        }
         $("#protein-total").attr("value", totalProt+"");
-        if(parseFloat($("#protein-goals").attr("value"))<totalProt) {
-            $("#protein-total").css("color", "red");
-        } else {
-            $("#protein-total").css("color", "rgba(0,0,0,0.42)");
-        }
         $("#fiber-total").attr("value", totalFiber+"");
-        if(parseFloat($("#fiber-goals").attr("value"))<totalFiber) {
-            $("#fiber-total").css("color", "red");
-        } else {
-            $("#fiber-total").css("color", "rgba(0,0,0,0.42)");
-        }
+        resetTotalColors();
     });
 });

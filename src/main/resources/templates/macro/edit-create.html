@@ -213,6 +213,7 @@
 </div>
 <div th:if="${mode == 'edit'}">
     <form th:action="@{/macro/edit}" method="post" th:object="${macros}" class="col s10 offset-s1">
+        <input type="hidden" name="macroId" th:value="${macros.id}"/>
         <div class="row">
             <div class="col s6 offset-s3 input-field">
                 <input id="macro-title" type="text" class="validate active" th:field="*{title}" required="" aria-required="true"/>
@@ -287,20 +288,44 @@
                         <th>Prot (g)</th>
                         <th>Fiber (g)</th>
                         <th>Servings</th>
+                        <th>Edit Amt.</th>
                     </tr>
                     </thead>
                     <tbody id="item-insert">
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <input type=\"hidden\" name=\"recipe\" value=\"" + $("#" + id + "-id").attr('value') + "\"/>
-                        <input type=\"hidden\" name=\"recipeAmount\" value=\"1\"/>
-                    </tr>
+                    <div th:each="recView : ${recViewsRoutine}">
+                        <tr th:id="${'r-'+recView.id+'-row'}" class="obj-ids">
+                            <td th:text="${recView.title}"></td>
+                            <td th:text="${recView.getTotalCal()}"></td>
+                            <td th:text="${recView.getTotalFat()}"></td>
+                            <td th:text="${recView.getTotalCarb()}"></td>
+                            <td th:text="${recView.getTotalProt()}"></td>
+                            <td th:text="${recView.getTotalFiber()}"></td>
+                            <td th:text="${recView.macRecAmount}"></td>
+                            <td>
+                                <i class="material-icons add-remove-btn" th:id="${'r-'+recView.id+'-add'}">add</i>
+                                <i class="material-icons add-remove-btn" th:id="${'r-'+recView.id+'-min'}">remove</i>
+                            </td>
+                            <input type="hidden" name="recipe" th:value="${recView.id}"/>
+                            <input type="hidden" name="recipeAmount" th:value="${recView.macRecAmount}"/>
+                        </tr>
+                    </div>
+                    <div th:each="macroItem : ${macroItems}">
+                        <tr th:id="${'i-'+macroItem.item.id+'-row'}" class="obj-ids">
+                            <td th:text="${macroItem.item.name}"></td>
+                            <td th:text="${macroItem.item.cal}"></td>
+                            <td th:text="${macroItem.item.fat}"></td>
+                            <td th:text="${macroItem.item.carb}"></td>
+                            <td th:text="${macroItem.item.prot}"></td>
+                            <td th:text="${macroItem.item.fiber}"></td>
+                            <td th:text="${macroItem.quantityInGrams}"></td>
+                            <td>
+                                <i class="material-icons add-remove-btn" th:id="${'i-'+macroItem.item.id+'-add'}">add</i>
+                                <i class="material-icons add-remove-btn" th:id="${'i-'+macroItem.item.id+'-min'}">remove</i>
+                            </td>
+                            <input type="hidden" name="item" th:value="${macroItem.item.id}"/>
+                            <input type="hidden" name="itemAmount" th:value="${macroItem.quantityInGrams}"/>
+                        </tr>
+                    </div>
                     </tbody>
                 </table>
             </div>
@@ -359,7 +384,7 @@
                         </div>
                         <div class="row">
                             <div class="col s12 center-align">
-                                <a th:href="@{/macro/create/recipe/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Recipe</a>
+                                <a th:href="@{/macro/edit/{id}/recipe/create(id=${macros.id})}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Recipe</a>
                             </div>
                         </div>
                     </div>
@@ -369,7 +394,7 @@
                 <div class="section"> <!--recipe-->
                     <div class="row scrolling-wrapper card-scroll">
                         <br/>
-                        <div class="col s12 m4" th:each="invRec : ${invArr}">
+                        <div class="col s12" th:each="invRec : ${invArr}">
                             <input th:id="${'i-'+invRec.item.id+'-id'}" type="hidden" th:value="${invRec.item.id}"/>
                             <input th:id="${'i-'+invRec.item.id+'-name'}" type="hidden" th:value="${invRec.item.name}"/>
                             <input th:id="${'i-'+invRec.item.id+'-cal'}" type="hidden" th:value="${invRec.item.cal}"/>
@@ -410,7 +435,7 @@
                         </div>
                         <div class="row">
                             <div class="col s12 center-align">
-                                <a th:href="@{/macro/create/food-item/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Food Item</a>
+                                <a th:href="@{/macro/edit/{id}/food-item/create(id=${macros.id})}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Food Item</a>
                             </div>
                         </div>
                     </div>
@@ -428,6 +453,20 @@
             </div>
         </div>
     </form>
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <div class="row">
+                <div class="col s8 offset-s2">
+                    <form th:action="@{/macro/delete}" method="post">
+                        <input type="hidden" name="macroId" th:value="${macros.id}"/>
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Delete
+                            <i class="material-icons right">delete</i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div th:replace="fragments/footer :: footer"></div>
 <div th:replace="fragments/js-footer-fragment :: js-partial"></div>
