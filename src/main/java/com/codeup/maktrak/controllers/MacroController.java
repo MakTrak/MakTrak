@@ -108,7 +108,9 @@ public class MacroController {
 
     @GetMapping("/macro/inventory")
     public String showMacros(Model m) {
-       User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-       return "macro/index";
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ArrayList<MacroView> macViews = service.findMacroDetails(user);
+        m.addAttribute("macViews", macViews);
+        return "macro/index";
     }
 }

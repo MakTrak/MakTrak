@@ -197,6 +197,53 @@ public class DaoOpService {
         return macroDao.findByOwner(user);
     }
 
+    public ArrayList<MacroView> findMacroDetails(User user) {
+        ArrayList<MacroView> retval = new ArrayList<>();
+        List<DailyMacro> macros = findMacrosByUser(user);
+        for(DailyMacro macro : macros) {
+            MacroView macView = new MacroView(macro);
+            double totalCal = 0;
+            double totalCarb = 0;
+            double totalProt = 0;
+            double totalFiber = 0;
+            double totalFat = 0;
+            List<MacroFoodItem> macItems = findMacroItemByMacro(macro);
+            ArrayList<String> itemNames = new ArrayList<>();
+            HashMap<String, Double> missingItemsAndAmount = new HashMap<>();
+            for(MacroFoodItem macItem : macItems) {
+                totalCal += macItem.getItem().getCal()*macItem.getQuantityInGrams();
+                totalCarb += macItem.getItem().getCarb()*macItem.getQuantityInGrams();
+                totalProt += macItem.getItem().getProt()*macItem.getQuantityInGrams();
+                totalFiber += macItem.getItem().getFiber()*macItem.getQuantityInGrams();
+                totalFat += macItem.getItem().getFat()*macItem.getQuantityInGrams();
+                itemNames.add(macItem.getItem().getName());
+                InventoryRecord invRec = invDao.findByOwnerAndItem(user, macItem.getItem());
+                if(macItem.getQuantityInGrams() > invRec.getQuantity()) {
+                    double missingAmount = (macItem.getQuantityInGrams() - invRec.getQuantity())*(macItem.getItem().getServingSizeInGrams());
+                    missingItemsAndAmount.put(macItem.getItem().getName(), missingAmount);
+                }
+            }
+            ArrayList<RecipeView> recViews = findRecViewByMacro(macro);
+            for(RecipeView recView : recViews) {
+                totalCal += recView.getTotalCal()*recView.getMacRecAmount();
+                totalCarb += recView.getTotalCarb()*recView.getMacRecAmount();
+                totalProt += recView.getTotalProt()*recView.getMacRecAmount();
+                totalFiber += recView.getTotalFiber()*recView.getMacRecAmount();
+                totalFat += recView.getTotalFat()*recView.getMacRecAmount();
+                itemNames.add("(Recipe) "+recView.getTitle());
+            }
+            macView.setCalTotal(totalCal);
+            macView.setCarbTotal(totalCarb);
+            macView.setProtTotal(totalProt);
+            macView.setFiberTotal(totalFiber);
+            macView.setFatTotal(totalFat);
+            macView.setItemNames(itemNames);
+            retval.add(macView);
+        }
+        return retval;
+    }
+
+
     public DailyMacro findMacroById(long id) {
         return macroDao.findOne(id);
     }
