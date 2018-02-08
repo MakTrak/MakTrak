@@ -283,3 +283,15 @@ input {
   width: 50%;
   margin:0 auto;
 }
+.min-table {
+  height: inherit;
+}
+
+.center-panel {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.add-remove-btn {
+  cursor: pointer;
+}

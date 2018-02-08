@@ -10,4 +10,5 @@ import java.util.List;
 public interface RecipeItemRepository extends CrudRepository<RecipeFoodItem, Long> {
     RecipeFoodItem findByRecipeAndItem(Recipe recipe, FoodItem item);
     List<RecipeFoodItem> findByRecipe(Recipe recipe);
+    List<RecipeFoodItem> findByItem(FoodItem item);
 }

@@ -25,6 +25,7 @@ public class RecipeController {
         Recipe recipe = new Recipe();
         m.addAttribute("mode", "add");
         m.addAttribute("recipe", recipe);
+        m.addAttribute("redirect", "none");
         m.addAttribute("items", service.findFoodItemsOwnedByUser(user));
         return "recipe/edit-create";
     }
@@ -46,6 +47,7 @@ public class RecipeController {
         Recipe recipe = service.findRecipeById(id);
         m.addAttribute("mode", "edit");
         m.addAttribute("recipe", recipe);
+        m.addAttribute("redirect", "none");
         m.addAttribute("itemsInRecipe", service.findRecipeFoodItemsInRecipe(recipe));
         m.addAttribute("itemsNotInRecipe", service.findFoodItemsNotInRecipe(recipe, user));
         return "recipe/edit-create";
@@ -69,6 +71,13 @@ public class RecipeController {
         return "redirect:/recipe/inventory";
     }
 
+    @PostMapping("/macro/create/recipe/delete/{id}")
+    public String deleteRecipeInMacro(@PathVariable long id) {
+        Recipe recipe = service.findRecipeById(id);
+        service.removeRecipe(recipe);
+        return "redirect:/macro/create";
+    }
+
     @GetMapping("/recipe/inventory")
     public String listAllRecipes(Model m) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -81,5 +90,50 @@ public class RecipeController {
         }
         m.addAttribute("recViews", recViews);
         return "recipe/index";
+    }
+
+    @GetMapping("/macro/create/recipe/create")
+    public String createRecipeFormFromMacro(Model m) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Recipe recipe = new Recipe();
+        m.addAttribute("mode", "add");
+        m.addAttribute("redirect", "macroCreate");
+        m.addAttribute("recipe", recipe);
+        m.addAttribute("items", service.findFoodItemsOwnedByUser(user));
+        return "recipe/edit-create";
+    }
+
+    @PostMapping("/macro/create/recipe/create")
+    public String postNewRecipeFromMacro(@RequestParam(name = "num-servings") double servings, @RequestParam(name = "itemQuantity") List<Double> itemQuantity, @RequestParam(name = "itemIds") List<Long> selectedItemIds, @ModelAttribute Recipe recipe) {
+        if(itemQuantity.size() != selectedItemIds.size() || itemQuantity.contains(null)) {
+            return "redirect:/macro/create/recipe/create";
+        } else {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            service.createNewRecipe(user, itemQuantity, selectedItemIds, recipe, servings);
+            return "redirect:/macro/create";
+        }
+    }
+
+    @GetMapping("/macro/edit/{id}/recipe/create")
+    public String createRecipeFormfromEditMacro(@PathVariable long id, Model m) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Recipe recipe = new Recipe();
+        m.addAttribute("mode", "add");
+        m.addAttribute("redirect", "macroEdit");
+        m.addAttribute("macroId", id);
+        m.addAttribute("recipe", recipe);
+        m.addAttribute("items", service.findFoodItemsOwnedByUser(user));
+        return "recipe/edit-create";
+    }
+
+    @PostMapping("/macro/edit/recipe/create")
+    public String postNewRecipefromEditMacro(@RequestParam(name = "macroId") long macroId, @RequestParam(name = "num-servings") double servings, @RequestParam(name = "itemQuantity") List<Double> itemQuantity, @RequestParam(name = "itemIds") List<Long> selectedItemIds, @ModelAttribute Recipe recipe) {
+        if(itemQuantity.size() != selectedItemIds.size() || itemQuantity.contains(null)) {
+            return "redirect:/macro/edit/"+macroId+"/recipe/create";
+        } else {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            service.createNewRecipe(user, itemQuantity, selectedItemIds, recipe, servings);
+            return "redirect:/macro/edit/"+macroId;
+        }
     }
 }

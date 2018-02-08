@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="fragments/file-header-fragment :: head-partial('Login Page')"></head>
+<body>
+<div th:replace="fragments/nav :: nav"></div>
+<br/>
+<div th:if="${mode == 'add'}">
+    <form th:action="@{/macro/create}" method="post" th:object="${macros}" class="col s10 offset-s1">
+        <div class="row">
+            <div class="col s6 offset-s3 input-field">
+                <input id="macro-title" type="text" class="validate active" th:field="*{title}" required="" aria-required="true"/>
+                <label for="macro-title">Give This Routine a Title</label>
+            </div>
+        </div>
+        <hr/>
+        <h3 class="center-align">Your Goals</h3>
+        <hr/>
+        <div class="row">
+            <div class="col s2 input-field">
+                <h6 class="right-align">Your Goals</h6>
+            </div>
+            <div class="col s2 input-field">
+                <input id="calories-goals" type="text" class="validate active" th:field="*{cal}" required="" aria-required="true"/>
+                <label for="calories-goals">Calories</label>
+            </div>
+            <div class="col s2 input-field">
+                <input id="fat-goals" type="text" class="validate active" th:field="*{fat}" required="" aria-required="true"/>
+                <label for="fat-goals">Fat</label>
+            </div>
+            <div class="col s2 input-field">
+                <input id="carbs-goals" type="text" class="validate active" th:field="*{carb}" required="" aria-required="true"/>
+                <label for="carbs-goals">Carbs</label>
+            </div>
+            <div class="col s2 input-field">
+                <input id="protein-goals" type="text" class="validate active" th:field="*{prot}" required="" aria-required="true"/>
+                <label for="protein-goals">Protein</label>
+            </div>
+            <div class="col s2 input-field">
+                <input id="fiber-goals" type="text" class="validate active" th:field="*{fiber}" required="" aria-required="true"/>
+                <label for="fiber-goals">Fiber</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s2 input-field">
+                <h6 class="right-align">Your Total</h6>
+            </div>
+            <div class="col s2 input-field">
+                <input disabled="disabled" id="calories-total" type="text" class="validate" value="0"/>
+                <label for="calories-total">Calories</label>
+            </div>
+            <div class="col s2 input-field">
+                <input disabled="disabled" id="fat-total" type="text" class="validate" value="0"/>
+                <label for="fat-total">Fat</label>
+            </div>
+            <div class="col s2 input-field">
+                <input disabled="disabled" id="carbs-total" type="text" class="validate" value="0"/>
+                <label for="carbs-total">Carbs</label>
+            </div>
+            <div class="col s2 input-field">
+                <input disabled="disabled" id="protein-total" type="text" class="validate" value="0"/>
+                <label for="protein-total">Protein</label>
+            </div>
+            <div class="col s2 input-field">
+                <input disabled="disabled" id="fiber-total" type="text" class="validate" value="0"/>
+                <label for="fiber-total">Fiber</label>
+            </div>
+        </div>
+        <br/>
+        <h3 class="center-align">Your Routine for The Day</h3>
+        <hr/>
+        <div class="row">
+            <div class="col s10 offset-s1">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Cal (kcal)</th>
+                        <th>Fat (g)</th>
+                        <th>Carb (g)</th>
+                        <th>Prot (g)</th>
+                        <th>Fiber (g)</th>
+                        <th>Servings</th>
+                    </tr>
+                    </thead>
+                    <tbody id="item-insert">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br/>
+        <h3 class="center-align">Your Stuff</h3>
+        <hr/>
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s6"><a class="active" href="#recipes">Recipes</a></li>
+                    <li class="tab col s6"><a href="#foods">Foods</a></li>
+                </ul>
+            </div>
+            <div id="recipes" class="col s12">
+                <div class="section"> <!--recipe-->
+                    <div class="row scrolling-wrapper card-scroll">
+                        <br/>
+                        <div th:each="recView : ${recViews}">
+                            <input th:id="${'r-'+recView.id+'-id'}" type="hidden" th:value="${recView.id}"/>
+                            <input th:id="${'r-'+recView.id+'-name'}" type="hidden" th:value="${recView.title}"/>
+                            <input th:id="${'r-'+recView.id+'-cal'}" type="hidden" th:value="${recView.getTotalCal()}"/>
+                            <input th:id="${'r-'+recView.id+'-fat'}" type="hidden" th:value="${recView.getTotalFat()}"/>
+                            <input th:id="${'r-'+recView.id+'-carb'}" type="hidden" th:value="${recView.getTotalCarb()}"/>
+                            <input th:id="${'r-'+recView.id+'-prot'}" type="hidden" th:value="${recView.getTotalProt()}"/>
+                            <input th:id="${'r-'+recView.id+'-fiber'}" type="hidden" th:value="${recView.getTotalFiber()}"/>
+                            <div class="card blue-grey darken-1">
+                                <div class="card-content white-text">
+                                    <span class="card-title" th:text="${recView.title}"></span>
+                                    <p th:text="${'Calories: '+recView.getTotalCal()+' per serving'}"></p>
+                                    <p>Nutrition in grams:</p>
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>Fat</th>
+                                            <th>Carb</th>
+                                            <th>Prot</th>
+                                            <th>Fib</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td th:text="${recView.getTotalFat()+'g'}"></td>
+                                            <td th:text="${recView.getTotalCarb()+'g'}"></td>
+                                            <td th:text="${recView.getTotalProt()+'g'}"></td>
+                                            <td th:text="${recView.getTotalFiber()+'g'}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <p th:text="${recView.description}"></p>
+                                </div>
+                                <div class="card-action">
+                                    <a class="recipe-add-btn" th:id="${'r-'+recView.id}" href="#item-insert">Add To Macro</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 center-align">
+                                <a th:href="@{/macro/create/recipe/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Recipe</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="foods" class="col s12">
+                <div class="section"> <!--recipe-->
+                    <div class="row scrolling-wrapper card-scroll">
+                        <br/>
+                        <div class="col s12 m4" th:each="invRec : ${invArr}">
+                            <input th:id="${'i-'+invRec.item.id+'-id'}" type="hidden" th:value="${invRec.item.id}"/>
+                            <input th:id="${'i-'+invRec.item.id+'-name'}" type="hidden" th:value="${invRec.item.name}"/>
+                            <input th:id="${'i-'+invRec.item.id+'-cal'}" type="hidden" th:value="${invRec.item.cal}"/>
+                            <input th:id="${'i-'+invRec.item.id+'-serving'}" type="hidden" th:value="${invRec.item.servingSizeInGrams}"/>
+                            <input th:id="${'i-'+invRec.item.id+'-fat'}" type="hidden" th:value="${invRec.item.fat}"/>
+                            <input th:id="${'i-'+invRec.item.id+'-carb'}" type="hidden" th:value="${invRec.item.carb}"/>
+                            <input th:id="${'i-'+invRec.item.id+'-prot'}" type="hidden" th:value="${invRec.item.prot}"/>
+                            <input th:id="${'i-'+invRec.item.id+'-fiber'}" type="hidden" th:value="${invRec.item.fiber}"/>
+                            <div class="card blue-grey darken-1">
+                                <div class="card-content white-text">
+                                    <span class="card-title" th:text="${invRec.item.name}"></span>
+                                    <p th:text="${'Calories: '+invRec.item.cal+' per serving'}"></p>
+                                    <p th:text="${'Serving Size: '+invRec.item.servingSizeInGrams+'g'}"></p>
+                                    <p>Nutrition in grams:</p>
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>Fat</th>
+                                            <th>Carb</th>
+                                            <th>Prot</th>
+                                            <th>Fib</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td th:text="${invRec.item.fat+'g'}"></td>
+                                            <td th:text="${invRec.item.carb+'g'}"></td>
+                                            <td th:text="${invRec.item.prot+'g'}"></td>
+                                            <td th:text="${invRec.item.fiber+'g'}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="card-action">
+                                    <a class="item-add-btn" th:id="${'i-'+invRec.item.id}" href="#item-insert">Add To Macro</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 center-align">
+                                <a th:href="@{/macro/create/food-item/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Food Item</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s4 offset-s2">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+            <div class="col s4">
+                <a th:href="@{/dashboard}" class="btn waves-effect waves-light">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:if="${mode == 'edit'}">
+    <form th:action="@{/macro/edit}" method="post" th:object="${macros}" class="col s10 offset-s1">
+        <input type="hidden" name="macroId" th:value="${macros.id}"/>
+        <div class="row">
+            <div class="col s6 offset-s3 input-field">
+                <input id="macro-title" type="text" class="validate active" th:field="*{title}" required="" aria-required="true"/>
+                <label for="macro-title">Give This Routine a Title</label>
+            </div>
+        </div>
+        <hr/>
+        <h3 class="center-align">Your Goals</h3>
+        <hr/>
+        <div class="row">
+            <div class="col s2 input-field">
+                <h6 class="right-align">Your Goals</h6>
+            </div>
+            <div class="col s2 input-field">
+                <input id="calories-goals" type="text" class="validate active" th:field="*{cal}" required="" aria-required="true"/>
+                <label for="calories-goals">Calories</label>
+            </div>
+            <div class="col s2 input-field">
+                <input id="fat-goals" type="text" class="validate active" th:field="*{fat}" required="" aria-required="true"/>
+                <label for="fat-goals">Fat</label>
+            </div>
+            <div class="col s2 input-field">
+                <input id="carbs-goals" type="text" class="validate active" th:field="*{carb}" required="" aria-required="true"/>
+                <label for="carbs-goals">Carbs</label>
+            </div>
+            <div class="col s2 input-field">
+                <input id="protein-goals" type="text" class="validate active" th:field="*{prot}" required="" aria-required="true"/>
+                <label for="protein-goals">Protein</label>
+            </div>
+            <div class="col s2 input-field">
+                <input id="fiber-goals" type="text" class="validate active" th:field="*{fiber}" required="" aria-required="true"/>
+                <label for="fiber-goals">Fiber</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s2 input-field">
+                <h6 class="right-align">Your Total</h6>
+            </div>
+            <div class="col s2 input-field">
+                <input disabled="disabled" id="calories-total" type="text" class="validate" value="0"/>
+                <label for="calories-total">Calories</label>
+            </div>
+            <div class="col s2 input-field">
+                <input disabled="disabled" id="fat-total" type="text" class="validate" value="0"/>
+                <label for="fat-total">Fat</label>
+            </div>
+            <div class="col s2 input-field">
+                <input disabled="disabled" id="carbs-total" type="text" class="validate" value="0"/>
+                <label for="carbs-total">Carbs</label>
+            </div>
+            <div class="col s2 input-field">
+                <input disabled="disabled" id="protein-total" type="text" class="validate" value="0"/>
+                <label for="protein-total">Protein</label>
+            </div>
+            <div class="col s2 input-field">
+                <input disabled="disabled" id="fiber-total" type="text" class="validate" value="0"/>
+                <label for="fiber-total">Fiber</label>
+            </div>
+        </div>
+        <br/>
+        <h3 class="center-align">Your Routine for The Day</h3>
+        <hr/>
+        <div class="row">
+            <div class="col s10 offset-s1">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Cal (kcal)</th>
+                        <th>Fat (g)</th>
+                        <th>Carb (g)</th>
+                        <th>Prot (g)</th>
+                        <th>Fiber (g)</th>
+                        <th>Servings</th>
+                        <th>Edit Amt.</th>
+                    </tr>
+                    </thead>
+                    <tbody id="item-insert">
+                    <div th:each="recView : ${recViewsRoutine}">
+                        <tr th:id="${'r-'+recView.id+'-row'}" class="obj-ids">
+                            <td th:text="${recView.title}"></td>
+                            <td th:text="${recView.getTotalCal()}"></td>
+                            <td th:text="${recView.getTotalFat()}"></td>
+                            <td th:text="${recView.getTotalCarb()}"></td>
+                            <td th:text="${recView.getTotalProt()}"></td>
+                            <td th:text="${recView.getTotalFiber()}"></td>
+                            <td th:text="${recView.macRecAmount}"></td>
+                            <td>
+                                <i class="material-icons add-remove-btn" th:id="${'r-'+recView.id+'-add'}">add</i>
+                                <i class="material-icons add-remove-btn" th:id="${'r-'+recView.id+'-min'}">remove</i>
+                            </td>
+                            <input type="hidden" name="recipe" th:value="${recView.id}"/>
+                            <input type="hidden" name="recipeAmount" th:value="${recView.macRecAmount}"/>
+                        </tr>
+                    </div>
+                    <div th:each="macroItem : ${macroItems}">
+                        <tr th:id="${'i-'+macroItem.item.id+'-row'}" class="obj-ids">
+                            <td th:text="${macroItem.item.name}"></td>
+                            <td th:text="${macroItem.item.cal}"></td>
+                            <td th:text="${macroItem.item.fat}"></td>
+                            <td th:text="${macroItem.item.carb}"></td>
+                            <td th:text="${macroItem.item.prot}"></td>
+                            <td th:text="${macroItem.item.fiber}"></td>
+                            <td th:text="${macroItem.quantityInGrams}"></td>
+                            <td>
+                                <i class="material-icons add-remove-btn" th:id="${'i-'+macroItem.item.id+'-add'}">add</i>
+                                <i class="material-icons add-remove-btn" th:id="${'i-'+macroItem.item.id+'-min'}">remove</i>
+                            </td>
+                            <input type="hidden" name="item" th:value="${macroItem.item.id}"/>
+                            <input type="hidden" name="itemAmount" th:value="${macroItem.quantityInGrams}"/>
+                        </tr>
+                    </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br/>
+        <h3 class="center-align">Your Stuff</h3>
+        <hr/>
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s6"><a class="active" href="#recipes">Recipes</a></li>
+                    <li class="tab col s6"><a href="#foods">Foods</a></li>
+                </ul>
+            </div>
+            <div id="recipes" class="col s12">
+                <div class="section"> <!--recipe-->
+                    <div class="row scrolling-wrapper card-scroll">
+                        <br/>
+                        <div th:each="recView : ${recViews}">
+                            <input th:id="${'r-'+recView.id+'-id'}" type="hidden" th:value="${recView.id}"/>
+                            <input th:id="${'r-'+recView.id+'-name'}" type="hidden" th:value="${recView.title}"/>
+                            <input th:id="${'r-'+recView.id+'-cal'}" type="hidden" th:value="${recView.getTotalCal()}"/>
+                            <input th:id="${'r-'+recView.id+'-fat'}" type="hidden" th:value="${recView.getTotalFat()}"/>
+                            <input th:id="${'r-'+recView.id+'-carb'}" type="hidden" th:value="${recView.getTotalCarb()}"/>
+                            <input th:id="${'r-'+recView.id+'-prot'}" type="hidden" th:value="${recView.getTotalProt()}"/>
+                            <input th:id="${'r-'+recView.id+'-fiber'}" type="hidden" th:value="${recView.getTotalFiber()}"/>
+                            <div class="card blue-grey darken-1">
+                                <div class="card-content white-text">
+                                    <span class="card-title" th:text="${recView.title}"></span>
+                                    <p th:text="${'Calories: '+recView.getTotalCal()+' per serving'}"></p>
+                                    <p>Nutrition in grams:</p>
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>Fat</th>
+                                            <th>Carb</th>
+                                            <th>Prot</th>
+                                            <th>Fib</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td th:text="${recView.getTotalFat()+'g'}"></td>
+                                            <td th:text="${recView.getTotalCarb()+'g'}"></td>
+                                            <td th:text="${recView.getTotalProt()+'g'}"></td>
+                                            <td th:text="${recView.getTotalFiber()+'g'}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <p th:text="${recView.description}"></p>
+                                </div>
+                                <div class="card-action">
+                                    <a class="recipe-add-btn" th:id="${'r-'+recView.id}" href="#item-insert">Add To Macro</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 center-align">
+                                <a th:href="@{/macro/edit/{id}/recipe/create(id=${macros.id})}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Recipe</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="foods" class="col s12">
+                <div class="section"> <!--recipe-->
+                    <div class="row scrolling-wrapper card-scroll">
+                        <br/>
+                        <div class="col s12" th:each="invRec : ${invArr}">
+                            <input th:id="${'i-'+invRec.item.id+'-id'}" type="hidden" th:value="${invRec.item.id}"/>
+                            <input th:id="${'i-'+invRec.item.id+'-name'}" type="hidden" th:value="${invRec.item.name}"/>
+                            <input th:id="${'i-'+invRec.item.id+'-cal'}" type="hidden" th:value="${invRec.item.cal}"/>
+                            <input th:id="${'i-'+invRec.item.id+'-serving'}" type="hidden" th:value="${invRec.item.servingSizeInGrams}"/>
+                            <input th:id="${'i-'+invRec.item.id+'-fat'}" type="hidden" th:value="${invRec.item.fat}"/>
+                            <input th:id="${'i-'+invRec.item.id+'-carb'}" type="hidden" th:value="${invRec.item.carb}"/>
+                            <input th:id="${'i-'+invRec.item.id+'-prot'}" type="hidden" th:value="${invRec.item.prot}"/>
+                            <input th:id="${'i-'+invRec.item.id+'-fiber'}" type="hidden" th:value="${invRec.item.fiber}"/>
+                            <div class="card blue-grey darken-1">
+                                <div class="card-content white-text">
+                                    <span class="card-title" th:text="${invRec.item.name}"></span>
+                                    <p th:text="${'Calories: '+invRec.item.cal+' per serving'}"></p>
+                                    <p th:text="${'Serving Size: '+invRec.item.servingSizeInGrams+'g'}"></p>
+                                    <p>Nutrition in grams:</p>
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>Fat</th>
+                                            <th>Carb</th>
+                                            <th>Prot</th>
+                                            <th>Fib</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td th:text="${invRec.item.fat+'g'}"></td>
+                                            <td th:text="${invRec.item.carb+'g'}"></td>
+                                            <td th:text="${invRec.item.prot+'g'}"></td>
+                                            <td th:text="${invRec.item.fiber+'g'}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="card-action">
+                                    <a class="item-add-btn" th:id="${'i-'+invRec.item.id}" href="#item-insert">Add To Macro</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 center-align">
+                                <a th:href="@{/macro/edit/{id}/food-item/create(id=${macros.id})}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Food Item</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s4 offset-s2">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+            <div class="col s4">
+                <a th:href="@{/dashboard}" class="btn waves-effect waves-light">Cancel</a>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <div class="row">
+                <div class="col s8 offset-s2">
+                    <form th:action="@{/macro/delete}" method="post">
+                        <input type="hidden" name="macroId" th:value="${macros.id}"/>
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Delete
+                            <i class="material-icons right">delete</i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/js-footer-fragment :: js-partial"></div>
+<script src="/js/macro-script.js"></script>
+</body>
+</html>

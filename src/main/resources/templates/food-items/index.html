@@ -40,45 +40,53 @@
                 <h3 class="center-align">Your current food inventory</h3>
                 <p class="center-align">You can scroll through your food items below, you can also add a new food item <below class=""></below></p>
             </div>
+            <div class="row">
+                <div class="col s12 m4 offset-m4 center-align">
+                    <a th:href="@{/food-item/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Food Item</a>
+                </div>
+            </div>
         </div>
-        <div class="row scrolling-wrapper-food-item card-scroll">
-            <div class="col s12">
-                <div class="card fix card-panel hoverable blue-grey darken-1">
-                    <div class="card-content white-text">
-                        <span class="card-title">Apple</span>
-                        <p>I am a very simple card. I am good at containing small bits of information.
-                            I am convenient because I require little markup to use effectively.</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
+        <div class="row scrolling-wrapper-food-item card-scroll center-panel">
+            <div th:each="invRec : ${invArr}">
+                <div class="col s10 offset-s1">
+                    <div class="card card-panel hoverable blue-grey darken-1">
+                        <div class="card-content white-text">
+                            <span class="card-title" th:text="${invRec.item.name}"></span>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Cal (kcal)</th>
+                                    <th>Fat (g)</th>
+                                    <th>Carb (g)</th>
+                                    <th>Prot (g)</th>
+                                    <th>Fiber (g)</th>
+                                    <th>Serving Size (g)</th>
+                                </tr>
+                                </thead>
+                                <tbody class="min-table">
+                                <tr>
+                                    <td th:text="${invRec.item.cal}"></td>
+                                    <td th:text="${invRec.item.fat}"></td>
+                                    <td th:text="${invRec.item.carb}"></td>
+                                    <td th:text="${invRec.item.prot}"></td>
+                                    <td th:text="${invRec.item.fiber}"></td>
+                                    <td th:text="${invRec.item.servingSizeInGrams}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <p th:text="${'Quantity: '+invRec.quantity}"></p>
+                        </div>
+                        <div class="card-action">
+                            <form th:action="@{/food-item/delete/{id}(id=${invRec.item.id})}" method="post">
+                                <a th:href="@{/food-item/edit/{id}(id=${invRec.item.id})}">Edit</a>
+                                <button type="submit" name="action" class="waves-effect waves-teal btn-flat">Delete</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col s12 m3 center-align">
-                <a th:href="@{/food-item/create}" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Add Food Item</a>
-            </div>
-        </div>
     </div>
-
-
-        <div th:each="invRec : ${invArr}">
-            <h3 th:text="${invRec.item.name}"></h3>
-            <p th:text="${'Calories: '+invRec.item.cal}"></p>
-            <p th:text="${'Fat: '+invRec.item.fat+' g'}"></p>
-            <p th:text="${'Carbs: '+invRec.item.carb+' g'}"></p>
-            <p th:text="${'Protein: '+invRec.item.prot+' g'}"></p>
-            <p th:text="${'Fiber: '+invRec.item.fiber+' g'}"></p>
-            <p th:text="${'Serving Size: '+invRec.item.servingSizeInGrams+' g'}"></p>
-            <p th:text="${'Quantity: '+invRec.quantity}"></p>
-            <a th:href="@{/food-item/edit/{id}(id=${invRec.item.id})}" class="waves-effect waves-light btn">Edit</a>
-            <form th:action="@{/food-item/delete/{id}(id=${invRec.item.id})}" method="post">
-                <button class="waves-effect waves-teal btn-flat">Delete</button>
-            </form>
-        </div>
-
 </div><!-- container -->
 
 <div th:replace="fragments/footer :: footer"></div>
