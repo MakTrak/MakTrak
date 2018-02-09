@@ -24,8 +24,8 @@ public class UserController {
     }
 
     @GetMapping("/sign-up")
-    public String showSignUpForm(Model viewmodel) {
-        viewmodel.addAttribute("user", new User());
+    public String showSignUpForm(Model m) {
+        m.addAttribute("user", new User());
         return "users/sign-up";
     }
 
