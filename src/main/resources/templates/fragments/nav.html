@@ -100,6 +100,7 @@
 
                 <li sec:authorize="!isAuthenticated()"><a class="waves-effect waves-light modal-trigger" href="#modal1">Login</a></li>
                 <li sec:authorize="isAnonymous()"><a class="waves-effect waves-light modal-trigger" href="#modal2">Register</a></li>
+                <li sec:authorize="isAnonymous()"><a class="waves-effect waves-light" href="#">About</a></li>
                 <li sec:authorize="isAuthenticated()"><a class="waves-effect waves-light" th:href="@{/dashboard}">Dashboard</a></li>
                 <li sec:authorize="isAuthenticated()"><a class="waves-effect waves-light" th:href="@{/macro/inventory}">Macros</a></li>
 
@@ -115,10 +116,15 @@
                 </li>
             </ul>
 
-            <ul id="nav-mobile" class="side-nav">
-                <li><a href="/login">Login</a></li>
-                <li><a href="@{/sign-up}">Register</a></li>
+            <ul id="nav-mobile" class="side-nav"><!--moblie nav view-->
+                <li sec:authorize="!isAuthenticated()"><a class="waves-effect waves-light modal-trigger" href="/login">Login</a></li>
+                <li sec:authorize="isAnonymous()"><a class="waves-effect waves-light modal-trigger" href="@{/sign-up}">Register</a></li>
                 <li><a sec:authorize="isAuthenticated()" th:href="@{/logout}">Log out</a></li>
+                <li sec:authorize="isAnonymous()"><a class="waves-effect waves-light" href="#">About</a></li>
+                <li sec:authorize="isAuthenticated()"><a class="waves-effect waves-light" th:href="@{/dashboard}">Dashboard</a></li>
+                <li sec:authorize="isAuthenticated()"><a class="waves-effect waves-light" th:href="@{/macro/inventory}">Macros</a></li>
+                <li><a sec:authorize="isAuthenticated()" th:href="@{/food-item/inventory}" class="modal-trigger modal-close">Food Items</a></li>
+                <li><a sec:authorize="isAuthenticated()" th:href="@{/recipe/inventory}" class="modal-trigger modal-close">Recipes</a></li>
             </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
         </div>
