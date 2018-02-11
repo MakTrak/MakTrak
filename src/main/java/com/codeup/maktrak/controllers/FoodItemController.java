@@ -29,14 +29,29 @@ public class FoodItemController {
         m.addAttribute("redirect", "none");
         m.addAttribute("item", item);
         m.addAttribute("mode", "add");
+        m.addAttribute("error", "");
+        return "food-items/edit-create";
+    }
+
+    @GetMapping("/food-item/create/exists")
+    public String createFoodItemExists(Model m) {
+        FoodItem item = new FoodItem();
+        m.addAttribute("redirect", "none");
+        m.addAttribute("item", item);
+        m.addAttribute("mode", "add");
+        m.addAttribute("error", "You already have an item with that name: Please try again");
         return "food-items/edit-create";
     }
 
     @PostMapping("/food-item/create")
     public String postFoodItem(@RequestParam(name = "quantity") double quantity, @ModelAttribute FoodItem item) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        service.createFoodItemInInventory(user, item, quantity);
-        return "redirect:/food-item/inventory";
+        if(service.foodNameExists(item, user)) {
+            return "redirect:/food-item/create/exists";
+        } else {
+            service.createFoodItemInInventory(user, item, quantity);
+            return "redirect:/food-item/inventory";
+        }
     }
 
     @GetMapping("/food-item/edit/{id}")
@@ -48,14 +63,32 @@ public class FoodItemController {
         m.addAttribute("item", item);
         m.addAttribute("mode", "edit");
         m.addAttribute("quantity", invRec.getQuantity());
+        m.addAttribute("error", "");
+        return "food-items/edit-create";
+    }
+
+    @GetMapping("/food-item/edit/{id}/exists")
+    public String editFoodItemPageExists(@PathVariable long id, Model m) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        FoodItem item = service.findFoodItem(id);
+        InventoryRecord invRec = service.findInventoryRecord(user, item);
+        m.addAttribute("redirect", "none");
+        m.addAttribute("item", item);
+        m.addAttribute("mode", "edit");
+        m.addAttribute("quantity", invRec.getQuantity());
+        m.addAttribute("error", "You already have an item with that name: Please try again");
         return "food-items/edit-create";
     }
 
     @PostMapping("/food-item/edit/{id}")
     public String editFoodItemPost(@RequestParam(name = "quantity") double quantity, @ModelAttribute FoodItem item) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        service.updateFoodItemInInventory(user, item, quantity);
-        return "redirect:/food-item/inventory";
+        if(service.foodNameEditExists(item, user)) {
+            return "redirect:/food-item/edit/"+item.getId()+"/exists";
+        } else {
+            service.updateFoodItemInInventory(user, item, quantity);
+            return "redirect:/food-item/inventory";
+        }
     }
 
     @PostMapping("/food-item/delete/{id}")
@@ -90,14 +123,29 @@ public class FoodItemController {
         m.addAttribute("redirect", "recipeCreate");
         m.addAttribute("item", item);
         m.addAttribute("mode", "add");
+        m.addAttribute("error", "");
+        return "food-items/edit-create";
+    }
+
+    @GetMapping("/recipe/create/food-item/create/exists")
+    public String createFoodItemInRecipeExists(Model m) {
+        FoodItem item = new FoodItem();
+        m.addAttribute("redirect", "recipeCreate");
+        m.addAttribute("item", item);
+        m.addAttribute("mode", "add");
+        m.addAttribute("error", "You already have an item with that name: Please try again");
         return "food-items/edit-create";
     }
 
     @PostMapping("/recipe/create/food-item/create")
     public String postFoodItemInRecipe(@RequestParam(name = "quantity") double quantity, @ModelAttribute FoodItem item) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        service.createFoodItemInInventory(user, item, quantity);
-        return "redirect:/recipe/create";
+        if(service.foodNameExists(item, user)) {
+            return "redirect:/recipe/create/food-item/create/exists";
+        } else {
+            service.createFoodItemInInventory(user, item, quantity);
+            return "redirect:/recipe/create";
+        }
     }
 
     @GetMapping("/recipe/edit/{id}/food-item/create")
@@ -107,14 +155,30 @@ public class FoodItemController {
         m.addAttribute("recipeId", id);
         m.addAttribute("item", item);
         m.addAttribute("mode", "add");
+        m.addAttribute("error", "");
+        return "food-items/edit-create";
+    }
+
+    @GetMapping("/recipe/edit/{id}/food-item/create/exists")
+    public String createFoodItemInEditRecipeExists(@PathVariable long id, Model m) {
+        FoodItem item = new FoodItem();
+        m.addAttribute("redirect", "recipeEdit");
+        m.addAttribute("recipeId", id);
+        m.addAttribute("item", item);
+        m.addAttribute("mode", "add");
+        m.addAttribute("error", "You already have an item with that name: Please try again");
         return "food-items/edit-create";
     }
 
     @PostMapping("/recipe/edit/food-item/create")
     public String postFoodItemInEditRecipe(@RequestParam(name = "recipeId") long recipeId, @RequestParam(name = "quantity") double quantity, @ModelAttribute FoodItem item) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        service.createFoodItemInInventory(user, item, quantity);
-        return "redirect:/recipe/edit/"+recipeId;
+        if(service.foodNameExists(item, user)) {
+            return "redirect:/recipe/edit/"+recipeId+"/food-item/create/exists";
+        } else {
+            service.createFoodItemInInventory(user, item, quantity);
+            return "redirect:/recipe/edit/"+recipeId;
+        }
     }
 
     @GetMapping("/macro/create/food-item/create")
@@ -123,14 +187,29 @@ public class FoodItemController {
         m.addAttribute("redirect", "macroCreate");
         m.addAttribute("item", item);
         m.addAttribute("mode", "add");
+        m.addAttribute("error", "");
+        return "food-items/edit-create";
+    }
+
+    @GetMapping("/macro/create/food-item/create/exists")
+    public String createFoodItemInMacroExists(Model m) {
+        FoodItem item = new FoodItem();
+        m.addAttribute("redirect", "macroCreate");
+        m.addAttribute("item", item);
+        m.addAttribute("mode", "add");
+        m.addAttribute("error", "You already have an item with that name: Please try again");
         return "food-items/edit-create";
     }
 
     @PostMapping("/macro/create/food-item/create")
     public String postFoodItemInMacro(@RequestParam(name = "quantity") double quantity, @ModelAttribute FoodItem item) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        service.createFoodItemInInventory(user, item, quantity);
-        return "redirect:/macro/create";
+        if(service.foodNameExists(item, user)) {
+            return "redirect:/macro/create/food-item/create/exists";
+        } else {
+            service.createFoodItemInInventory(user, item, quantity);
+            return "redirect:/macro/create";
+        }
     }
 
     @GetMapping("/macro/edit/{id}/food-item/create")
@@ -140,14 +219,29 @@ public class FoodItemController {
         m.addAttribute("macroId", id);
         m.addAttribute("item", item);
         m.addAttribute("mode", "add");
+        m.addAttribute("error", "");
+        return "food-items/edit-create";
+    }
+
+    @GetMapping("/macro/edit/{id}/food-item/create/exists")
+    public String createFoodItemInEditMacroExists(@PathVariable long id, Model m) {
+        FoodItem item = new FoodItem();
+        m.addAttribute("redirect", "macroEdit");
+        m.addAttribute("macroId", id);
+        m.addAttribute("item", item);
+        m.addAttribute("mode", "add");
+        m.addAttribute("error", "You already have an item with that name: Please try again");
         return "food-items/edit-create";
     }
 
     @PostMapping("/macro/edit/food-item/create")
-    public String postFoodItemInEditMacro(@RequestParam(name = "recipeId") long recipeId, @RequestParam(name = "quantity") double quantity, @ModelAttribute FoodItem item) {
+    public String postFoodItemInEditMacro(@RequestParam(name = "macroId") long macroId, @RequestParam(name = "quantity") double quantity, @ModelAttribute FoodItem item) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        service.createFoodItemInInventory(user, item, quantity);
-        System.out.println(recipeId);
-        return "redirect:/macro/edit/"+recipeId;
+        if(service.foodNameExists(item, user)) {
+            return "redirect:/macro/edit/"+macroId+"/food-item/create/exists";
+        } else {
+            service.createFoodItemInInventory(user, item, quantity);
+            return "redirect:/macro/edit/"+macroId;
+        }
     }
 }

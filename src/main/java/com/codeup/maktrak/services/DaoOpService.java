@@ -36,12 +36,41 @@ public class DaoOpService {
     }
 
 
-    // User Related
+    // User Related =================================================================================================
     public User findUser(long id) {
         return userDao.findOne(id);
     }
 
-    //Food & Inventory Related
+    public boolean userNameOrEmailExists(String username, String email) {
+        if(userDao.findByUsername(username) != null || userDao.findByEmail(email) != null) {
+            return true;
+        }
+        return false;
+    }
+
+
+
+    //Food & Inventory Related ======================================================================================
+    public boolean foodNameExists(FoodItem item, User user) {
+        Iterable<InventoryRecord> invRecs = invDao.findByOwner(user);
+        for(InventoryRecord invRec : invRecs) {
+            if(invRec.getItem().getName().equals(item.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean foodNameEditExists(FoodItem item, User user) {
+        Iterable<InventoryRecord> invRecs = invDao.findByOwner(user);
+        for(InventoryRecord invRec : invRecs) {
+            if(invRec.getItem().getName().equals(item.getName()) && invRec.getItem().getId() != item.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void createFoodItemInInventory(User user, FoodItem item, double quantity) {
         itemDao.save(item);
         InventoryRecord invRec = new InventoryRecord(quantity, user, itemDao.findByName(item.getName()));
@@ -67,7 +96,7 @@ public class DaoOpService {
         return invDao.findByOwnerAndItem(user, item);
     }
 
-    public Iterable<InventoryRecord> findInventoryRecordsOfUser(User user) {
+    public List<InventoryRecord> findInventoryRecordsOfUser(User user) {
         return invDao.findByOwner(user);
     }
 
@@ -85,7 +114,29 @@ public class DaoOpService {
         return itemDao.findOne(id);
     }
 
-    // Recipe & Food Related
+
+
+    // Recipe & Food Related ========================================================================================
+    public boolean recipeNameExists(Recipe recipe, User user) {
+        List<Recipe> recipes = recipeDao.findByOwner(user);
+        for(Recipe rec : recipes) {
+            if(rec.getTitle().equals(recipe.getTitle())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean recipeNameEditExists(Recipe recipe, User user) {
+        List<Recipe> recipes = recipeDao.findByOwner(user);
+        for(Recipe rec : recipes) {
+            if(rec.getTitle().equals(recipe.getTitle()) && rec.getId() != recipe.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void createNewRecipe(User user, List<Double> itemQuantities, List<Long> foodIds, Recipe recipe, double servings) {
         recipe.setOwner(user);
         recipeDao.save(recipe);
@@ -169,9 +220,10 @@ public class DaoOpService {
 
     public void removeRecipe(Recipe recipe) {
         Iterable<RecipeFoodItem> recItems = recipeItemDao.findByRecipe(recipe);
+        Iterable<MacroRecipe> macRecs = macRecipeDao.findByRecipe(recipe);
         recipeItemDao.delete(recItems);
+        macRecipeDao.delete(macRecs);
         recipeDao.delete(recipe);
-        //TODO need to remove macro-recipe here too!
     }
 
 //    public HashMap<Recipe, List<FoodItem>> findFoodsInRecipeByUser(User user) {
@@ -188,7 +240,29 @@ public class DaoOpService {
 //        return recipeItemDao.findByRecipeAndItem(recipe, item).getQuantityInGrams();
 //    }
 
-    //Macro Related
+
+
+    //Macro Related =================================================================================================
+    public boolean macroNameExists(DailyMacro macro, User user) {
+        List<DailyMacro> macros = macroDao.findByOwner(user);
+        for(DailyMacro mac : macros) {
+            if(mac.getTitle().equals(macro.getTitle())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean macroNameEditExists(DailyMacro macro, User user) {
+        List<DailyMacro> macros = macroDao.findByOwner(user);
+        for(DailyMacro mac : macros) {
+            if(mac.getTitle().equals(macro.getTitle()) && mac.getId() != macro.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public DailyMacro addMacro(DailyMacro macro) {
         return macroDao.save(macro);
     }
@@ -209,6 +283,7 @@ public class DaoOpService {
             double totalFat = 0;
             List<MacroFoodItem> macItems = findMacroItemByMacro(macro);
             ArrayList<String> itemNames = new ArrayList<>();
+            ArrayList<Double> itemServings = new ArrayList<>();
             HashMap<String, Double> missingItemsAndAmount = new HashMap<>();
             for(MacroFoodItem macItem : macItems) {
                 totalCal += macItem.getItem().getCal()*macItem.getQuantityInGrams();
@@ -217,10 +292,13 @@ public class DaoOpService {
                 totalFiber += macItem.getItem().getFiber()*macItem.getQuantityInGrams();
                 totalFat += macItem.getItem().getFat()*macItem.getQuantityInGrams();
                 itemNames.add(macItem.getItem().getName());
+                itemServings.add(Math.round(macItem.getQuantityInGrams()*100d)/100d);
                 InventoryRecord invRec = invDao.findByOwnerAndItem(user, macItem.getItem());
                 if(macItem.getQuantityInGrams() > invRec.getQuantity()) {
                     double missingAmount = (macItem.getQuantityInGrams() - invRec.getQuantity())*(macItem.getItem().getServingSizeInGrams());
+                    System.out.println("We need "+macItem.getQuantityInGrams()+" "+macItem.getItem().getName()+"s, but only have "+invRec.getQuantity()+"... We need "+missingAmount+" more!");
                     missingItemsAndAmount.put(macItem.getItem().getName(), missingAmount);
+                    System.out.println("Setting missingItemsAndAmount("+macItem.getItem().getName()+") = "+missingItemsAndAmount.get(macItem.getItem().getName()));
                 }
             }
             ArrayList<RecipeView> recViews = findRecViewByMacro(macro);
@@ -231,13 +309,30 @@ public class DaoOpService {
                 totalFiber += recView.getTotalFiber()*recView.getMacRecAmount();
                 totalFat += recView.getTotalFat()*recView.getMacRecAmount();
                 itemNames.add("(Recipe) "+recView.getTitle());
+                itemServings.add(Math.round(recView.getMacRecAmount()*100d)/100d);
+                List<RecipeFoodItem> recItems = recView.getRecItems();
+                for(RecipeFoodItem recItem : recItems) {
+                    InventoryRecord invRec = invDao.findByOwnerAndItem(user, recItem.getItem());
+                    if(missingItemsAndAmount.containsKey(recItem.getItem().getName())) {
+                        double oldValue = missingItemsAndAmount.get(recItem.getItem().getName());
+                        missingItemsAndAmount.replace(recItem.getItem().getName(), oldValue+(recItem.getQuantityInGrams()*recView.getMacRecAmount()*recItem.getItem().getServingSizeInGrams()));
+                        System.out.println("missingItemsAndAmount("+recItem.getItem().getName()+") was "+oldValue+", it is now "+missingItemsAndAmount.get(recItem.getItem().getName()));
+                    } else if(recItem.getQuantityInGrams()*recView.getMacRecAmount() > invRec.getQuantity()) {
+                        double missingAmount = (recItem.getQuantityInGrams()*recView.getMacRecAmount() - invRec.getQuantity())*(recItem.getItem().getServingSizeInGrams());
+                        System.out.println("We need "+recItem.getQuantityInGrams()+" "+recItem.getItem().getName()+"s, but only have "+invRec.getQuantity()+"... We need "+missingAmount+" more!");
+                        missingItemsAndAmount.put(recItem.getItem().getName(), missingAmount);
+                        System.out.println("Setting missingItemsAndAmount("+recItem.getItem().getName()+") = "+missingItemsAndAmount.get(recItem.getItem().getName()));
+                    }
+                }
             }
-            macView.setCalTotal(totalCal);
-            macView.setCarbTotal(totalCarb);
-            macView.setProtTotal(totalProt);
-            macView.setFiberTotal(totalFiber);
-            macView.setFatTotal(totalFat);
+            macView.setCalTotal(Math.round(totalCal*100d)/100d);
+            macView.setCarbTotal(Math.round(totalCarb*100d)/100d);
+            macView.setProtTotal(Math.round(totalProt*100d)/100d);
+            macView.setFiberTotal(Math.round(totalFiber*100d)/100d);
+            macView.setFatTotal(Math.round(totalFat*100d)/100d);
             macView.setItemNames(itemNames);
+            macView.setItemServings(itemServings);
+            macView.setMissingItemNameAndAmount(missingItemsAndAmount);
             retval.add(macView);
         }
         return retval;
@@ -307,7 +402,54 @@ public class DaoOpService {
         DailyMacro macro = macroDao.findOne(macroId);
         macItemDao.delete(macItemDao.findByMacro(macro));
         macRecipeDao.delete(macRecipeDao.findByMacro(macro));
+        Iterable<WeeklySchedule> allSchedules = weeklyDao.findAll();
+        for(WeeklySchedule schedule : allSchedules) {
+            schedule.removeSpecificRoutine(macro);
+            weeklyDao.save(schedule);
+        }
         macroDao.delete(macro);
     }
 
+    //Weekly Routine Related
+    public WeeklySchedule newSchedule(User user) {
+        WeeklySchedule schedule = new WeeklySchedule();
+        schedule.setOwner(user);
+        return weeklyDao.save(schedule);
+    }
+
+    public boolean scheduleExists(User user) {
+        return weeklyDao.findByOwner(user) != null;
+    }
+
+    public WeeklySchedule findSchedule(User user) {
+        return weeklyDao.findByOwner(user);
+    }
+
+    public void assignDayRoutine(User user, short day, long macroId) {
+        WeeklySchedule schedule = weeklyDao.findByOwner(user);
+        switch(day) {
+            case 1:
+                schedule.setMondayMacro(macroDao.findOne(macroId));
+                break;
+            case 2:
+                schedule.setTuesdayMacro(macroDao.findOne(macroId));
+                break;
+            case 3:
+                schedule.setWednesdayMacro(macroDao.findOne(macroId));
+                break;
+            case 4:
+                schedule.setThursdayMacro(macroDao.findOne(macroId));
+                break;
+            case 5:
+                schedule.setFridayMacro(macroDao.findOne(macroId));
+                break;
+            case 6:
+                schedule.setSaturdayMacro(macroDao.findOne(macroId));
+                break;
+            case 7:
+                schedule.setSundayMacro(macroDao.findOne(macroId));
+                break;
+        }
+        weeklyDao.save(schedule);
+    }
 }

@@ -77,9 +77,9 @@
                             <p th:text="${'Quantity: '+invRec.quantity}"></p>
                         </div>
                         <div class="card-action">
-                            <form th:action="@{/food-item/delete/{id}(id=${invRec.item.id})}" method="post">
-                                <a th:href="@{/food-item/edit/{id}(id=${invRec.item.id})}">Edit</a>
-                                <button type="submit" name="action" class="waves-effect waves-teal btn-flat">Delete</button>
+                            <a th:href="@{/food-item/edit/{id}(id=${invRec.item.id})}">Edit</a>
+                            <form th:action="@{/food-item/delete/{id}(id=${invRec.item.id})}" class="right-delete" method="post">
+                                <button type="submit" name="action" class="waves-effect waves-teal btn-flat red-delete">Delete</button>
                             </form>
                         </div>
                     </div>
