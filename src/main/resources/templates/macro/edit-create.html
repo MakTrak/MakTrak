@@ -211,7 +211,7 @@
                 </button>
             </div>
             <div class="col s4">
-                <a th:href="@{/macro/inventory}" class="btn waves-effect waves-light">Cancel</a>
+                <a th:href="@{/macro/inventory}" class="btn waves-effect waves-light orange darken-2">Cancel</a>
             </div>
         </div>
     </form>
@@ -458,7 +458,7 @@
                 </button>
             </div>
             <div class="col s4">
-                <a th:href="@{/dashboard}" class="btn waves-effect waves-light">Cancel</a>
+                <a th:href="@{/macro/inventory}" class="btn waves-effect waves-light orange darken-2">Cancel</a>
             </div>
         </div>
     </form>
@@ -468,7 +468,7 @@
                 <div class="col s8 offset-s2">
                     <form th:action="@{/macro/delete}" method="post">
                         <input type="hidden" name="macroId" th:value="${macros.id}"/>
-                        <button class="btn waves-effect waves-light" type="submit" name="action">Delete
+                        <button class="btn waves-effect waves-light red darken-2" type="submit" name="action">Delete
                             <i class="material-icons right">delete</i>
                         </button>
                     </form>

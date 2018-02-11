@@ -3,6 +3,8 @@ package com.codeup.maktrak.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jdk.nashorn.internal.objects.NativeMath.round;
+
 public class RecipeView {
     private long id;
     private String title;
@@ -25,7 +27,7 @@ public class RecipeView {
         this.itemAmounts = new ArrayList<>();
         for(RecipeFoodItem recItem : recItems) {
             items.add(recItem.getItem());
-            itemAmounts.add(recItem.getQuantityInGrams()*recItem.getItem().getServingSizeInGrams());
+            itemAmounts.add((double) Math.round(recItem.getQuantityInGrams()*recItem.getItem().getServingSizeInGrams()*100d)/100d);
         }
     }
 
@@ -40,7 +42,7 @@ public class RecipeView {
         this.itemAmounts = new ArrayList<>();
         for(RecipeFoodItem recItem : recItems) {
             items.add(recItem.getItem());
-            itemAmounts.add(recItem.getQuantityInGrams()*recItem.getItem().getServingSizeInGrams());
+            itemAmounts.add((double) Math.round(recItem.getQuantityInGrams()*recItem.getItem().getServingSizeInGrams()*100d)/100d);
         }
         this.macRecAmount = macRecAmount;
     }
@@ -50,7 +52,7 @@ public class RecipeView {
         for(RecipeFoodItem item : this.recItems) {
             retval += item.getItem().getCal()*item.getQuantityInGrams();
         }
-        return retval;
+        return Math.round(retval*100d)/100d;
     }
 
     public double getTotalCarb() {
@@ -58,7 +60,7 @@ public class RecipeView {
         for(RecipeFoodItem item : this.recItems) {
             retval += item.getItem().getCarb()*item.getQuantityInGrams();
         }
-        return retval;
+        return Math.round(retval*100d)/100d;
     }
 
     public double getTotalProt() {
@@ -66,7 +68,7 @@ public class RecipeView {
         for(RecipeFoodItem item : this.recItems) {
             retval += item.getItem().getProt()*item.getQuantityInGrams();
         }
-        return retval;
+        return Math.round(retval*100d)/100d;
     }
 
     public double getTotalFat() {
@@ -74,7 +76,7 @@ public class RecipeView {
         for(RecipeFoodItem item : this.recItems) {
             retval += item.getItem().getFat()*item.getQuantityInGrams();
         }
-        return retval;
+        return Math.round(retval*100d)/100d;
     }
 
     public double getTotalFiber() {
@@ -82,7 +84,7 @@ public class RecipeView {
         for(RecipeFoodItem item : this.recItems) {
             retval += item.getItem().getFiber()*item.getQuantityInGrams();
         }
-        return retval;
+        return Math.round(retval*100d)/100d;
     }
 
     public long getId() {

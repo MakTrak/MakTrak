@@ -123,9 +123,9 @@
                         </div>
                         <div class="card-action">
                             <a th:href="@{/macro/edit/{id}(id=${macView.macroId})}">Edit</a>
-                            <form th:action="@{/macro/delete}" method="post">
+                            <form th:action="@{/macro/delete}" method="post" class="right-delete">
                                 <input type="hidden" name="macroId" th:value="${macView.macroId}"/>
-                                <button class="waves-effect waves-teal btn-flat">Delete</button>
+                                <button class="waves-effect waves-teal btn-flat red-delete">Delete</button>
                             </form>
                         </div>
                     </div>

@@ -159,7 +159,7 @@ public class MacroView {
         Set<String> nameSet = this.missingItemNameAndAmount.keySet();
         for(String name : nameSet) {
             missingItemNames.add(name);
-            missingItemGrams.add(this.missingItemNameAndAmount.get(name));
+            missingItemGrams.add(Math.round(this.missingItemNameAndAmount.get(name)*100d)/100d);
         }
     }
 

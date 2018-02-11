@@ -99,8 +99,8 @@
                         </div>
                         <div class="card-action">
                             <a  th:href="@{/recipe/edit/{id}(id=${recView.id})}">Edit</a>
-                            <form th:action="@{/recipe/delete/{id}(id=${recView.id})}" method="post">
-                                <button class="waves-effect waves-teal btn-flat">Delete</button>
+                            <form th:action="@{/recipe/delete/{id}(id=${recView.id})}" class="right-delete" method="post">
+                                <button class="waves-effect waves-teal btn-flat red-delete">Delete</button>
                             </form>
                         </div>
                     </div>

@@ -48,6 +48,30 @@ public class WeeklySchedule {
     public WeeklySchedule() {
     }
 
+    public void removeSpecificRoutine(DailyMacro macro) {
+        if(this.mondayMacro.getId() == macro.getId()) {
+            this.mondayMacro = null;
+        }
+        if(this.tuesdayMacro.getId() == macro.getId()) {
+            this.tuesdayMacro = null;
+        }
+        if(this.wednesdayMacro.getId() == macro.getId()) {
+            this.wednesdayMacro = null;
+        }
+        if(this.thursdayMacro.getId() == macro.getId()) {
+            this.thursdayMacro = null;
+        }
+        if(this.fridayMacro.getId() == macro.getId()) {
+            this.fridayMacro = null;
+        }
+        if(this.saturdayMacro.getId() == macro.getId()) {
+            this.saturdayMacro = null;
+        }
+        if(this.sundayMacro.getId() == macro.getId()) {
+            this.sundayMacro = null;
+        }
+    }
+
     public long getId() {
         return id;
     }

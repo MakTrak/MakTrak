@@ -292,7 +292,7 @@ public class DaoOpService {
                 totalFiber += macItem.getItem().getFiber()*macItem.getQuantityInGrams();
                 totalFat += macItem.getItem().getFat()*macItem.getQuantityInGrams();
                 itemNames.add(macItem.getItem().getName());
-                itemServings.add(macItem.getQuantityInGrams());
+                itemServings.add(Math.round(macItem.getQuantityInGrams()*100d)/100d);
                 InventoryRecord invRec = invDao.findByOwnerAndItem(user, macItem.getItem());
                 if(macItem.getQuantityInGrams() > invRec.getQuantity()) {
                     double missingAmount = (macItem.getQuantityInGrams() - invRec.getQuantity())*(macItem.getItem().getServingSizeInGrams());
@@ -309,29 +309,27 @@ public class DaoOpService {
                 totalFiber += recView.getTotalFiber()*recView.getMacRecAmount();
                 totalFat += recView.getTotalFat()*recView.getMacRecAmount();
                 itemNames.add("(Recipe) "+recView.getTitle());
-                itemServings.add(recView.getMacRecAmount());
+                itemServings.add(Math.round(recView.getMacRecAmount()*100d)/100d);
                 List<RecipeFoodItem> recItems = recView.getRecItems();
                 for(RecipeFoodItem recItem : recItems) {
                     InventoryRecord invRec = invDao.findByOwnerAndItem(user, recItem.getItem());
-                    if(recItem.getQuantityInGrams()*recView.getMacRecAmount() > invRec.getQuantity()) {
+                    if(missingItemsAndAmount.containsKey(recItem.getItem().getName())) {
+                        double oldValue = missingItemsAndAmount.get(recItem.getItem().getName());
+                        missingItemsAndAmount.replace(recItem.getItem().getName(), oldValue+(recItem.getQuantityInGrams()*recView.getMacRecAmount()*recItem.getItem().getServingSizeInGrams()));
+                        System.out.println("missingItemsAndAmount("+recItem.getItem().getName()+") was "+oldValue+", it is now "+missingItemsAndAmount.get(recItem.getItem().getName()));
+                    } else if(recItem.getQuantityInGrams()*recView.getMacRecAmount() > invRec.getQuantity()) {
                         double missingAmount = (recItem.getQuantityInGrams()*recView.getMacRecAmount() - invRec.getQuantity())*(recItem.getItem().getServingSizeInGrams());
                         System.out.println("We need "+recItem.getQuantityInGrams()+" "+recItem.getItem().getName()+"s, but only have "+invRec.getQuantity()+"... We need "+missingAmount+" more!");
-                        if(missingItemsAndAmount.containsKey(recItem.getItem().getName())) {
-                            double oldValue = missingItemsAndAmount.get(recItem.getItem().getName());
-                            missingItemsAndAmount.replace(recItem.getItem().getName(), oldValue+(recItem.getQuantityInGrams()*recView.getMacRecAmount()*recItem.getItem().getServingSizeInGrams()));
-                            System.out.println("missingItemsAndAmount("+recItem.getItem().getName()+") was "+oldValue+", it is now "+missingItemsAndAmount.get(recItem.getItem().getName()));
-                        } else {
-                            missingItemsAndAmount.put(recItem.getItem().getName(), missingAmount);
-                            System.out.println("Setting missingItemsAndAmount("+recItem.getItem().getName()+") = "+missingItemsAndAmount.get(recItem.getItem().getName()));
-                        }
+                        missingItemsAndAmount.put(recItem.getItem().getName(), missingAmount);
+                        System.out.println("Setting missingItemsAndAmount("+recItem.getItem().getName()+") = "+missingItemsAndAmount.get(recItem.getItem().getName()));
                     }
                 }
             }
-            macView.setCalTotal(totalCal);
-            macView.setCarbTotal(totalCarb);
-            macView.setProtTotal(totalProt);
-            macView.setFiberTotal(totalFiber);
-            macView.setFatTotal(totalFat);
+            macView.setCalTotal(Math.round(totalCal*100d)/100d);
+            macView.setCarbTotal(Math.round(totalCarb*100d)/100d);
+            macView.setProtTotal(Math.round(totalProt*100d)/100d);
+            macView.setFiberTotal(Math.round(totalFiber*100d)/100d);
+            macView.setFatTotal(Math.round(totalFat*100d)/100d);
             macView.setItemNames(itemNames);
             macView.setItemServings(itemServings);
             macView.setMissingItemNameAndAmount(missingItemsAndAmount);
@@ -404,9 +402,15 @@ public class DaoOpService {
         DailyMacro macro = macroDao.findOne(macroId);
         macItemDao.delete(macItemDao.findByMacro(macro));
         macRecipeDao.delete(macRecipeDao.findByMacro(macro));
+        Iterable<WeeklySchedule> allSchedules = weeklyDao.findAll();
+        for(WeeklySchedule schedule : allSchedules) {
+            schedule.removeSpecificRoutine(macro);
+            weeklyDao.save(schedule);
+        }
         macroDao.delete(macro);
     }
 
+    //Weekly Routine Related
     public WeeklySchedule newSchedule(User user) {
         WeeklySchedule schedule = new WeeklySchedule();
         schedule.setOwner(user);
@@ -417,4 +421,35 @@ public class DaoOpService {
         return weeklyDao.findByOwner(user) != null;
     }
 
+    public WeeklySchedule findSchedule(User user) {
+        return weeklyDao.findByOwner(user);
+    }
+
+    public void assignDayRoutine(User user, short day, long macroId) {
+        WeeklySchedule schedule = weeklyDao.findByOwner(user);
+        switch(day) {
+            case 1:
+                schedule.setMondayMacro(macroDao.findOne(macroId));
+                break;
+            case 2:
+                schedule.setTuesdayMacro(macroDao.findOne(macroId));
+                break;
+            case 3:
+                schedule.setWednesdayMacro(macroDao.findOne(macroId));
+                break;
+            case 4:
+                schedule.setThursdayMacro(macroDao.findOne(macroId));
+                break;
+            case 5:
+                schedule.setFridayMacro(macroDao.findOne(macroId));
+                break;
+            case 6:
+                schedule.setSaturdayMacro(macroDao.findOne(macroId));
+                break;
+            case 7:
+                schedule.setSundayMacro(macroDao.findOne(macroId));
+                break;
+        }
+        weeklyDao.save(schedule);
+    }
 }

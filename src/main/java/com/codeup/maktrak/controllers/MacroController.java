@@ -56,7 +56,7 @@ public class MacroController {
         for(int i = 0; i < recipeIds.size(); i++) {
             service.addMacroRecipe(newMarco, service.findRecipeById(recipeIds.get(i)), recipeQuantities.get(i));
         }
-        return "home";
+        return "redirect:/macro/inventory";
     }
 
     @GetMapping("/macro/edit/{id}")
@@ -102,14 +102,14 @@ public class MacroController {
                 service.removeMacroRecipe(editedMarco, service.findRecipeById(recipeIds.get(i)));
             }
         }
-        return "redirect:/dashboard";
+        return "redirect:/macro/inventory";
     }
 
     @PostMapping("/macro/delete")
     public String deleteMacro(@RequestParam(name = "macroId") Long macroId) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         service.removeMacro(macroId, user);
-        return "redirect:/dashboard";
+        return "redirect:/macro/inventory";
     }
 
     @GetMapping("/macro/inventory")
