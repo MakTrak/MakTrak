@@ -14,4 +14,9 @@ public class HomeController {
     public String fetchAboutPage() {
         return "about";
     }
+
+    @GetMapping("/landing")
+    public String getLandingPage() {
+        return "landing";
+    }
 }
