@@ -2,12 +2,16 @@ package com.codeup.maktrak.controllers;
 
 import com.codeup.maktrak.models.*;
 import com.codeup.maktrak.services.DaoOpService;
+import com.codeup.maktrak.util.SortByItemName;
+import com.codeup.maktrak.util.SortInventoryByItemName;
+import com.codeup.maktrak.util.SortRecipeByName;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,6 +28,7 @@ public class MacroController {
     public String createMacroForm(Model m) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Recipe> recipes = service.findRecipesByOwner(user);
+        Collections.sort(recipes, new SortRecipeByName());
         HashMap<Recipe, List<RecipeFoodItem>> foodItemPreview = service.findRecipeAndFoodsByUser(user);
         ArrayList<RecipeView> recViews = new ArrayList<>();
         for(Recipe recipe : recipes) {
@@ -31,7 +36,8 @@ public class MacroController {
             recViews.add(new RecipeView(recipe, recItems));
         }
         m.addAttribute("recViews", recViews);
-        Iterable<InventoryRecord> invRecs = service.findInventoryRecordsOfUser(user);
+        List<InventoryRecord> invRecs = service.findInventoryRecordsOfUser(user);
+        Collections.sort(invRecs, new SortInventoryByItemName());
         m.addAttribute("invArr", invRecs);
         DailyMacro macros = new DailyMacro();
         m.addAttribute("macros", macros);

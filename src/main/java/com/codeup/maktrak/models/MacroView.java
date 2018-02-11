@@ -1,8 +1,6 @@
 package com.codeup.maktrak.models;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class MacroView {
     private long macroId;
@@ -18,6 +16,9 @@ public class MacroView {
     private double protTotal;
     private double fiberTotal;
     private ArrayList<String> itemNames;
+    private ArrayList<Double> itemServings;
+    private ArrayList<String> missingItemNames;
+    private ArrayList<Double> missingItemGrams;
     private HashMap<String, Double> missingItemNameAndAmount;
 
     public MacroView(DailyMacro macro) {
@@ -28,6 +29,10 @@ public class MacroView {
         this.fatGoals = macro.getFat();
         this.protGoals = macro.getProt();
         this.fiberGoals = macro.getFiber();
+        this.itemNames = new ArrayList<>();
+        this.itemServings = new ArrayList<>();
+        this.missingItemNames = new ArrayList<>();
+        this.missingItemGrams = new ArrayList<>();
     }
 
     public MacroView() {
@@ -137,11 +142,40 @@ public class MacroView {
         this.itemNames = itemNames;
     }
 
+    public ArrayList<Double> getItemServings() {
+        return itemServings;
+    }
+
+    public void setItemServings(ArrayList<Double> itemServings) {
+        this.itemServings = itemServings;
+    }
+
     public HashMap<String, Double> getMissingItemNameAndAmount() {
         return missingItemNameAndAmount;
     }
 
     public void setMissingItemNameAndAmount(HashMap<String, Double> missingItemNameAndAmount) {
         this.missingItemNameAndAmount = missingItemNameAndAmount;
+        Set<String> nameSet = this.missingItemNameAndAmount.keySet();
+        for(String name : nameSet) {
+            missingItemNames.add(name);
+            missingItemGrams.add(this.missingItemNameAndAmount.get(name));
+        }
+    }
+
+    public ArrayList<String> getMissingItemNames() {
+        return missingItemNames;
+    }
+
+    public void setMissingItemNames(ArrayList<String> missingItemNames) {
+        this.missingItemNames = missingItemNames;
+    }
+
+    public ArrayList<Double> getMissingItemGrams() {
+        return missingItemGrams;
+    }
+
+    public void setMissingItemGrams(ArrayList<Double> missingItemGrams) {
+        this.missingItemGrams = missingItemGrams;
     }
 }

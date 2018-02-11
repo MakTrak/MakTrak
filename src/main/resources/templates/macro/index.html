@@ -61,7 +61,7 @@
                                     <th>Fiber (g)</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="min-table">
                                 <tr>
                                     <td>Goals</td>
                                     <td th:text="${macView.calGoals}"></td>
@@ -82,18 +82,42 @@
                             </table>
                             <div class="row">
                                 <div class="col s12 m6">
-                                    <ul>
-                                        <li><h3>Item</h3></li>
-                                        <div th:each="itemName : ${macView.itemNames}">
-                                            <li th:text="${itemName}"></li>
+                                    <h3>Items</h3>
+                                    <div class="row">
+                                        <div class="col s6 left-align">
+                                            <ul>
+                                                <div th:each="item : ${macView.itemNames}">
+                                                    <li th:text="${item}"></li>
+                                                </div>
+                                            </ul>
                                         </div>
-                                    </ul>
+                                        <div class="col s6 left-align">
+                                            <ul>
+                                                <div th:each="servings : ${macView.itemServings}">
+                                                    <li th:text="${servings+' servings'}"></li>
+                                                </div>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col s12 m6">
-                                    <ul>
-                                        <li><h3>Missing Item</h3></li>
-                                        <!--<div th:each="itemName : ${macView.}"></div>-->
-                                    </ul>
+                                    <h3>Missing Items</h3>
+                                    <div class="row">
+                                        <div class="col s6 left-align">
+                                            <ul>
+                                                <div th:each="item : ${macView.missingItemNames}">
+                                                    <li th:text="${item}"></li>
+                                                </div>
+                                            </ul>
+                                        </div>
+                                        <div class="col s6 left-align">
+                                            <ul>
+                                                <div th:each="grams : ${macView.missingItemGrams}">
+                                                    <li th:text="${'Need '+grams+'g'}"></li>
+                                                </div>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

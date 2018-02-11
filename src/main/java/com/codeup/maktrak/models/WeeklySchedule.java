@@ -31,7 +31,10 @@ public class WeeklySchedule {
     @OneToOne
     private DailyMacro sundayMacro;
 
-    public WeeklySchedule(DailyMacro mondayMacro, DailyMacro tuesdayMacro, DailyMacro wednesdayMacro, DailyMacro thursdayMacro, DailyMacro fridayMacro, DailyMacro saturdayMacro, DailyMacro sundayMacro) {
+    @OneToOne
+    private User owner;
+
+    public WeeklySchedule(DailyMacro mondayMacro, DailyMacro tuesdayMacro, DailyMacro wednesdayMacro, DailyMacro thursdayMacro, DailyMacro fridayMacro, DailyMacro saturdayMacro, DailyMacro sundayMacro, User owner) {
         this.mondayMacro = mondayMacro;
         this.tuesdayMacro = tuesdayMacro;
         this.wednesdayMacro = wednesdayMacro;
@@ -39,6 +42,7 @@ public class WeeklySchedule {
         this.fridayMacro = fridayMacro;
         this.saturdayMacro = saturdayMacro;
         this.sundayMacro = sundayMacro;
+        this.owner = owner;
     }
 
     public WeeklySchedule() {
@@ -106,5 +110,13 @@ public class WeeklySchedule {
 
     public void setSundayMacro(DailyMacro sundayMacro) {
         this.sundayMacro = sundayMacro;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }

@@ -64,9 +64,30 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
                 .authorizeRequests()
                 .antMatchers(
-                       "/dashboard"
+                       "/dashboard",
+                        "/food-item/create",
+                        "/food-item/create/exists",
+                        "/food-item/edit/{id}",
+                        "/food-item/edit/{id}/exists",
+                        "/food-item/inventory",
+                        "/recipe/create/food-item/create",
+                        "/recipe/create/food-item/create/exists",
+                        "/recipe/edit/{id}/food-item/create",
+                        "/recipe/edit/{id}/food-item/create/exists",
+                        "/macro/create/food-item/create",
+                        "/macro/create/food-item/create/exists",
+                        "/macro/edit/{id}/food-item/create",
+                        "/macro/edit/{id}/food-item/create/exists",
+                        "/macro/create",
+                        "/macro/edit/{id}",
+                        "/macro/inventory",
+                        "/recipe/create",
+                        "/recipe/edit/{id}",
+                        "/recipe/inventory",
+                        "/macro/create/recipe/create",
+                        "/macro/edit/{id}/recipe/create"
                 )
-            .authenticated();
+                .authenticated();
     }
 
 }

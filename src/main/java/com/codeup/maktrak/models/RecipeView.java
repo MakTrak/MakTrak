@@ -11,6 +11,7 @@ public class RecipeView {
     private User owner;
     private List<RecipeFoodItem> recItems;
     private ArrayList<FoodItem> items;
+    private ArrayList<Double> itemAmounts;
     private double macRecAmount;
 
     public RecipeView(Recipe recipe, List<RecipeFoodItem> recItems) {
@@ -21,8 +22,10 @@ public class RecipeView {
         this.owner = recipe.getOwner();
         this.recItems = recItems;
         this.items = new ArrayList<>();
+        this.itemAmounts = new ArrayList<>();
         for(RecipeFoodItem recItem : recItems) {
             items.add(recItem.getItem());
+            itemAmounts.add(recItem.getQuantityInGrams()*recItem.getItem().getServingSizeInGrams());
         }
     }
 
@@ -34,8 +37,10 @@ public class RecipeView {
         this.owner = recipe.getOwner();
         this.recItems = recItems;
         this.items = new ArrayList<>();
+        this.itemAmounts = new ArrayList<>();
         for(RecipeFoodItem recItem : recItems) {
             items.add(recItem.getItem());
+            itemAmounts.add(recItem.getQuantityInGrams()*recItem.getItem().getServingSizeInGrams());
         }
         this.macRecAmount = macRecAmount;
     }
@@ -142,5 +147,13 @@ public class RecipeView {
 
     public void setMacRecAmount(double macRecAmount) {
         this.macRecAmount = macRecAmount;
+    }
+
+    public ArrayList<Double> getItemAmounts() {
+        return itemAmounts;
+    }
+
+    public void setItemAmounts(ArrayList<Double> itemAmounts) {
+        this.itemAmounts = itemAmounts;
     }
 }

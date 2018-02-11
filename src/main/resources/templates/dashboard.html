@@ -31,172 +31,186 @@
             <!--cards section -->
             <div class="row">
                 <div class="col s12 center-align">
-                    <div class="card blue-grey darken-1">
-                         <div class="card-content white-text">
-                            <span class="card-title left-align card-title-routine">Monday</span>
-                            <p class="routine-size">Current Routine : Low carbs</p>
-                             <br/>
-                             <span><a class='dropdown-button btn routine-btn' href='#' data-activates='dropdown1'>Change Routine Name</a></span>
-                             <!-- Dropdown Structure -->
-                             <ul id='dropdown1' class='dropdown-content'>
-                                 <li><a href="#!">High Fiber</a></li>
-                                 <li class="divider"></li>
-                                 <li><a href="#!">All the fruits</a></li>
-                                 <li class="divider"></li>
-                                 <li><a href="#!">Paleo</a></li>
-                             </ul>
-                             <br/>
-                             <br/>
-                            <div class="card-action">
-                                <a href="#">View</a>
-                                <a href="#">Save Change</a>
+                    <form action="">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title left-align card-title-routine">Monday</span>
+                                <p class="routine-size">Current Routine : Low carbs</p>
+                                <br/>
+                                <span><a class='dropdown-button btn routine-btn' href='#' data-activates='dropdown1'>Change Routine Name</a></span>
+                                <!-- Dropdown Structure -->
+                                <div class="inputField">
+                                    <select name="goalselect">
+                                        <option value="nochange" disabled selected>Select Other Goal</option>
+                                        <div th:each="macro : ${macros}">
+                                            <option th:text="${macro.title}" th:value="${macro.id}"></option>
+                                        </div>
+                                    </select>
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="card-action">
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Save Changes</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="col s12 center-align">
-                    <div class="card blue-grey darken-1">
-                        <div class="card-content white-text">
-                            <span class="card-title left-align card-title-routine">Tuesday</span>
-                            <p class="routine-size">Current Routine : Low carbs</p>
-                            <br/>
-                            <span><a class='dropdown-button btn routine-btn' href='#' data-activates='dropdown2'>Change Routine Name</a></span>
-                            <!-- Dropdown Structure -->
-                            <ul id='dropdown2' class='dropdown-content'>
-                                <li><a href="#!">High Fiber</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#!">All the fruits</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#!">Paleo</a></li>
-                            </ul>
-                            <br/>
-                            <br/>
-                            <div class="card-action">
-                                <a href="#">View</a>
-                                <a href="#">Save Change</a>
+                    <form action="">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title left-align card-title-routine">Tuesday</span>
+                                <p class="routine-size">Current Routine : Low carbs</p>
+                                <br/>
+                                <span><a class='dropdown-button btn routine-btn' href='#' data-activates='dropdown2'>Change Routine Name</a></span>
+                                <!-- Dropdown Structure -->
+                                <div class="inputField">
+                                    <select name="goalselect">
+                                        <option value="nochange" disabled selected>Select Other Goal</option>
+                                        <div th:each="macro : ${macros}">
+                                            <option th:text="${macro.title}" th:value="${macro.id}"></option>
+                                        </div>
+                                    </select>
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="card-action">
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Save Changes</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="col s12 center-align">
-                    <div class="card blue-grey darken-1">
-                        <div class="card-content white-text">
-                            <span class="card-title left-align card-title-routine">Wednesday</span>
-                            <p class="routine-size">Current Routine : Low carbs</p>
-                            <br/>
-                            <span><a class='dropdown-button btn routine-btn' href='#' data-activates='dropdown3'>Change Routine Name</a></span>
-                            <!-- Dropdown Structure -->
-                            <ul id='dropdown3' class='dropdown-content'>
-                                <li><a href="#!">High Fiber</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#!">All the fruits</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#!">Paleo</a></li>
-                            </ul>
-                            <br/>
-                            <br/>
-                            <div class="card-action">
-                                <a href="#">View</a>
-                                <a href="#">Save Change</a>
+                    <form action="">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title left-align card-title-routine">Wednesday</span>
+                                <p class="routine-size">Current Routine : Low carbs</p>
+                                <br/>
+                                <span><a class='dropdown-button btn routine-btn' href='#' data-activates='dropdown3'>Change Routine Name</a></span>
+                                <!-- Dropdown Structure -->
+                                <div class="inputField">
+                                    <select name="goalselect">
+                                        <option value="nochange" disabled selected>Select Other Goal</option>
+                                        <div th:each="macro : ${macros}">
+                                            <option th:text="${macro.title}" th:value="${macro.id}"></option>
+                                        </div>
+                                    </select>
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="card-action">
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Save Changes</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="col s12 center-align">
-                    <div class="card blue-grey darken-1">
-                        <div class="card-content white-text">
-                            <span class="card-title left-align card-title-routine">Thursday</span>
-                            <p class="routine-size">Current Routine : Low carbs</p>
-                            <br/>
-                            <span><a class='dropdown-button btn routine-btn' href='#' data-activates='dropdown4'>Change Routine Name</a></span>
-                            <!-- Dropdown Structure -->
-                            <ul id='dropdown4' class='dropdown-content'>
-                                <li><a href="#!">High Fiber</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#!">All the fruits</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#!">Paleo</a></li>
-                            </ul>
-                            <br/>
-                            <br/>
-                            <div class="card-action">
-                                <a href="#">View</a>
-                                <a href="#">Save Change</a>
+                    <form action="">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title left-align card-title-routine">Thursday</span>
+                                <p class="routine-size">Current Routine : Low carbs</p>
+                                <br/>
+                                <span><a class='dropdown-button btn routine-btn' href='#' data-activates='dropdown4'>Change Routine Name</a></span>
+                                <!-- Dropdown Structure -->
+                                <div class="inputField">
+                                    <select name="goalselect">
+                                        <option value="nochange" disabled selected>Select Other Goal</option>
+                                        <div th:each="macro : ${macros}">
+                                            <option th:text="${macro.title}" th:value="${macro.id}"></option>
+                                        </div>
+                                    </select>
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="card-action">
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Save Changes</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="col s12 center-align">
-                    <div class="card blue-grey darken-1">
-                        <div class="card-content white-text">
-                            <span class="card-title left-align card-title-routine">Friday</span>
-                            <p class="routine-size">Current Routine : Low carbs</p>
-                            <br/>
-                            <span><a class='dropdown-button btn routine-btn' href='#' data-activates='dropdown5'>Change Routine Name</a></span>
-                            <!-- Dropdown Structure -->
-                            <ul id='dropdown5' class='dropdown-content'>
-                                <li><a href="#!">High Fiber</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#!">All the fruits</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#!">Paleo</a></li>
-                            </ul>
-                            <br/>
-                            <br/>
-                            <div class="card-action">
-                                <a href="#">View</a>
-                                <a href="#">Save Change</a>
+                    <form action="">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title left-align card-title-routine">Friday</span>
+                                <p class="routine-size">Current Routine : Low carbs</p>
+                                <br/>
+                                <span><a class='dropdown-button btn routine-btn' href='#' data-activates='dropdown5'>Change Routine Name</a></span>
+                                <!-- Dropdown Structure -->
+                                <div class="inputField">
+                                    <select name="goalselect">
+                                        <option value="nochange" disabled selected>Select Other Goal</option>
+                                        <div th:each="macro : ${macros}">
+                                            <option th:text="${macro.title}" th:value="${macro.id}"></option>
+                                        </div>
+                                    </select>
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="card-action">
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Save Changes</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="col s12 center-align">
-                    <div class="card blue-grey darken-1">
-                        <div class="card-content white-text">
-                            <span class="card-title left-align card-title-routine">Saturday</span>
-                            <p class="routine-size">Current Routine : Low carbs</p>
-                            <br/>
-                            <span><a class='dropdown-button btn routine-btn' href='#' data-activates='dropdown6'>Change Routine Name</a></span>
-                            <!-- Dropdown Structure -->
-                            <ul id='dropdown6' class='dropdown-content'>
-                                <li><a href="#!">High Fiber</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#!">All the fruits</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#!">Paleo</a></li>
-                            </ul>
-                            <br/>
-                            <br/>
-                            <div class="card-action">
-                                <a href="#">View</a>
-                                <a href="#">Save Change</a>
+                    <form action="">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title left-align card-title-routine">Saturday</span>
+                                <p class="routine-size">Current Routine : Low carbs</p>
+                                <br/>
+                                <span><a class='dropdown-button btn routine-btn' href='#' data-activates='dropdown6'>Change Routine Name</a></span>
+                                <!-- Dropdown Structure -->
+                                <div class="inputField">
+                                    <select name="goalselect">
+                                        <option value="nochange" disabled selected>Select Other Goal</option>
+                                        <div th:each="macro : ${macros}">
+                                            <option th:text="${macro.title}" th:value="${macro.id}"></option>
+                                        </div>
+                                    </select>
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="card-action">
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Save Changes</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="col s12 center-align">
-                    <div class="card blue-grey darken-1">
-                        <div class="card-content white-text">
-                            <span class="card-title left-align card-title-routine">Sunday</span>
-                            <p class="routine-size">Current Routine : Low carbs</p>
-                            <br/>
-                            <span><a class='dropdown-button btn routine-btn' href='#' data-activates='dropdown7'>Change Routine Name</a></span>
-                            <!-- Dropdown Structure -->
-                            <ul id='dropdown7' class='dropdown-content'>
-                                <li><a href="#!">High Fiber</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#!">All the fruits</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#!">Paleo</a></li>
-                            </ul>
-                            <br/>
-                            <br/>
-                            <div class="card-action">
-                                <a href="#">View</a>
-                                <a href="#">Save Change</a>
+                    <form action="">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title left-align card-title-routine">Sunday</span>
+                                <p class="routine-size">Current Routine : Low carbs</p>
+                                <br/>
+                                <span><a class='dropdown-button btn routine-btn' href='#' data-activates='dropdown7'>Change Routine Name</a></span>
+                                <!-- Dropdown Structure -->
+                                <div class="inputField">
+                                    <select name="goalselect">
+                                        <option value="nochange" disabled selected>Select Other Goal</option>
+                                        <div th:each="macro : ${macros}">
+                                            <option th:text="${macro.title}" th:value="${macro.id}"></option>
+                                        </div>
+                                    </select>
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="card-action">
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Save Changes</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div><!--row-->
         </div>
@@ -204,27 +218,23 @@
         <br/>
         <br/>
 
-    <div class="section"><!-- macro section -->
-        <div class="row">
-            <div class="col s12">
-                <h3 class="center-align">Set your macro goals</h3>
-                <p class="center-align">click on the macro button to set your daily macro routines</p>
-            </div>
-            <div class="row">
-                <div class="center-align">
-                    <a th:href="@{/macro/create}" class="waves-effect waves-light btn center-btn"><i class="material-icons right">add</i>Create Macro Goal</a>
-                    <br/>
-                    <a th:href="@{/macro/inventory}" class="waves-effect waves-light btn center-btn"><i class="material-icons right">zoom_in</i>View Macro Goals</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="section"><!--recipe-->
         <div class="row ">
             <div class="col s12">
                 <h3 class="center-align">View or Add</h3>
                 <p class="center-align">Below you're able to view or add recipe items or food items</p>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <h4 class="center-align">Your macro goals</h4>
+                </div>
+                <div class="row">
+                    <div class="center-align">
+                        <a th:href="@{/macro/create}" class="waves-effect waves-light btn center-btn"><i class="material-icons right">add</i>Create Macro Goal</a>
+                        <br/>
+                        <a th:href="@{/macro/inventory}" class="waves-effect waves-light btn center-btn"><i class="material-icons right">zoom_in</i>View Macro Goals</a>
+                    </div>
+                </div>
             </div>
             <div class="col s12 m6">
                 <h4 class="center-align">Your Recipes</h4>

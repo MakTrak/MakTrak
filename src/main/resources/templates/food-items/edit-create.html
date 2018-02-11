@@ -32,6 +32,7 @@
             <div th:if="${redirect == 'macroCreate'}">
                 <form th:action="@{/macro/create/food-item/create}" method="post" th:object="${item}" class="col s6 offset-s3">
                     <input type="hidden" th:field="*{id}"/>
+                    <p class="center-align" th:text="${error}"></p>
                     <div class="row">
                         <div class="col s12">
                             <div class="input-field">
@@ -104,7 +105,8 @@
             </div>
             <div th:if="${redirect == 'macroEdit'}">
                 <form th:action="@{/macro/edit/food-item/create}" method="post" th:object="${item}" class="col s6 offset-s3">
-                    <input type="hidden" name="macroeId" th:value="${macroId}"/>
+                    <input type="hidden" name="macroId" th:value="${macroId}"/>
+                    <p class="center-align" th:text="${error}"></p>
                     <div class="row">
                         <div class="col s12">
                             <div class="input-field">
@@ -178,6 +180,7 @@
             <div th:if="${redirect == 'recipeCreate'}">
                 <form th:action="@{/recipe/create/food-item/create}" method="post" th:object="${item}" class="col s6 offset-s3">
                     <input type="hidden" th:field="*{id}"/>
+                    <p class="center-align" th:text="${error}"></p>
                     <div class="row">
                         <div class="col s12">
                             <div class="input-field">
@@ -251,6 +254,7 @@
             <div th:if="${redirect == 'recipeEdit'}">
                 <form th:action="@{/recipe/edit/food-item/create}" method="post" th:object="${item}" class="col s6 offset-s3">
                     <input type="hidden" name="recipeId" th:value="${recipeId}"/>
+                    <p class="center-align" th:text="${error}"></p>
                     <div class="row">
                         <div class="col s12">
                             <div class="input-field">
@@ -324,6 +328,7 @@
             <div th:if="${redirect == 'none'}">
                 <form th:action="@{/food-item/create}" method="post" th:object="${item}" class="col s6 offset-s3">
                     <input type="hidden" th:field="*{id}"/>
+                    <p class="center-align" th:text="${error}"></p>
                     <div class="row">
                         <div class="col s12">
                             <div class="input-field">
@@ -399,6 +404,7 @@
             <br/>
             <form th:action="@{/food-item/edit/{id}(id=${item.id})}" method="post" th:object="${item}" class="col s6 offset-s3">
                 <input type="hidden" th:field="*{id}"/>
+                <p class="center-align" th:text="${error}"></p>
                 <div class="row">
                     <div class="col s12">
                         <div class="input-field">

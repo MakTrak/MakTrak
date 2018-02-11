@@ -8,7 +8,7 @@ public class Recipe {
     @Id @GeneratedValue
     private long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
