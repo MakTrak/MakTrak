@@ -21,24 +21,25 @@
 <br/>
     <div class="container">
         <div class="section">
-          <div class="center-align">
-            <div th:if="${param.error}">
-                Invalid Username and Password
+            <div class="center-align">
+                <div th:if="${param.error}">
+                    Invalid Username and Password
+                </div>
+                <div th:if="${param.logout}">
+                    You have been logged out
+                </div>
+                <p th:text="${error}"></p>
+                <br/>
+                <form th:action="@{/login}" method="post" class="center-login">
+                    <label for="username">Username</label>
+                    <input id="username" name="username" type="text" />
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" />
+                    <button class="btn waves-effect waves-light center-btn" type="submit" name="action">Login
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
             </div>
-            <div th:if="${param.logout}">
-                You have been logged out
-            </div>
-              <br/>
-            <form th:action="@{/login}" method="post" class="center-login">
-                <label for="username">Username</label>
-                <input id="username" name="username" type="text" />
-                <label for="password">Password</label>
-                <input id="password" name="password" type="password" />
-                <button class="btn waves-effect waves-light center-btn" type="submit" name="action">Login
-                    <i class="material-icons right">send</i>
-                </button>
-            </form>
-          </div>
         </div>
     </div>
 <br/>

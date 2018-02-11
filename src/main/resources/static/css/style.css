@@ -295,3 +295,16 @@ input {
 .add-remove-btn {
   cursor: pointer;
 }
+
+.right-delete {
+  margin-top: -8px;
+  float: right;
+}
+
+.red-delete {
+  color: red;
+}
+
+.red-delete:hover {
+  color: darkred;
+}

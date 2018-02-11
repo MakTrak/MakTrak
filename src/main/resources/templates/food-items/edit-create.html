@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:include="fragments/file-header-fragment :: head-partial('Create Food Item')"></head>
+<head th:include="fragments/file-header-fragment :: head-partial('Create/Edit Food Item')"></head>
 <body>
     <div th:replace="fragments/nav :: nav"></div>
 
@@ -32,6 +32,7 @@
             <div th:if="${redirect == 'macroCreate'}">
                 <form th:action="@{/macro/create/food-item/create}" method="post" th:object="${item}" class="col s6 offset-s3">
                     <input type="hidden" th:field="*{id}"/>
+                    <p class="center-align" th:text="${error}"></p>
                     <div class="row">
                         <div class="col s12">
                             <div class="input-field">
@@ -97,14 +98,15 @@
                             </button>
                         </div>
                         <div class="col s3">
-                            <a th:href="@{/macro/create}" class="waves-effect waves-teal btn-flat">Cancel</a>
+                            <a th:href="@{/macro/create}" class="waves-effect waves-teal btn-flat orange darken-2">Cancel</a>
                         </div>
                     </div>
                 </form>
             </div>
             <div th:if="${redirect == 'macroEdit'}">
                 <form th:action="@{/macro/edit/food-item/create}" method="post" th:object="${item}" class="col s6 offset-s3">
-                    <input type="hidden" name="macroeId" th:value="${macroId}"/>
+                    <input type="hidden" name="macroId" th:value="${macroId}"/>
+                    <p class="center-align" th:text="${error}"></p>
                     <div class="row">
                         <div class="col s12">
                             <div class="input-field">
@@ -170,7 +172,7 @@
                             </button>
                         </div>
                         <div class="col s3">
-                            <a th:href="@{/macro/edit/{id}(id=${macroId})}" class="waves-effect waves-teal btn-flat">Cancel</a>
+                            <a th:href="@{/macro/edit/{id}(id=${macroId})}" class="waves-effect waves-teal btn-flat orange darken-2">Cancel</a>
                         </div>
                     </div>
                 </form>
@@ -178,6 +180,7 @@
             <div th:if="${redirect == 'recipeCreate'}">
                 <form th:action="@{/recipe/create/food-item/create}" method="post" th:object="${item}" class="col s6 offset-s3">
                     <input type="hidden" th:field="*{id}"/>
+                    <p class="center-align" th:text="${error}"></p>
                     <div class="row">
                         <div class="col s12">
                             <div class="input-field">
@@ -243,7 +246,7 @@
                             </button>
                         </div>
                         <div class="col s3">
-                            <a th:href="@{/recipe/create}" class="waves-effect waves-teal btn-flat">Cancel</a>
+                            <a th:href="@{/recipe/create}" class="waves-effect waves-teal btn-flat orange darken-2">Cancel</a>
                         </div>
                     </div>
                 </form>
@@ -251,6 +254,7 @@
             <div th:if="${redirect == 'recipeEdit'}">
                 <form th:action="@{/recipe/edit/food-item/create}" method="post" th:object="${item}" class="col s6 offset-s3">
                     <input type="hidden" name="recipeId" th:value="${recipeId}"/>
+                    <p class="center-align" th:text="${error}"></p>
                     <div class="row">
                         <div class="col s12">
                             <div class="input-field">
@@ -316,7 +320,7 @@
                             </button>
                         </div>
                         <div class="col s3">
-                            <a th:href="@{/recipe/edit/{id}(id=${recipeId})}" class="waves-effect waves-teal btn-flat">Cancel</a>
+                            <a th:href="@{/recipe/edit/{id}(id=${recipeId})}" class="waves-effect waves-teal btn-flat orange darken-2">Cancel</a>
                         </div>
                     </div>
                 </form>
@@ -324,6 +328,7 @@
             <div th:if="${redirect == 'none'}">
                 <form th:action="@{/food-item/create}" method="post" th:object="${item}" class="col s6 offset-s3">
                     <input type="hidden" th:field="*{id}"/>
+                    <p class="center-align" th:text="${error}"></p>
                     <div class="row">
                         <div class="col s12">
                             <div class="input-field">
@@ -389,7 +394,7 @@
                             </button>
                         </div>
                         <div class="col s3">
-                            <a th:href="@{/food-item/inventory}" class="waves-effect waves-teal btn-flat">Cancel</a>
+                            <a th:href="@{/food-item/inventory}" class="waves-effect waves-teal btn-flat orange darken-2">Cancel</a>
                         </div>
                     </div>
                 </form>
@@ -399,6 +404,7 @@
             <br/>
             <form th:action="@{/food-item/edit/{id}(id=${item.id})}" method="post" th:object="${item}" class="col s6 offset-s3">
                 <input type="hidden" th:field="*{id}"/>
+                <p class="center-align" th:text="${error}"></p>
                 <div class="row">
                     <div class="col s12">
                         <div class="input-field">
@@ -468,26 +474,26 @@
             <div class="row">
                 <div class="col s3 offset-s3">
                     <form th:action="@{/food-item/delete/{id}(id=${item.id})}" method="post">
-                        <button class="btn waves-effect waves-light" type="submit" name="action">Delete
+                        <button class="btn waves-effect waves-light red darken-2" type="submit" name="action">Delete
                             <i class="material-icons right">delete</i>
                         </button>
                     </form>
                 </div>
                 <div class="col s3">
                     <div th:if="${redirect == 'macroCreate'}">
-                        <a th:href="@{/macro/create}" class="waves-effect waves-teal btn-flat">Cancel</a>
+                        <a th:href="@{/macro/create}" class="waves-effect waves-teal btn-flat orange darken-2">Cancel</a>
                     </div>
                     <div th:if="${redirect == 'macroEdit'}">
-                        <a th:href="@{/macro/create}" class="waves-effect waves-teal btn-flat">Cancel</a>
+                        <a th:href="@{/macro/create}" class="waves-effect waves-teal btn-flat orange darken-2">Cancel</a>
                     </div>
                     <div th:if="${redirect == 'recipeCreate'}">
-                        <a th:href="@{/recipe/create}" class="waves-effect waves-teal btn-flat">Cancel</a>
+                        <a th:href="@{/recipe/create}" class="waves-effect waves-teal btn-flat orange darken-2">Cancel</a>
                     </div>
                     <div th:if="${redirect == 'recipeEdit'}">
-                        <a th:href="@{/recipe/edit/{id}(id=${recipeId})}" class="waves-effect waves-teal btn-flat">Cancel</a>
+                        <a th:href="@{/recipe/edit/{id}(id=${recipeId})}" class="waves-effect waves-teal btn-flat orange darken-2">Cancel</a>
                     </div>
                     <div th:if="${redirect == 'none'}">
-                        <a th:href="@{/food-item/inventory}" class="waves-effect waves-teal btn-flat">Cancel</a>
+                        <a th:href="@{/food-item/inventory}" class="waves-effect waves-teal btn-flat orange darken-2">Cancel</a>
                     </div>
                 </div>
             </div>

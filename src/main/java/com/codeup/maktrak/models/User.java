@@ -35,7 +35,6 @@ public class User {
     private List<DailyMacro> macroList;
 
 
-
     public User(String username, String password, String email, String firstname, String lastname, List<Recipe> recipeList, List<DailyMacro> macroList) {
         this.username = username;
         this.password = password;
@@ -45,7 +44,6 @@ public class User {
         this.recipeList = recipeList;
         this.macroList = macroList;
     }
-
 
     public User() {
     }
@@ -124,5 +122,4 @@ public class User {
     public void setMacroList(List<DailyMacro> macroList) {
         this.macroList = macroList;
     }
-
 }

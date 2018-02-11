@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:include="fragments/file-header-fragment :: head-partial('Create Recipe')"></head>
+<head th:include="fragments/file-header-fragment :: head-partial('Create/Edit Recipe')"></head>
 <body>
 <div th:replace="fragments/nav :: nav"></div>
 <div class="row">
@@ -84,7 +84,7 @@
                         </button>
                     </div>
                     <div class="col s6">
-                        <a href="/macro/create" class="btn waves-effect waves-light">Cancel</a>
+                        <a href="/macro/create" class="btn waves-effect waves-light orange darken-2">Cancel</a>
                     </div>
                 </div>
             </form>
@@ -168,7 +168,7 @@
                         </button>
                     </div>
                     <div class="col s6">
-                        <a th:href="@{/macro/edit/{id}(id=${macroId})}" class="btn waves-effect waves-light">Cancel</a>
+                        <a th:href="@{/macro/edit/{id}(id=${macroId})}" class="btn waves-effect waves-light orange darken-2">Cancel</a>
                     </div>
                 </div>
             </form>
@@ -251,7 +251,7 @@
                         </button>
                     </div>
                     <div class="col s6">
-                        <a th:href="@{/recipe/inventory}" class="btn waves-effect waves-light">Cancel</a>
+                        <a th:href="@{/recipe/inventory}" class="btn waves-effect waves-light orange darken-2">Cancel</a>
                     </div>
                 </div>
             </form>
@@ -268,7 +268,7 @@
             <div class="row">
                 <div class="col s12">
                     <div class="input-field">
-                        <input id="title" type="text" class="validate" th:field="*{title}"/>
+                        <input id="title" type="text" class="validate" required="" aria-required="true" th:field="*{title}"/>
                         <label for="title">Recipe Title</label>
                     </div>
                 </div>
@@ -276,13 +276,13 @@
             <div class="row">
                 <div class="col s6">
                     <div class="input-field">
-                        <input id="prep-time" type="text" class="validate" th:field="*{minsToPrep}"/>
+                        <input id="prep-time" type="text" class="validate" required="" aria-required="true" th:field="*{minsToPrep}"/>
                         <label for="prep-time">Minutes of Prep Time</label>
                     </div>
                 </div>
                 <div class="col s6">
                     <div class="input-field">
-                        <input id="num-servings" type="text" class="validate" name="num-servings" value="1"/>
+                        <input id="num-servings" type="text" class="validate" required="" aria-required="true" name="num-servings" value="1"/>
                         <label for="num-servings">Servings this recipe makes</label>
                     </div>
                 </div>
@@ -313,7 +313,7 @@
                             <td th:text="${recItem.item.fiber}"></td>
                             <td th:text="${recItem.item.servingSizeInGrams}"></td>
                             <td>
-                                <input type="text" th:id="${'amount'+recItem.item.id}" name="itemQuantity" th:value="${recItem.quantityInGrams}"/>
+                                <input type="text" th:id="${'amount'+recItem.item.id}" name="itemQuantity" required="" aria-required="true" th:value="${recItem.quantityInGrams}"/>
                                 <label th:for="${'amount'+recItem.item.id}"></label>
                             </td>
                             <input type="hidden" name="itemIds" th:value="${recItem.item.id}"/>
@@ -327,7 +327,7 @@
                             <td th:text="${item.fiber}"></td>
                             <td th:text="${item.servingSizeInGrams}"></td>
                             <td>
-                                <input type="text" th:id="${'amount'+item.id}" name="itemQuantity" value="0"/>
+                                <input type="text" required="" aria-required="true" th:id="${'amount'+item.id}" name="itemQuantity" value="0"/>
                                 <label th:for="${'amount'+item.id}"></label>
                             </td>
                             <input type="hidden" name="itemIds" th:value="${item.id}"/>
@@ -350,7 +350,7 @@
                     </button>
                 </div>
                 <div class="col s6">
-                    <a th:href="@{/recipe/inventory}" class="btn waves-effect waves-light">Cancel</a>
+                    <a th:href="@{/recipe/inventory}" class="btn waves-effect waves-light orange darken-2">Cancel</a>
                 </div>
             </div>
         </form>
