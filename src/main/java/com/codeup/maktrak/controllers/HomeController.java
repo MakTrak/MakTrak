@@ -10,4 +10,8 @@ public class HomeController {
         return "home";
     }
 
+    @GetMapping("/about")
+    public String fetchAboutPage() {
+        return "about";
+    }
 }
