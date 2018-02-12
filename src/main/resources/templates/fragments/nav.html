@@ -65,23 +65,23 @@
 
                                         <form th:action="@{/sign-up}" method="POST">
                                             <div class="input-field">
-                                                <input id="usernameReg" type="text" name="username" />
+                                                <input id="usernameReg" type="text" name="username" required="" aria-required="true"/>
                                                 <label for="usernameReg">Username</label>
                                             </div>
                                             <div class="input-field">
-                                                <input id="email" type="email" name="email" />
+                                                <input id="email" type="email" name="email" required="" aria-required="true"/>
                                                 <label for="email">Email</label>
                                             </div>
                                             <div class="input-field">
-                                                <input id="firstname" type="text" name="firstName"/>
+                                                <input id="firstname" type="text" name="firstName" required="" aria-required="true"/>
                                                 <label for="firstname">Firstname</label>
                                             </div>
                                             <div class="input-field">
-                                                <input id="lastname" type="text" name="lastName"/>
+                                                <input id="lastname" type="text" name="lastName" required="" aria-required="true"/>
                                                 <label for="lastname">Lastname</label>
                                             </div>
                                             <div class="input-field">
-                                                <input id="passwordReg" type="password" name="password" />
+                                                <input id="passwordReg" type="password" name="password" required="" aria-required="true"/>
                                                 <label for="passwordReg">Password</label>
                                             </div>
                                             <div class="center-align">
