@@ -51,10 +51,14 @@ public class MacroController {
         macros.setOwner(user);
         DailyMacro newMarco = service.addMacro(macros);
         for(int i = 0; i < itemIds.size(); i++) {
-            service.addMacroItem(newMarco, service.findFoodItem(itemIds.get(i)), itemQuantities.get(i));
+            if(itemIds.get(i) != -1) {
+                service.addMacroItem(newMarco, service.findFoodItem(itemIds.get(i)), itemQuantities.get(i));
+            }
         }
         for(int i = 0; i < recipeIds.size(); i++) {
-            service.addMacroRecipe(newMarco, service.findRecipeById(recipeIds.get(i)), recipeQuantities.get(i));
+            if(recipeIds.get(i) != -1) {
+                service.addMacroRecipe(newMarco, service.findRecipeById(recipeIds.get(i)), recipeQuantities.get(i));
+            }
         }
         return "redirect:/macro/inventory";
     }
