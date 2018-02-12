@@ -116,11 +116,12 @@
                 </li>
             </ul>
 
-            <ul id="nav-mobile" class="side-nav"><!--moblie nav view-->
+            <ul id="nav-mobile" class="side-nav"><!--mobile nav view-->
                 <li sec:authorize="!isAuthenticated()"><a class="waves-effect waves-light modal-trigger" href="/login">Login</a></li>
                 <li sec:authorize="isAnonymous()"><a class="waves-effect waves-light modal-trigger" href="@{/sign-up}">Register</a></li>
                 <li><a sec:authorize="isAuthenticated()" th:href="@{/logout}">Log out</a></li>
-                <li sec:authorize="isAnonymous()"><a class="waves-effect waves-light" href="#">About</a></li>
+                <li sec:authorize="isAnonymous()"><a class="waves-effect waves-light" th:href="@{/about}">About</a></li>
+                <li sec:authorize="isAuthenticated()"><a class="waves-effect waves-light" th:href="@{/about}">About</a></li>
                 <li sec:authorize="isAuthenticated()"><a class="waves-effect waves-light" th:href="@{/dashboard}">Dashboard</a></li>
                 <li sec:authorize="isAuthenticated()"><a class="waves-effect waves-light" th:href="@{/macro/inventory}">Macros</a></li>
                 <li><a sec:authorize="isAuthenticated()" th:href="@{/food-item/inventory}" class="modal-trigger modal-close">Food Items</a></li>
