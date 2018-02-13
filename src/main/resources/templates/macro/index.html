@@ -89,14 +89,14 @@
                                         <div class="col s6 left-align">
                                             <ul>
                                                 <div th:each="item : ${macView.itemNames}">
-                                                    <li th:text="${item}"></li>
+                                                    <li class="truncate" th:text="${item}"></li>
                                                 </div>
                                             </ul>
                                         </div>
                                         <div class="col s6 left-align">
                                             <ul>
                                                 <div th:each="servings : ${macView.itemServings}">
-                                                    <li th:text="${servings+' servings'}"></li>
+                                                    <li class="truncate" th:text="${servings+' servings'}"></li>
                                                 </div>
                                             </ul>
                                         </div>
@@ -108,14 +108,14 @@
                                         <div class="col s6 left-align">
                                             <ul>
                                                 <div th:each="item : ${macView.missingItemNames}">
-                                                    <li th:text="${item}"></li>
+                                                    <li class="truncate" th:text="${item}"></li>
                                                 </div>
                                             </ul>
                                         </div>
                                         <div class="col s6 left-align">
                                             <ul>
                                                 <div th:each="grams : ${macView.missingItemGrams}">
-                                                    <li th:text="${'Need '+grams+'g'}"></li>
+                                                    <li class="truncate" th:text="${'Need '+grams+'g'}"></li>
                                                 </div>
                                             </ul>
                                         </div>
