@@ -93,17 +93,21 @@ public class MacroController {
         macros.setId(macroId);
         DailyMacro editedMarco = service.addMacro(macros);
         for(int i = 0; i < itemIds.size(); i++) {
-            if(itemQuantities.get(i) > 0) {
-                service.editAddMacroItem(editedMarco, service.findFoodItem(itemIds.get(i)), itemQuantities.get(i));
-            } else {
-                service.removeMacroItem(editedMarco, service.findFoodItem(itemIds.get(i)));
+            if(itemIds.get(i) != -1) {
+                if(itemQuantities.get(i) > 0) {
+                    service.editAddMacroItem(editedMarco, service.findFoodItem(itemIds.get(i)), itemQuantities.get(i));
+                } else {
+                    service.removeMacroItem(editedMarco, service.findFoodItem(itemIds.get(i)));
+                }
             }
         }
         for(int i = 0; i < recipeIds.size(); i++) {
-            if(recipeQuantities.get(i) > 0) {
-                service.editAddMacroRecipe(editedMarco, service.findRecipeById(recipeIds.get(i)), recipeQuantities.get(i));
-            } else {
-                service.removeMacroRecipe(editedMarco, service.findRecipeById(recipeIds.get(i)));
+            if(recipeIds.get(i) != -1) {
+                if(recipeQuantities.get(i) > 0) {
+                    service.editAddMacroRecipe(editedMarco, service.findRecipeById(recipeIds.get(i)), recipeQuantities.get(i));
+                } else {
+                    service.removeMacroRecipe(editedMarco, service.findRecipeById(recipeIds.get(i)));
+                }
             }
         }
         return "redirect:/macro/inventory";

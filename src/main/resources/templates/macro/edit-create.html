@@ -174,7 +174,7 @@
                                     <input th:id="${'i-'+invRec.item.id+'-fiber'}" type="hidden" th:value="${invRec.item.fiber}"/>
                                     <div class="card blue-grey darken-1">
                                         <div class="card-content white-text">
-                                            <span class="card-title" th:text="${invRec.item.name}"></span>
+                                            <span class="card-title truncate" th:text="${invRec.item.name}"></span>
                                             <p th:text="${'Calories: '+invRec.item.cal+' per serving'}"></p>
                                             <p th:text="${'Serving Size: '+invRec.item.servingSizeInGrams+'g'}"></p>
                                             <p>Nutrition in grams:</p>
@@ -425,7 +425,7 @@
                                     <input th:id="${'i-'+invRec.item.id+'-fiber'}" type="hidden" th:value="${invRec.item.fiber}"/>
                                     <div class="card blue-grey darken-1">
                                         <div class="card-content white-text">
-                                            <span class="card-title" th:text="${invRec.item.name}"></span>
+                                            <span class="card-title truncate" th:text="${invRec.item.name}"></span>
                                             <p th:text="${'Calories: '+invRec.item.cal+' per serving'}"></p>
                                             <p th:text="${'Serving Size: '+invRec.item.servingSizeInGrams+'g'}"></p>
                                             <p>Nutrition in grams:</p>
